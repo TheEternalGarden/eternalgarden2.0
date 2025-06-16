@@ -298,6 +298,29 @@
             let isAnimating6 = false;
             let autoFlipTimer6 = null;
 
+            // Add page transition timers
+            let pageTransitionTimer = null;
+            const PAGE_TRANSITION_INTERVAL = 10000; // 10 seconds
+            let currentPage = 0;
+            const totalPages = 6;
+
+            function clearPageTransition() {
+                if (pageTransitionTimer) {
+                    clearTimeout(pageTransitionTimer);
+                    pageTransitionTimer = null;
+                }
+            }
+
+            function startPageTransition() {
+                clearPageTransition();
+                pageTransitionTimer = setTimeout(() => {
+                    currentPage = (currentPage + 1) % totalPages;
+                    const targetPage = document.querySelectorAll('.the-story-container')[currentPage];
+                    targetPage.scrollIntoView({ behavior: 'smooth' });
+                    startPageTransition();
+                }, PAGE_TRANSITION_INTERVAL);
+            }
+
             function clearAutoFlip(galleryNum) {
                 if (galleryNum === 1) {
                     if (autoFlipTimer1) {
@@ -614,6 +637,27 @@
             startAutoFlip(4);
             startAutoFlip(5);
             startAutoFlip(6);
+
+            // Start page transitions
+            startPageTransition();
+
+            // Pause page transitions when user interacts with the page
+            document.addEventListener('wheel', () => {
+                clearPageTransition();
+                startPageTransition();
+            });
+
+            document.addEventListener('touchmove', () => {
+                clearPageTransition();
+                startPageTransition();
+            });
+
+            // Add scroll-snap to the container
+            const storyContainer = document.querySelector('.the-story');
+            storyContainer.style.scrollSnapType = 'y mandatory';
+            document.querySelectorAll('.the-story-container').forEach(container => {
+                container.style.scrollSnapAlign = 'start';
+            });
         });
     </script>
 </body>
