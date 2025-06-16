@@ -229,6 +229,23 @@
             </div>
         </div>
     </div>
+
+    <!-- Sixth page with Epilogue images -->
+    <div class="the-story-container">
+        <div class="the-story-title">EPILOGUE</div>
+        <div class="gallery-container">
+            <img src="media/images2/epilogue/49.jpg" class="gallery-image active" alt="Epilogue Image 1">
+            <img src="media/images2/epilogue/50.jpg" class="gallery-image" alt="Epilogue Image 2">
+            <img src="media/images2/epilogue/51.jpg" class="gallery-image" alt="Epilogue Image 3">
+            <img src="media/images2/epilogue/52.jpg" class="gallery-image" alt="Epilogue Image 4">
+            <img src="media/images2/epilogue/54.jpg" class="gallery-image" alt="Epilogue Image 5">
+            <img src="media/images2/epilogue/55.jpg" class="gallery-image" alt="Epilogue Image 6">
+            <div class="gallery-nav">
+                <button class="nav-button" id="prevButton6">←</button>
+                <button class="nav-button" id="nextButton6">→</button>
+            </div>
+        </div>
+    </div>
     <script src="script.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -266,12 +283,20 @@
             let autoFlipTimer4 = null;
 
             // Fifth gallery
-            const images5 = document.querySelectorAll('.the-story-container:last-child .gallery-image');
+            const images5 = document.querySelectorAll('.the-story-container:nth-child(5) .gallery-image');
             const prevButton5 = document.getElementById('prevButton5');
             const nextButton5 = document.getElementById('nextButton5');
             let currentIndex5 = 0;
             let isAnimating5 = false;
             let autoFlipTimer5 = null;
+
+            // Sixth gallery
+            const images6 = document.querySelectorAll('.the-story-container:last-child .gallery-image');
+            const prevButton6 = document.getElementById('prevButton6');
+            const nextButton6 = document.getElementById('nextButton6');
+            let currentIndex6 = 0;
+            let isAnimating6 = false;
+            let autoFlipTimer6 = null;
 
             function clearAutoFlip(galleryNum) {
                 if (galleryNum === 1) {
@@ -294,10 +319,15 @@
                         clearTimeout(autoFlipTimer4);
                         autoFlipTimer4 = null;
                     }
-                } else {
+                } else if (galleryNum === 5) {
                     if (autoFlipTimer5) {
                         clearTimeout(autoFlipTimer5);
                         autoFlipTimer5 = null;
+                    }
+                } else {
+                    if (autoFlipTimer6) {
+                        clearTimeout(autoFlipTimer6);
+                        autoFlipTimer6 = null;
                     }
                 }
             }
@@ -307,15 +337,18 @@
                 const images = galleryNum === 1 ? images1 : 
                              (galleryNum === 2 ? images2 : 
                              (galleryNum === 3 ? images3 : 
-                             (galleryNum === 4 ? images4 : images5)));
+                             (galleryNum === 4 ? images4 : 
+                             (galleryNum === 5 ? images5 : images6))));
                 const currentIndex = galleryNum === 1 ? currentIndex1 : 
                                    (galleryNum === 2 ? currentIndex2 : 
                                    (galleryNum === 3 ? currentIndex3 : 
-                                   (galleryNum === 4 ? currentIndex4 : currentIndex5)));
+                                   (galleryNum === 4 ? currentIndex4 : 
+                                   (galleryNum === 5 ? currentIndex5 : currentIndex6))));
                 const isAnimating = galleryNum === 1 ? isAnimating1 : 
                                   (galleryNum === 2 ? isAnimating2 : 
                                   (galleryNum === 3 ? isAnimating3 : 
-                                  (galleryNum === 4 ? isAnimating4 : isAnimating5)));
+                                  (galleryNum === 4 ? isAnimating4 : 
+                                  (galleryNum === 5 ? isAnimating5 : isAnimating6))));
 
                 if (galleryNum === 1) {
                     autoFlipTimer1 = setTimeout(() => {
@@ -349,8 +382,16 @@
                             updateGallery(0, 'right', galleryNum);
                         }
                     }, AUTO_FLIP_INTERVAL);
-                } else {
+                } else if (galleryNum === 5) {
                     autoFlipTimer5 = setTimeout(() => {
+                        if (currentIndex < images.length - 1 && !isAnimating) {
+                            updateGallery(currentIndex + 1, 'right', galleryNum);
+                        } else if (currentIndex === images.length - 1) {
+                            updateGallery(0, 'right', galleryNum);
+                        }
+                    }, AUTO_FLIP_INTERVAL);
+                } else {
+                    autoFlipTimer6 = setTimeout(() => {
                         if (currentIndex < images.length - 1 && !isAnimating) {
                             updateGallery(currentIndex + 1, 'right', galleryNum);
                         } else if (currentIndex === images.length - 1) {
@@ -364,30 +405,36 @@
                 const images = galleryNum === 1 ? images1 : 
                              (galleryNum === 2 ? images2 : 
                              (galleryNum === 3 ? images3 : 
-                             (galleryNum === 4 ? images4 : images5)));
+                             (galleryNum === 4 ? images4 : 
+                             (galleryNum === 5 ? images5 : images6))));
                 const currentIndex = galleryNum === 1 ? currentIndex1 : 
                                    (galleryNum === 2 ? currentIndex2 : 
                                    (galleryNum === 3 ? currentIndex3 : 
-                                   (galleryNum === 4 ? currentIndex4 : currentIndex5)));
+                                   (galleryNum === 4 ? currentIndex4 : 
+                                   (galleryNum === 5 ? currentIndex5 : currentIndex6))));
                 const isAnimating = galleryNum === 1 ? isAnimating1 : 
                                   (galleryNum === 2 ? isAnimating2 : 
                                   (galleryNum === 3 ? isAnimating3 : 
-                                  (galleryNum === 4 ? isAnimating4 : isAnimating5)));
+                                  (galleryNum === 4 ? isAnimating4 : 
+                                  (galleryNum === 5 ? isAnimating5 : isAnimating6))));
                 const prevButton = galleryNum === 1 ? prevButton1 : 
                                  (galleryNum === 2 ? prevButton2 : 
                                  (galleryNum === 3 ? prevButton3 : 
-                                 (galleryNum === 4 ? prevButton4 : prevButton5)));
+                                 (galleryNum === 4 ? prevButton4 : 
+                                 (galleryNum === 5 ? prevButton5 : prevButton6))));
                 const nextButton = galleryNum === 1 ? nextButton1 : 
                                  (galleryNum === 2 ? nextButton2 : 
                                  (galleryNum === 3 ? nextButton3 : 
-                                 (galleryNum === 4 ? nextButton4 : nextButton5)));
+                                 (galleryNum === 4 ? nextButton4 : 
+                                 (galleryNum === 5 ? nextButton5 : nextButton6))));
 
                 if (typeof newIndex === 'number' && newIndex !== currentIndex) {
                     if (galleryNum === 1) isAnimating1 = true;
                     else if (galleryNum === 2) isAnimating2 = true;
                     else if (galleryNum === 3) isAnimating3 = true;
                     else if (galleryNum === 4) isAnimating4 = true;
-                    else isAnimating5 = true;
+                    else if (galleryNum === 5) isAnimating5 = true;
+                    else isAnimating6 = true;
 
                     const outImg = images[currentIndex];
                     const inImg = images[newIndex];
@@ -411,9 +458,12 @@
                         } else if (galleryNum === 4) {
                             currentIndex4 = newIndex;
                             isAnimating4 = false;
-                        } else {
+                        } else if (galleryNum === 5) {
                             currentIndex5 = newIndex;
                             isAnimating5 = false;
+                        } else {
+                            currentIndex6 = newIndex;
+                            isAnimating6 = false;
                         }
                         prevButton.disabled = newIndex === 0;
                         nextButton.disabled = newIndex === images.length - 1;
@@ -502,6 +552,20 @@
                 }
             });
 
+            // Event listeners for sixth gallery
+            prevButton6.addEventListener('click', () => {
+                if (currentIndex6 > 0 && !isAnimating6) {
+                    clearAutoFlip(6);
+                    updateGallery(currentIndex6 - 1, 'left', 6);
+                }
+            });
+            nextButton6.addEventListener('click', () => {
+                if (currentIndex6 < images6.length - 1 && !isAnimating6) {
+                    clearAutoFlip(6);
+                    updateGallery(currentIndex6 + 1, 'right', 6);
+                }
+            });
+
             // Keyboard navigation
             document.addEventListener('keydown', (e) => {
                 const activeGallery = document.querySelector('.the-story-container:hover');
@@ -509,19 +573,23 @@
                     const galleryNum = activeGallery === document.querySelector('.the-story-container:first-child') ? 1 : 
                                     (activeGallery === document.querySelector('.the-story-container:nth-child(2)') ? 2 : 
                                     (activeGallery === document.querySelector('.the-story-container:nth-child(3)') ? 3 : 
-                                    (activeGallery === document.querySelector('.the-story-container:nth-child(4)') ? 4 : 5)));
+                                    (activeGallery === document.querySelector('.the-story-container:nth-child(4)') ? 4 : 
+                                    (activeGallery === document.querySelector('.the-story-container:nth-child(5)') ? 5 : 6))));
                     const currentIndex = galleryNum === 1 ? currentIndex1 : 
                                       (galleryNum === 2 ? currentIndex2 : 
                                       (galleryNum === 3 ? currentIndex3 : 
-                                      (galleryNum === 4 ? currentIndex4 : currentIndex5)));
+                                      (galleryNum === 4 ? currentIndex4 : 
+                                      (galleryNum === 5 ? currentIndex5 : currentIndex6))));
                     const isAnimating = galleryNum === 1 ? isAnimating1 : 
                                       (galleryNum === 2 ? isAnimating2 : 
                                       (galleryNum === 3 ? isAnimating3 : 
-                                      (galleryNum === 4 ? isAnimating4 : isAnimating5)));
+                                      (galleryNum === 4 ? isAnimating4 : 
+                                      (galleryNum === 5 ? isAnimating5 : isAnimating6))));
                     const images = galleryNum === 1 ? images1 : 
                                  (galleryNum === 2 ? images2 : 
                                  (galleryNum === 3 ? images3 : 
-                                 (galleryNum === 4 ? images4 : images5)));
+                                 (galleryNum === 4 ? images4 : 
+                                 (galleryNum === 5 ? images5 : images6))));
 
                     if (e.key === 'ArrowLeft' && currentIndex > 0 && !isAnimating) {
                         clearAutoFlip(galleryNum);
@@ -539,11 +607,13 @@
             updateGallery(0, null, 3);
             updateGallery(0, null, 4);
             updateGallery(0, null, 5);
+            updateGallery(0, null, 6);
             startAutoFlip(1);
             startAutoFlip(2);
             startAutoFlip(3);
             startAutoFlip(4);
             startAutoFlip(5);
+            startAutoFlip(6);
         });
     </script>
 </body>
