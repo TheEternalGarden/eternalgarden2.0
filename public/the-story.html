@@ -135,7 +135,18 @@
             <img src="media/images2/6.jpg" class="gallery-image" alt="Story Image 6">
             <img src="media/images2/7.jpg" class="gallery-image" alt="Story Image 7">
             <img src="media/images2/8.jpg" class="gallery-image" alt="Story Image 8">
-            <img src="media/images2/visitors/9.jpg" class="gallery-image" alt="Visitor Image 1">
+            <div class="gallery-nav">
+                <button class="nav-button" id="prevButton">←</button>
+                <button class="nav-button" id="nextButton">→</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Second page with visitor images -->
+    <div class="the-story-container" style="margin-top: 100vh;">
+        <div class="the-story-title">THE VISITORS</div>
+        <div class="gallery-container">
+            <img src="media/images2/visitors/9.jpg" class="gallery-image active" alt="Visitor Image 1">
             <img src="media/images2/visitors/10.jpg" class="gallery-image" alt="Visitor Image 2">
             <img src="media/images2/visitors/11.jpg" class="gallery-image" alt="Visitor Image 3">
             <img src="media/images2/visitors/12.jpg" class="gallery-image" alt="Visitor Image 4">
@@ -143,55 +154,86 @@
             <img src="media/images2/visitors/14.jpg" class="gallery-image" alt="Visitor Image 6">
             <img src="media/images2/visitors/15.jpg" class="gallery-image" alt="Visitor Image 7">
             <div class="gallery-nav">
-                <button class="nav-button" id="prevButton">←</button>
-                <button class="nav-button" id="nextButton">→</button>
+                <button class="nav-button" id="prevButton2">←</button>
+                <button class="nav-button" id="nextButton2">→</button>
             </div>
         </div>
     </div>
     <script src="script.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const images = document.querySelectorAll('.gallery-image');
-            const prevButton = document.getElementById('prevButton');
-            const nextButton = document.getElementById('nextButton');
-            let currentIndex = 0;
-            let isAnimating = false;
-            let autoFlipTimer = null;
+            // First gallery
+            const images1 = document.querySelectorAll('.the-story-container:first-child .gallery-image');
+            const prevButton1 = document.getElementById('prevButton');
+            const nextButton1 = document.getElementById('nextButton');
+            let currentIndex1 = 0;
+            let isAnimating1 = false;
+            let autoFlipTimer1 = null;
             const AUTO_FLIP_INTERVAL = 10000; // 10 seconds
 
-            function startAutoFlip() {
-                clearAutoFlip();
-                autoFlipTimer = setTimeout(() => {
-                    if (currentIndex < images.length - 1 && !isAnimating) {
-                        updateGallery(currentIndex + 1, 'right');
-                        startAutoFlip();
-                    }
-                }, AUTO_FLIP_INTERVAL);
-            }
-            function clearAutoFlip() {
-                if (autoFlipTimer) {
-                    clearTimeout(autoFlipTimer);
-                    autoFlipTimer = null;
+            // Second gallery
+            const images2 = document.querySelectorAll('.the-story-container:last-child .gallery-image');
+            const prevButton2 = document.getElementById('prevButton2');
+            const nextButton2 = document.getElementById('nextButton2');
+            let currentIndex2 = 0;
+            let isAnimating2 = false;
+            let autoFlipTimer2 = null;
+
+            function startAutoFlip(galleryNum) {
+                const timer = galleryNum === 1 ? autoFlipTimer1 : autoFlipTimer2;
+                const images = galleryNum === 1 ? images1 : images2;
+                const currentIndex = galleryNum === 1 ? currentIndex1 : currentIndex2;
+                const isAnimating = galleryNum === 1 ? isAnimating1 : isAnimating2;
+
+                clearTimeout(timer);
+                if (galleryNum === 1) {
+                    autoFlipTimer1 = setTimeout(() => {
+                        if (currentIndex < images.length - 1 && !isAnimating) {
+                            updateGallery(currentIndex + 1, 'right', galleryNum);
+                            startAutoFlip(galleryNum);
+                        }
+                    }, AUTO_FLIP_INTERVAL);
+                } else {
+                    autoFlipTimer2 = setTimeout(() => {
+                        if (currentIndex < images.length - 1 && !isAnimating) {
+                            updateGallery(currentIndex + 1, 'right', galleryNum);
+                            startAutoFlip(galleryNum);
+                        }
+                    }, AUTO_FLIP_INTERVAL);
                 }
             }
 
-            function updateGallery(newIndex, direction) {
+            function updateGallery(newIndex, direction, galleryNum) {
+                const images = galleryNum === 1 ? images1 : images2;
+                const currentIndex = galleryNum === 1 ? currentIndex1 : currentIndex2;
+                const isAnimating = galleryNum === 1 ? isAnimating1 : isAnimating2;
+                const prevButton = galleryNum === 1 ? prevButton1 : prevButton2;
+                const nextButton = galleryNum === 1 ? nextButton1 : nextButton2;
+
                 if (typeof newIndex === 'number' && newIndex !== currentIndex) {
-                    isAnimating = true;
+                    if (galleryNum === 1) isAnimating1 = true;
+                    else isAnimating2 = true;
+
                     const outImg = images[currentIndex];
                     const inImg = images[newIndex];
                     outImg.classList.remove('active');
                     inImg.classList.add('active');
                     outImg.classList.add('flip-out');
                     inImg.classList.add('flip-in');
+
                     setTimeout(() => {
                         outImg.classList.remove('flip-out');
                         inImg.classList.remove('flip-in');
-                        currentIndex = newIndex;
-                        isAnimating = false;
-                        prevButton.disabled = currentIndex === 0;
-                        nextButton.disabled = currentIndex === images.length - 1;
-                        startAutoFlip();
+                        if (galleryNum === 1) {
+                            currentIndex1 = newIndex;
+                            isAnimating1 = false;
+                        } else {
+                            currentIndex2 = newIndex;
+                            isAnimating2 = false;
+                        }
+                        prevButton.disabled = newIndex === 0;
+                        nextButton.disabled = newIndex === images.length - 1;
+                        startAutoFlip(galleryNum);
                     }, 600);
                 } else {
                     images.forEach((img, index) => {
@@ -202,25 +244,45 @@
                     });
                     prevButton.disabled = currentIndex === 0;
                     nextButton.disabled = currentIndex === images.length - 1;
-                    startAutoFlip();
+                    startAutoFlip(galleryNum);
                 }
             }
 
-            prevButton.addEventListener('click', () => {
-                if (currentIndex > 0 && !isAnimating) {
-                    updateGallery(currentIndex - 1, 'left');
-                    startAutoFlip();
+            // Event listeners for first gallery
+            prevButton1.addEventListener('click', () => {
+                if (currentIndex1 > 0 && !isAnimating1) {
+                    updateGallery(currentIndex1 - 1, 'left', 1);
+                    startAutoFlip(1);
                 }
             });
-            nextButton.addEventListener('click', () => {
-                if (currentIndex < images.length - 1 && !isAnimating) {
-                    updateGallery(currentIndex + 1, 'right');
-                    startAutoFlip();
+            nextButton1.addEventListener('click', () => {
+                if (currentIndex1 < images1.length - 1 && !isAnimating1) {
+                    updateGallery(currentIndex1 + 1, 'right', 1);
+                    startAutoFlip(1);
                 }
             });
-            updateGallery();
-            startAutoFlip();
+
+            // Event listeners for second gallery
+            prevButton2.addEventListener('click', () => {
+                if (currentIndex2 > 0 && !isAnimating2) {
+                    updateGallery(currentIndex2 - 1, 'left', 2);
+                    startAutoFlip(2);
+                }
+            });
+            nextButton2.addEventListener('click', () => {
+                if (currentIndex2 < images2.length - 1 && !isAnimating2) {
+                    updateGallery(currentIndex2 + 1, 'right', 2);
+                    startAutoFlip(2);
+                }
+            });
+
+            // Initialize both galleries
+            updateGallery(0, null, 1);
+            updateGallery(0, null, 2);
+            startAutoFlip(1);
+            startAutoFlip(2);
         });
     </script>
 </body>
+</html> 
 </html> 
