@@ -26,10 +26,15 @@
             scroll-snap-align: start;
         }
         .the-story-title {
-            font-size: 2.5em;
+            font-size: 1.2em;
             letter-spacing: 2px;
-            margin-bottom: 24px;
+            margin-bottom: 12px;
             font-family: 'HeliosExt', Arial, Helvetica, sans-serif;
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
         }
         .the-story-placeholder {
             font-size: 1.2em;
@@ -111,13 +116,18 @@
         }
         .gallery-title {
             font-family: 'Helios', sans-serif;
-            font-size: 1.2rem;
+            font-size: 1rem;
             color: #fff;
             text-align: center;
-            margin: 0.5rem 0;
+            margin: 0.3rem 0;
             opacity: 0;
             transform: translateY(20px);
             transition: opacity 0.5s ease, transform 0.5s ease;
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
         }
 
         .gallery-title.visible {
