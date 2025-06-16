@@ -80,7 +80,8 @@
             justify-content: space-between;
             transform: translateY(-50%);
             z-index: 2;
-            pointer-events: none;
+            padding: 0 20px;
+            box-sizing: border-box;
         }
         .nav-button {
             background: rgba(255,255,255,0.2);
@@ -91,6 +92,7 @@
             font-size: 1.5em;
             transition: background 0.3s;
             pointer-events: auto;
+            z-index: 3;
         }
         .nav-button:hover {
             background: rgba(255,255,255,0.4);
@@ -193,14 +195,12 @@
                     autoFlipTimer1 = setTimeout(() => {
                         if (currentIndex < images.length - 1 && !isAnimating) {
                             updateGallery(currentIndex + 1, 'right', galleryNum);
-                            startAutoFlip(galleryNum);
                         }
                     }, AUTO_FLIP_INTERVAL);
                 } else {
                     autoFlipTimer2 = setTimeout(() => {
                         if (currentIndex < images.length - 1 && !isAnimating) {
                             updateGallery(currentIndex + 1, 'right', galleryNum);
-                            startAutoFlip(galleryNum);
                         }
                     }, AUTO_FLIP_INTERVAL);
                 }
@@ -255,13 +255,11 @@
             prevButton1.addEventListener('click', () => {
                 if (currentIndex1 > 0 && !isAnimating1) {
                     updateGallery(currentIndex1 - 1, 'left', 1);
-                    startAutoFlip(1);
                 }
             });
             nextButton1.addEventListener('click', () => {
                 if (currentIndex1 < images1.length - 1 && !isAnimating1) {
                     updateGallery(currentIndex1 + 1, 'right', 1);
-                    startAutoFlip(1);
                 }
             });
 
@@ -269,13 +267,28 @@
             prevButton2.addEventListener('click', () => {
                 if (currentIndex2 > 0 && !isAnimating2) {
                     updateGallery(currentIndex2 - 1, 'left', 2);
-                    startAutoFlip(2);
                 }
             });
             nextButton2.addEventListener('click', () => {
                 if (currentIndex2 < images2.length - 1 && !isAnimating2) {
                     updateGallery(currentIndex2 + 1, 'right', 2);
-                    startAutoFlip(2);
+                }
+            });
+
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                const activeGallery = document.querySelector('.the-story-container:hover');
+                if (activeGallery) {
+                    const galleryNum = activeGallery === document.querySelector('.the-story-container:first-child') ? 1 : 2;
+                    const currentIndex = galleryNum === 1 ? currentIndex1 : currentIndex2;
+                    const isAnimating = galleryNum === 1 ? isAnimating1 : isAnimating2;
+                    const images = galleryNum === 1 ? images1 : images2;
+
+                    if (e.key === 'ArrowLeft' && currentIndex > 0 && !isAnimating) {
+                        updateGallery(currentIndex - 1, 'left', galleryNum);
+                    } else if (e.key === 'ArrowRight' && currentIndex < images.length - 1 && !isAnimating) {
+                        updateGallery(currentIndex + 1, 'right', galleryNum);
+                    }
                 }
             });
 
