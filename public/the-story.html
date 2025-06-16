@@ -174,7 +174,7 @@
         </nav>
     </div>
     <div class="the-story-container">
-        <div class="the-story-title">THE STORY</div>
+        <div class="the-story-title typewriter">THE STORY</div>
         <div class="gallery-container">
             <img src="media/images2/1.jpg" class="gallery-image active" alt="Story Image 1">
             <img src="media/images2/2.jpg" class="gallery-image" alt="Story Image 2">
@@ -193,7 +193,7 @@
 
     <!-- Second page with visitor images -->
     <div class="the-story-container">
-        <div class="the-story-title">THE VISITORS</div>
+        <div class="the-story-title typewriter">THE VISITORS</div>
         <div class="gallery-container">
             <img src="media/images2/visitors/9.jpg" class="gallery-image active" alt="Visitor Image 1">
             <img src="media/images2/visitors/10.jpg" class="gallery-image" alt="Visitor Image 2">
@@ -211,7 +211,7 @@
 
     <!-- Third page with Arcadians images -->
     <div class="the-story-container">
-        <div class="the-story-title">THE ARCADIANS</div>
+        <div class="the-story-title typewriter">THE ARCADIANS</div>
         <div class="gallery-container">
             <img src="media/images2/arcadians/17.jpg" class="gallery-image active" alt="Arcadians Image 1">
             <img src="media/images2/arcadians/18.jpg" class="gallery-image" alt="Arcadians Image 2">
@@ -230,7 +230,7 @@
 
     <!-- Fourth page with Humanity images -->
     <div class="the-story-container">
-        <div class="the-story-title">HUMANITY</div>
+        <div class="the-story-title typewriter">HUMANITY</div>
         <div class="gallery-container">
             <img src="media/images2/humanity/25.jpg" class="gallery-image active" alt="Humanity Image 1">
             <img src="media/images2/humanity/26.jpg" class="gallery-image" alt="Humanity Image 2">
@@ -262,7 +262,7 @@
 
     <!-- Fifth page with Revelation images -->
     <div class="the-story-container">
-        <div class="the-story-title">REVELATION</div>
+        <div class="the-story-title typewriter">REVELATION</div>
         <div class="gallery-container">
             <img src="media/images2/revelation/46.jpg" class="gallery-image active" alt="Revelation Image 1">
             <img src="media/images2/revelation/47.jpg" class="gallery-image" alt="Revelation Image 2">
@@ -276,7 +276,7 @@
 
     <!-- Sixth page with Epilogue images -->
     <div class="the-story-container">
-        <div class="the-story-title">EPILOGUE</div>
+        <div class="the-story-title typewriter">EPILOGUE</div>
         <div class="gallery-container">
             <img src="media/images2/epilogue/49.jpg" class="gallery-image active" alt="Epilogue Image 1">
             <img src="media/images2/epilogue/50.jpg" class="gallery-image" alt="Epilogue Image 2">
@@ -803,12 +803,6 @@
                 updateGallery();
                 startAutoFlip();
                 startPageTransition();
-
-                // Add typewriter effect to titles
-                const title = gallery.querySelector('.gallery-title');
-                if (title) {
-                    title.innerHTML = `<span class="typewriter">${title.textContent}</span>`;
-                }
             });
 
             // Pause transitions on user interaction
