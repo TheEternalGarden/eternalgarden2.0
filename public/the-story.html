@@ -164,6 +164,25 @@
             </div>
         </div>
     </div>
+
+    <!-- Third page with Arcadians images -->
+    <div class="the-story-container">
+        <div class="the-story-title">THE ARCADIANS</div>
+        <div class="gallery-container">
+            <img src="media/images2/arcadians/17.jpg" class="gallery-image active" alt="Arcadians Image 1">
+            <img src="media/images2/arcadians/18.jpg" class="gallery-image" alt="Arcadians Image 2">
+            <img src="media/images2/arcadians/19.jpg" class="gallery-image" alt="Arcadians Image 3">
+            <img src="media/images2/arcadians/20.jpg" class="gallery-image" alt="Arcadians Image 4">
+            <img src="media/images2/arcadians/21.jpg" class="gallery-image" alt="Arcadians Image 5">
+            <img src="media/images2/arcadians/22.jpg" class="gallery-image" alt="Arcadians Image 6">
+            <img src="media/images2/arcadians/23.jpg" class="gallery-image" alt="Arcadians Image 7">
+            <img src="media/images2/arcadians/24.jpg" class="gallery-image" alt="Arcadians Image 8">
+            <div class="gallery-nav">
+                <button class="nav-button" id="prevButton3">←</button>
+                <button class="nav-button" id="nextButton3">→</button>
+            </div>
+        </div>
+    </div>
     <script src="script.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -177,12 +196,20 @@
             const AUTO_FLIP_INTERVAL = 10000; // 10 seconds
 
             // Second gallery
-            const images2 = document.querySelectorAll('.the-story-container:last-child .gallery-image');
+            const images2 = document.querySelectorAll('.the-story-container:nth-child(2) .gallery-image');
             const prevButton2 = document.getElementById('prevButton2');
             const nextButton2 = document.getElementById('nextButton2');
             let currentIndex2 = 0;
             let isAnimating2 = false;
             let autoFlipTimer2 = null;
+
+            // Third gallery
+            const images3 = document.querySelectorAll('.the-story-container:last-child .gallery-image');
+            const prevButton3 = document.getElementById('prevButton3');
+            const nextButton3 = document.getElementById('nextButton3');
+            let currentIndex3 = 0;
+            let isAnimating3 = false;
+            let autoFlipTimer3 = null;
 
             function clearAutoFlip(galleryNum) {
                 if (galleryNum === 1) {
@@ -190,19 +217,24 @@
                         clearTimeout(autoFlipTimer1);
                         autoFlipTimer1 = null;
                     }
-                } else {
+                } else if (galleryNum === 2) {
                     if (autoFlipTimer2) {
                         clearTimeout(autoFlipTimer2);
                         autoFlipTimer2 = null;
+                    }
+                } else {
+                    if (autoFlipTimer3) {
+                        clearTimeout(autoFlipTimer3);
+                        autoFlipTimer3 = null;
                     }
                 }
             }
 
             function startAutoFlip(galleryNum) {
                 clearAutoFlip(galleryNum);
-                const images = galleryNum === 1 ? images1 : images2;
-                const currentIndex = galleryNum === 1 ? currentIndex1 : currentIndex2;
-                const isAnimating = galleryNum === 1 ? isAnimating1 : isAnimating2;
+                const images = galleryNum === 1 ? images1 : (galleryNum === 2 ? images2 : images3);
+                const currentIndex = galleryNum === 1 ? currentIndex1 : (galleryNum === 2 ? currentIndex2 : currentIndex3);
+                const isAnimating = galleryNum === 1 ? isAnimating1 : (galleryNum === 2 ? isAnimating2 : isAnimating3);
 
                 if (galleryNum === 1) {
                     autoFlipTimer1 = setTimeout(() => {
@@ -212,8 +244,16 @@
                             updateGallery(0, 'right', galleryNum);
                         }
                     }, AUTO_FLIP_INTERVAL);
-                } else {
+                } else if (galleryNum === 2) {
                     autoFlipTimer2 = setTimeout(() => {
+                        if (currentIndex < images.length - 1 && !isAnimating) {
+                            updateGallery(currentIndex + 1, 'right', galleryNum);
+                        } else if (currentIndex === images.length - 1) {
+                            updateGallery(0, 'right', galleryNum);
+                        }
+                    }, AUTO_FLIP_INTERVAL);
+                } else {
+                    autoFlipTimer3 = setTimeout(() => {
                         if (currentIndex < images.length - 1 && !isAnimating) {
                             updateGallery(currentIndex + 1, 'right', galleryNum);
                         } else if (currentIndex === images.length - 1) {
@@ -224,15 +264,16 @@
             }
 
             function updateGallery(newIndex, direction, galleryNum) {
-                const images = galleryNum === 1 ? images1 : images2;
-                const currentIndex = galleryNum === 1 ? currentIndex1 : currentIndex2;
-                const isAnimating = galleryNum === 1 ? isAnimating1 : isAnimating2;
-                const prevButton = galleryNum === 1 ? prevButton1 : prevButton2;
-                const nextButton = galleryNum === 1 ? nextButton1 : nextButton2;
+                const images = galleryNum === 1 ? images1 : (galleryNum === 2 ? images2 : images3);
+                const currentIndex = galleryNum === 1 ? currentIndex1 : (galleryNum === 2 ? currentIndex2 : currentIndex3);
+                const isAnimating = galleryNum === 1 ? isAnimating1 : (galleryNum === 2 ? isAnimating2 : isAnimating3);
+                const prevButton = galleryNum === 1 ? prevButton1 : (galleryNum === 2 ? prevButton2 : prevButton3);
+                const nextButton = galleryNum === 1 ? nextButton1 : (galleryNum === 2 ? nextButton2 : nextButton3);
 
                 if (typeof newIndex === 'number' && newIndex !== currentIndex) {
                     if (galleryNum === 1) isAnimating1 = true;
-                    else isAnimating2 = true;
+                    else if (galleryNum === 2) isAnimating2 = true;
+                    else isAnimating3 = true;
 
                     const outImg = images[currentIndex];
                     const inImg = images[newIndex];
@@ -247,9 +288,12 @@
                         if (galleryNum === 1) {
                             currentIndex1 = newIndex;
                             isAnimating1 = false;
-                        } else {
+                        } else if (galleryNum === 2) {
                             currentIndex2 = newIndex;
                             isAnimating2 = false;
+                        } else {
+                            currentIndex3 = newIndex;
+                            isAnimating3 = false;
                         }
                         prevButton.disabled = newIndex === 0;
                         nextButton.disabled = newIndex === images.length - 1;
@@ -296,14 +340,29 @@
                 }
             });
 
+            // Event listeners for third gallery
+            prevButton3.addEventListener('click', () => {
+                if (currentIndex3 > 0 && !isAnimating3) {
+                    clearAutoFlip(3);
+                    updateGallery(currentIndex3 - 1, 'left', 3);
+                }
+            });
+            nextButton3.addEventListener('click', () => {
+                if (currentIndex3 < images3.length - 1 && !isAnimating3) {
+                    clearAutoFlip(3);
+                    updateGallery(currentIndex3 + 1, 'right', 3);
+                }
+            });
+
             // Keyboard navigation
             document.addEventListener('keydown', (e) => {
                 const activeGallery = document.querySelector('.the-story-container:hover');
                 if (activeGallery) {
-                    const galleryNum = activeGallery === document.querySelector('.the-story-container:first-child') ? 1 : 2;
-                    const currentIndex = galleryNum === 1 ? currentIndex1 : currentIndex2;
-                    const isAnimating = galleryNum === 1 ? isAnimating1 : isAnimating2;
-                    const images = galleryNum === 1 ? images1 : images2;
+                    const galleryNum = activeGallery === document.querySelector('.the-story-container:first-child') ? 1 : 
+                                    (activeGallery === document.querySelector('.the-story-container:nth-child(2)') ? 2 : 3);
+                    const currentIndex = galleryNum === 1 ? currentIndex1 : (galleryNum === 2 ? currentIndex2 : currentIndex3);
+                    const isAnimating = galleryNum === 1 ? isAnimating1 : (galleryNum === 2 ? isAnimating2 : isAnimating3);
+                    const images = galleryNum === 1 ? images1 : (galleryNum === 2 ? images2 : images3);
 
                     if (e.key === 'ArrowLeft' && currentIndex > 0 && !isAnimating) {
                         clearAutoFlip(galleryNum);
@@ -315,11 +374,13 @@
                 }
             });
 
-            // Initialize both galleries
+            // Initialize all galleries
             updateGallery(0, null, 1);
             updateGallery(0, null, 2);
+            updateGallery(0, null, 3);
             startAutoFlip(1);
             startAutoFlip(2);
+            startAutoFlip(3);
         });
     </script>
 </body>
