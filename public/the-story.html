@@ -215,6 +215,20 @@
             </div>
         </div>
     </div>
+
+    <!-- Fifth page with Revelation images -->
+    <div class="the-story-container">
+        <div class="the-story-title">REVELATION</div>
+        <div class="gallery-container">
+            <img src="media/images2/revelation/46.jpg" class="gallery-image active" alt="Revelation Image 1">
+            <img src="media/images2/revelation/47.jpg" class="gallery-image" alt="Revelation Image 2">
+            <img src="media/images2/revelation/48.jpg" class="gallery-image" alt="Revelation Image 3">
+            <div class="gallery-nav">
+                <button class="nav-button" id="prevButton5">←</button>
+                <button class="nav-button" id="nextButton5">→</button>
+            </div>
+        </div>
+    </div>
     <script src="script.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -244,12 +258,20 @@
             let autoFlipTimer3 = null;
 
             // Fourth gallery
-            const images4 = document.querySelectorAll('.the-story-container:last-child .gallery-image');
+            const images4 = document.querySelectorAll('.the-story-container:nth-child(4) .gallery-image');
             const prevButton4 = document.getElementById('prevButton4');
             const nextButton4 = document.getElementById('nextButton4');
             let currentIndex4 = 0;
             let isAnimating4 = false;
             let autoFlipTimer4 = null;
+
+            // Fifth gallery
+            const images5 = document.querySelectorAll('.the-story-container:last-child .gallery-image');
+            const prevButton5 = document.getElementById('prevButton5');
+            const nextButton5 = document.getElementById('nextButton5');
+            let currentIndex5 = 0;
+            let isAnimating5 = false;
+            let autoFlipTimer5 = null;
 
             function clearAutoFlip(galleryNum) {
                 if (galleryNum === 1) {
@@ -267,10 +289,15 @@
                         clearTimeout(autoFlipTimer3);
                         autoFlipTimer3 = null;
                     }
-                } else {
+                } else if (galleryNum === 4) {
                     if (autoFlipTimer4) {
                         clearTimeout(autoFlipTimer4);
                         autoFlipTimer4 = null;
+                    }
+                } else {
+                    if (autoFlipTimer5) {
+                        clearTimeout(autoFlipTimer5);
+                        autoFlipTimer5 = null;
                     }
                 }
             }
@@ -279,13 +306,16 @@
                 clearAutoFlip(galleryNum);
                 const images = galleryNum === 1 ? images1 : 
                              (galleryNum === 2 ? images2 : 
-                             (galleryNum === 3 ? images3 : images4));
+                             (galleryNum === 3 ? images3 : 
+                             (galleryNum === 4 ? images4 : images5)));
                 const currentIndex = galleryNum === 1 ? currentIndex1 : 
                                    (galleryNum === 2 ? currentIndex2 : 
-                                   (galleryNum === 3 ? currentIndex3 : currentIndex4));
+                                   (galleryNum === 3 ? currentIndex3 : 
+                                   (galleryNum === 4 ? currentIndex4 : currentIndex5)));
                 const isAnimating = galleryNum === 1 ? isAnimating1 : 
                                   (galleryNum === 2 ? isAnimating2 : 
-                                  (galleryNum === 3 ? isAnimating3 : isAnimating4));
+                                  (galleryNum === 3 ? isAnimating3 : 
+                                  (galleryNum === 4 ? isAnimating4 : isAnimating5)));
 
                 if (galleryNum === 1) {
                     autoFlipTimer1 = setTimeout(() => {
@@ -311,8 +341,16 @@
                             updateGallery(0, 'right', galleryNum);
                         }
                     }, AUTO_FLIP_INTERVAL);
-                } else {
+                } else if (galleryNum === 4) {
                     autoFlipTimer4 = setTimeout(() => {
+                        if (currentIndex < images.length - 1 && !isAnimating) {
+                            updateGallery(currentIndex + 1, 'right', galleryNum);
+                        } else if (currentIndex === images.length - 1) {
+                            updateGallery(0, 'right', galleryNum);
+                        }
+                    }, AUTO_FLIP_INTERVAL);
+                } else {
+                    autoFlipTimer5 = setTimeout(() => {
                         if (currentIndex < images.length - 1 && !isAnimating) {
                             updateGallery(currentIndex + 1, 'right', galleryNum);
                         } else if (currentIndex === images.length - 1) {
@@ -325,25 +363,31 @@
             function updateGallery(newIndex, direction, galleryNum) {
                 const images = galleryNum === 1 ? images1 : 
                              (galleryNum === 2 ? images2 : 
-                             (galleryNum === 3 ? images3 : images4));
+                             (galleryNum === 3 ? images3 : 
+                             (galleryNum === 4 ? images4 : images5)));
                 const currentIndex = galleryNum === 1 ? currentIndex1 : 
                                    (galleryNum === 2 ? currentIndex2 : 
-                                   (galleryNum === 3 ? currentIndex3 : currentIndex4));
+                                   (galleryNum === 3 ? currentIndex3 : 
+                                   (galleryNum === 4 ? currentIndex4 : currentIndex5)));
                 const isAnimating = galleryNum === 1 ? isAnimating1 : 
                                   (galleryNum === 2 ? isAnimating2 : 
-                                  (galleryNum === 3 ? isAnimating3 : isAnimating4));
+                                  (galleryNum === 3 ? isAnimating3 : 
+                                  (galleryNum === 4 ? isAnimating4 : isAnimating5)));
                 const prevButton = galleryNum === 1 ? prevButton1 : 
                                  (galleryNum === 2 ? prevButton2 : 
-                                 (galleryNum === 3 ? prevButton3 : prevButton4));
+                                 (galleryNum === 3 ? prevButton3 : 
+                                 (galleryNum === 4 ? prevButton4 : prevButton5)));
                 const nextButton = galleryNum === 1 ? nextButton1 : 
                                  (galleryNum === 2 ? nextButton2 : 
-                                 (galleryNum === 3 ? nextButton3 : nextButton4));
+                                 (galleryNum === 3 ? nextButton3 : 
+                                 (galleryNum === 4 ? nextButton4 : nextButton5)));
 
                 if (typeof newIndex === 'number' && newIndex !== currentIndex) {
                     if (galleryNum === 1) isAnimating1 = true;
                     else if (galleryNum === 2) isAnimating2 = true;
                     else if (galleryNum === 3) isAnimating3 = true;
-                    else isAnimating4 = true;
+                    else if (galleryNum === 4) isAnimating4 = true;
+                    else isAnimating5 = true;
 
                     const outImg = images[currentIndex];
                     const inImg = images[newIndex];
@@ -364,9 +408,12 @@
                         } else if (galleryNum === 3) {
                             currentIndex3 = newIndex;
                             isAnimating3 = false;
-                        } else {
+                        } else if (galleryNum === 4) {
                             currentIndex4 = newIndex;
                             isAnimating4 = false;
+                        } else {
+                            currentIndex5 = newIndex;
+                            isAnimating5 = false;
                         }
                         prevButton.disabled = newIndex === 0;
                         nextButton.disabled = newIndex === images.length - 1;
@@ -441,22 +488,40 @@
                 }
             });
 
+            // Event listeners for fifth gallery
+            prevButton5.addEventListener('click', () => {
+                if (currentIndex5 > 0 && !isAnimating5) {
+                    clearAutoFlip(5);
+                    updateGallery(currentIndex5 - 1, 'left', 5);
+                }
+            });
+            nextButton5.addEventListener('click', () => {
+                if (currentIndex5 < images5.length - 1 && !isAnimating5) {
+                    clearAutoFlip(5);
+                    updateGallery(currentIndex5 + 1, 'right', 5);
+                }
+            });
+
             // Keyboard navigation
             document.addEventListener('keydown', (e) => {
                 const activeGallery = document.querySelector('.the-story-container:hover');
                 if (activeGallery) {
                     const galleryNum = activeGallery === document.querySelector('.the-story-container:first-child') ? 1 : 
                                     (activeGallery === document.querySelector('.the-story-container:nth-child(2)') ? 2 : 
-                                    (activeGallery === document.querySelector('.the-story-container:nth-child(3)') ? 3 : 4));
+                                    (activeGallery === document.querySelector('.the-story-container:nth-child(3)') ? 3 : 
+                                    (activeGallery === document.querySelector('.the-story-container:nth-child(4)') ? 4 : 5)));
                     const currentIndex = galleryNum === 1 ? currentIndex1 : 
                                       (galleryNum === 2 ? currentIndex2 : 
-                                      (galleryNum === 3 ? currentIndex3 : currentIndex4));
+                                      (galleryNum === 3 ? currentIndex3 : 
+                                      (galleryNum === 4 ? currentIndex4 : currentIndex5)));
                     const isAnimating = galleryNum === 1 ? isAnimating1 : 
                                       (galleryNum === 2 ? isAnimating2 : 
-                                      (galleryNum === 3 ? isAnimating3 : isAnimating4));
+                                      (galleryNum === 3 ? isAnimating3 : 
+                                      (galleryNum === 4 ? isAnimating4 : isAnimating5)));
                     const images = galleryNum === 1 ? images1 : 
                                  (galleryNum === 2 ? images2 : 
-                                 (galleryNum === 3 ? images3 : images4));
+                                 (galleryNum === 3 ? images3 : 
+                                 (galleryNum === 4 ? images4 : images5)));
 
                     if (e.key === 'ArrowLeft' && currentIndex > 0 && !isAnimating) {
                         clearAutoFlip(galleryNum);
@@ -473,10 +538,12 @@
             updateGallery(0, null, 2);
             updateGallery(0, null, 3);
             updateGallery(0, null, 4);
+            updateGallery(0, null, 5);
             startAutoFlip(1);
             startAutoFlip(2);
             startAutoFlip(3);
             startAutoFlip(4);
+            startAutoFlip(5);
         });
     </script>
 </body>
