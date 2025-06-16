@@ -13,6 +13,8 @@
             color: #fff;
             font-family: Arial, Helvetica, sans-serif;
             min-height: 100vh;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
         }
         .the-story-container {
             display: flex;
@@ -21,6 +23,7 @@
             justify-content: center;
             min-height: 100vh;
             text-align: center;
+            scroll-snap-align: start;
         }
         .the-story-title {
             font-size: 2.5em;
@@ -143,7 +146,7 @@
     </div>
 
     <!-- Second page with visitor images -->
-    <div class="the-story-container" style="margin-top: 100vh;">
+    <div class="the-story-container">
         <div class="the-story-title">THE VISITORS</div>
         <div class="gallery-container">
             <img src="media/images2/visitors/9.jpg" class="gallery-image active" alt="Visitor Image 1">
@@ -284,5 +287,4 @@
         });
     </script>
 </body>
-</html> 
 </html> 
