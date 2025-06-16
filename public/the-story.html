@@ -184,23 +184,40 @@
             let isAnimating2 = false;
             let autoFlipTimer2 = null;
 
+            function clearAutoFlip(galleryNum) {
+                if (galleryNum === 1) {
+                    if (autoFlipTimer1) {
+                        clearTimeout(autoFlipTimer1);
+                        autoFlipTimer1 = null;
+                    }
+                } else {
+                    if (autoFlipTimer2) {
+                        clearTimeout(autoFlipTimer2);
+                        autoFlipTimer2 = null;
+                    }
+                }
+            }
+
             function startAutoFlip(galleryNum) {
-                const timer = galleryNum === 1 ? autoFlipTimer1 : autoFlipTimer2;
+                clearAutoFlip(galleryNum);
                 const images = galleryNum === 1 ? images1 : images2;
                 const currentIndex = galleryNum === 1 ? currentIndex1 : currentIndex2;
                 const isAnimating = galleryNum === 1 ? isAnimating1 : isAnimating2;
 
-                clearTimeout(timer);
                 if (galleryNum === 1) {
                     autoFlipTimer1 = setTimeout(() => {
                         if (currentIndex < images.length - 1 && !isAnimating) {
                             updateGallery(currentIndex + 1, 'right', galleryNum);
+                        } else if (currentIndex === images.length - 1) {
+                            updateGallery(0, 'right', galleryNum);
                         }
                     }, AUTO_FLIP_INTERVAL);
                 } else {
                     autoFlipTimer2 = setTimeout(() => {
                         if (currentIndex < images.length - 1 && !isAnimating) {
                             updateGallery(currentIndex + 1, 'right', galleryNum);
+                        } else if (currentIndex === images.length - 1) {
+                            updateGallery(0, 'right', galleryNum);
                         }
                     }, AUTO_FLIP_INTERVAL);
                 }
@@ -254,11 +271,13 @@
             // Event listeners for first gallery
             prevButton1.addEventListener('click', () => {
                 if (currentIndex1 > 0 && !isAnimating1) {
+                    clearAutoFlip(1);
                     updateGallery(currentIndex1 - 1, 'left', 1);
                 }
             });
             nextButton1.addEventListener('click', () => {
                 if (currentIndex1 < images1.length - 1 && !isAnimating1) {
+                    clearAutoFlip(1);
                     updateGallery(currentIndex1 + 1, 'right', 1);
                 }
             });
@@ -266,11 +285,13 @@
             // Event listeners for second gallery
             prevButton2.addEventListener('click', () => {
                 if (currentIndex2 > 0 && !isAnimating2) {
+                    clearAutoFlip(2);
                     updateGallery(currentIndex2 - 1, 'left', 2);
                 }
             });
             nextButton2.addEventListener('click', () => {
                 if (currentIndex2 < images2.length - 1 && !isAnimating2) {
+                    clearAutoFlip(2);
                     updateGallery(currentIndex2 + 1, 'right', 2);
                 }
             });
@@ -285,8 +306,10 @@
                     const images = galleryNum === 1 ? images1 : images2;
 
                     if (e.key === 'ArrowLeft' && currentIndex > 0 && !isAnimating) {
+                        clearAutoFlip(galleryNum);
                         updateGallery(currentIndex - 1, 'left', galleryNum);
                     } else if (e.key === 'ArrowRight' && currentIndex < images.length - 1 && !isAnimating) {
+                        clearAutoFlip(galleryNum);
                         updateGallery(currentIndex + 1, 'right', galleryNum);
                     }
                 }
