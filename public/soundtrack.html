@@ -80,9 +80,7 @@
     <div class="soundtrack-container">
         <div class="soundtrack-description">
             <div class="typewriter" id="typewriter-text">
-                <p>The ZERO music album features six tracks from six independent artists in collaboration with Eternal Muisc and serves as the soundtrack to the CODEX.</p>
-                <p>In addition to their own tracks on the album, each featured artist has embarked on a transformative journey to become a main character in the expansive storyline of Eternal Garden.</p>
-                <p>This is the first RPG that musicians play using their creativity.</p>
+                <p>The ZERO music album features six tracks from six independent artists in collaboration with Eternal Muisc and serves as the soundtrack to the CODEX. In addition to their own tracks on the album, each featured artist has embarked on a transformative journey to become a main character in the expansive storyline of Eternal Garden. This is the first RPG that musicians play using their creativity.</p>
             </div>
         </div>
         <iframe id="disco-track-104285230" name="disco-track-104285230" allowfullscreen frameborder="0" class="disco-embed" src="https://tk.disco.ac/e/t/104285230?s=eRogb-XqJZTmBKUYp0-7qedpj3o%3AVsLiWhgy&artwork=true&color=%2332B57C&theme=dark" width="355" height="235"></iframe>
@@ -97,25 +95,19 @@
     </div>
     <script src="script.js"></script>
     <script>
-    // Typewriter effect for multi-line paragraph
+    // Typewriter effect for a single paragraph
     document.addEventListener('DOMContentLoaded', function() {
         const tw = document.getElementById('typewriter-text');
         if (!tw) return;
-        const paragraphs = Array.from(tw.querySelectorAll('p'));
-        const originalTexts = paragraphs.map(p => p.textContent);
-        paragraphs.forEach(p => p.textContent = '');
-        let pIndex = 0, charIndex = 0;
+        const p = tw.querySelector('p');
+        const originalText = p.textContent;
+        p.textContent = '';
+        let charIndex = 0;
         function typeNextChar() {
-            if (pIndex >= paragraphs.length) return;
-            const currentText = originalTexts[pIndex];
-            if (charIndex < currentText.length) {
-                paragraphs[pIndex].textContent += currentText[charIndex];
+            if (charIndex < originalText.length) {
+                p.textContent += originalText[charIndex];
                 charIndex++;
                 setTimeout(typeNextChar, 18);
-            } else {
-                pIndex++;
-                charIndex = 0;
-                if (pIndex < paragraphs.length) setTimeout(typeNextChar, 350);
             }
         }
         typeNextChar();
