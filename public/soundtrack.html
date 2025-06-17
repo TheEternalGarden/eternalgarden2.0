@@ -56,6 +56,21 @@
             font-weight: normal;
             font-style: normal;
         }
+        .embed-gallery {
+            display: flex;
+            flex-direction: row;
+            gap: 32px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            padding: 24px 0 24px 0;
+            width: 100vw;
+            max-width: 100vw;
+            box-sizing: border-box;
+        }
+        .embed-gallery .disco-embed {
+            flex: 0 0 auto;
+            scroll-snap-align: center;
+        }
     </style>
 </head>
 <body>
@@ -80,18 +95,16 @@
     <div class="soundtrack-container">
         <div class="soundtrack-description">
             <div class="typewriter" id="typewriter-text">
-                <p>The ZERO music album features six tracks from six independent artists in collaboration with Eternal Muisc and serves as the soundtrack to the CODEX. In addition to their own tracks on the album, each featured artist has embarked on a transformative journey to become a main character in the expansive storyline of Eternal Garden. This is the first RPG that musicians play using their creativity.</p>
+                <p>The ZERO music album features six tracks from six independent artists in collaboration with Eternal Music and serves as the soundtrack to the CODEX. In addition to their own tracks on the album, each featured artist has embarked on a transformative journey to become a main character in the expansive storyline of Eternal Garden. This is the first RPG that musicians play using their creativity.</p>
             </div>
         </div>
-        <iframe id="disco-track-104285230" name="disco-track-104285230" allowfullscreen frameborder="0" class="disco-embed" src="https://tk.disco.ac/e/t/104285230?s=eRogb-XqJZTmBKUYp0-7qedpj3o%3AVsLiWhgy&artwork=true&color=%2332B57C&theme=dark" width="355" height="235"></iframe>
-        <div style="height: 48px;"></div>
-        <iframe id="disco-track-105839470" name="disco-track-105839470" allowfullscreen frameborder="0" class="disco-embed" src="https://tk.disco.ac/e/t/105839470?download=true&s=uvKwl-bfKDwcMAIm1bzwLP2wKpA%3ADPsAl3XH&artwork=true&color=%2332B57C&theme=dark" width="355" height="235"></iframe>
-        <div style="height: 48px;"></div>
-        <iframe id="disco-track-109650509" name="disco-track-109650509" allowfullscreen frameborder="0" class="disco-embed" src="https://tk.disco.ac/e/t/109650509?download=true&s=VI2R0DQepaxU96tWdVihyNqKz48%3A1R568HlO&artwork=true&color=%2332B57C&theme=dark" width="355" height="235"></iframe>
-        <div style="height: 48px;"></div>
-        <iframe id="disco-track-105107423" name="disco-track-105107423" allowfullscreen frameborder="0" class="disco-embed" src="https://tk.disco.ac/e/t/105107423?s=yVZgp9mrcFwfpKsCCtqIgS658LE%3Anu5wy3W0&artwork=true&color=%2332B57C&theme=dark" width="355" height="235"></iframe>
-        <div style="height: 48px;"></div>
-        <iframe id="disco-track-106754787" name="disco-track-106754787" allowfullscreen frameborder="0" class="disco-embed" src="https://tk.disco.ac/e/t/106754787?download=true&s=2gGc_nNaibSih7iqHdz0hZ2w8Go%3AJawgKNQN&artwork=true&color=%2332B57C&theme=dark" width="355" height="235"></iframe>
+        <div class="embed-gallery">
+            <iframe id="disco-track-104285230" name="disco-track-104285230" allowfullscreen frameborder="0" class="disco-embed" src="https://tk.disco.ac/e/t/104285230?s=eRogb-XqJZTmBKUYp0-7qedpj3o%3AVsLiWhgy&artwork=true&color=%2332B57C&theme=dark" width="355" height="235"></iframe>
+            <iframe id="disco-track-105839470" name="disco-track-105839470" allowfullscreen frameborder="0" class="disco-embed" src="https://tk.disco.ac/e/t/105839470?download=true&s=uvKwl-bfKDwcMAIm1bzwLP2wKpA%3ADPsAl3XH&artwork=true&color=%2332B57C&theme=dark" width="355" height="235"></iframe>
+            <iframe id="disco-track-109650509" name="disco-track-109650509" allowfullscreen frameborder="0" class="disco-embed" src="https://tk.disco.ac/e/t/109650509?download=true&s=VI2R0DQepaxU96tWdVihyNqKz48%3A1R568HlO&artwork=true&color=%2332B57C&theme=dark" width="355" height="235"></iframe>
+            <iframe id="disco-track-105107423" name="disco-track-105107423" allowfullscreen frameborder="0" class="disco-embed" src="https://tk.disco.ac/e/t/105107423?s=yVZgp9mrcFwfpKsCCtqIgS658LE%3Anu5wy3W0&artwork=true&color=%2332B57C&theme=dark" width="355" height="235"></iframe>
+            <iframe id="disco-track-106754787" name="disco-track-106754787" allowfullscreen frameborder="0" class="disco-embed" src="https://tk.disco.ac/e/t/106754787?download=true&s=2gGc_nNaibSih7iqHdz0hZ2w8Go%3AJawgKNQN&artwork=true&color=%2332B57C&theme=dark" width="355" height="235"></iframe>
+        </div>
     </div>
     <script src="script.js"></script>
     <script>
@@ -107,7 +120,7 @@
             if (charIndex < originalText.length) {
                 p.textContent += originalText[charIndex];
                 charIndex++;
-                setTimeout(typeNextChar, 18);
+                setTimeout(typeNextChar, 55);
             }
         }
         typeNextChar();
