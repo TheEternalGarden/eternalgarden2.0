@@ -254,6 +254,7 @@
                     <video id="sarazero1Video" src="/media/videos/sarazero1.mp4" autoplay muted playsinline style="width: 100%; height: 100%; object-fit: contain; position: absolute; top: 0; left: 0; opacity: 1; transition: opacity 2s ease-in-out;"></video>
                     <video id="kaizeroVideo" src="/media/videos/kaizero.mp4" muted playsinline style="width: 100%; height: 100%; object-fit: contain; position: absolute; top: 0; left: 0; opacity: 0; transition: opacity 2s ease-in-out;"></video>
                     <div id="blackOverlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #000; opacity: 0; transition: opacity 1s ease-in-out; pointer-events: none;"></div>
+                    <button id="testTransition" style="position: absolute; bottom: 10px; right: 10px; background: rgba(255,255,255,0.2); color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; z-index: 10;">Test Transition</button>
                 </div>
             </div>
         </div>
@@ -437,10 +438,15 @@
         const sarazero1Video = document.getElementById('sarazero1Video');
         const kaizeroVideo = document.getElementById('kaizeroVideo');
         const blackOverlay = document.getElementById('blackOverlay');
+        const testButton = document.getElementById('testTransition');
         
-        console.log('Video transition setup:', { sarazero1Video, kaizeroVideo, blackOverlay });
+        console.log('Video transition setup:', { sarazero1Video, kaizeroVideo, blackOverlay, testButton });
         
         if (sarazero1Video && kaizeroVideo && blackOverlay) {
+            // Ensure videos don't loop
+            sarazero1Video.loop = false;
+            kaizeroVideo.loop = false;
+            
             // Start playing sarazero1
             sarazero1Video.play().catch((error) => {
                 console.error('Error playing sarazero1:', error);
@@ -448,9 +454,9 @@
             
             console.log('Added event listeners for video transitions');
             
-            // When sarazero1 ends, start the transition
-            sarazero1Video.addEventListener('ended', function() {
-                console.log('sarazero1 ended, starting transition to kaizero');
+            // Function to transition from sarazero1 to kaizero
+            function transitionToKaizero() {
+                console.log('Transitioning to kaizero...');
                 
                 // Fade sarazero1 to black
                 sarazero1Video.style.opacity = '0';
@@ -473,11 +479,11 @@
                     // Hide black overlay
                     blackOverlay.style.opacity = '0';
                 }, 1000); // Wait 1 second for black overlay
-            });
+            }
             
-            // When kaizero ends, loop back to sarazero1
-            kaizeroVideo.addEventListener('ended', function() {
-                console.log('kaizero ended, looping back to sarazero1');
+            // Function to transition back to sarazero1
+            function transitionToSarazero1() {
+                console.log('Transitioning back to sarazero1...');
                 
                 // Fade kaizero to black
                 kaizeroVideo.style.opacity = '0';
@@ -501,6 +507,41 @@
                     // Hide black overlay
                     blackOverlay.style.opacity = '0';
                 }, 1000); // Wait 1 second for black overlay
+            }
+            
+            // When sarazero1 ends, start the transition
+            sarazero1Video.addEventListener('ended', function() {
+                console.log('sarazero1 ended event fired');
+                transitionToKaizero();
+            });
+            
+            // When kaizero ends, loop back to sarazero1
+            kaizeroVideo.addEventListener('ended', function() {
+                console.log('kaizero ended event fired');
+                transitionToSarazero1();
+            });
+            
+            // Manual test button
+            if (testButton) {
+                testButton.addEventListener('click', function() {
+                    console.log('Manual transition triggered');
+                    transitionToKaizero();
+                });
+            }
+            
+            // Add more event listeners for debugging
+            sarazero1Video.addEventListener('loadedmetadata', function() {
+                console.log('sarazero1 loaded, duration:', sarazero1Video.duration);
+            });
+            
+            kaizeroVideo.addEventListener('loadedmetadata', function() {
+                console.log('kaizero loaded, duration:', kaizeroVideo.duration);
+            });
+            
+            sarazero1Video.addEventListener('timeupdate', function() {
+                if (sarazero1Video.currentTime > sarazero1Video.duration - 0.5) {
+                    console.log('sarazero1 near end, currentTime:', sarazero1Video.currentTime, 'duration:', sarazero1Video.duration);
+                }
             });
             
             // Add error event listeners for debugging
@@ -512,7 +553,7 @@
                 console.error('kaizero video error:', e);
             });
         } else {
-            console.error('Video elements not found:', { sarazero1Video, kaizeroVideo, blackOverlay });
+            console.error('Video elements not found:', { sarazero1Video, kaizeroVideo, blackOverlay, testButton });
         }
     });
 
