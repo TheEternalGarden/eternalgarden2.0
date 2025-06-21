@@ -255,7 +255,9 @@
                         <video src="/media/videos/sarazero1.mp4" controls style="width: 100%; height: 100%; object-fit: contain; border-radius: 8px;"></video>
                     </div>
                     <div class="video-item" style="min-width: 80vw; max-width: 900px; height: 60vh; background: #000; border-radius: 8px; overflow: hidden; scroll-snap-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1);">
-                        <video src="/media/videos/kaizero.mp4" controls style="width: 100%; height: 100%; object-fit: contain; border-radius: 8px;"></video>
+                        <video src="/media/videos/kaizero.mp4" controls preload="metadata" style="width: 100%; height: 100%; object-fit: contain; border-radius: 8px;" onloadstart="console.log('kaizero video loading started')" onloadeddata="console.log('kaizero video loaded')" onerror="console.error('kaizero video error:', this.error)">
+                            Your browser does not support the video tag.
+                        </video>
                     </div>
                 </div>
                 <div style="margin-top: 20px; font-size: 0.9em; opacity: 0.6; text-align: center;">Scroll horizontally to view videos</div>
