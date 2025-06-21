@@ -181,6 +181,20 @@
         .hovering-video.fade-in {
             opacity: 1;
         }
+
+        /* Video transition styles */
+        .video-transition-container {
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .video-transition-container video {
+            border-radius: 8px;
+        }
+
+        #blackOverlay {
+            border-radius: 8px;
+        }
     </style>
 </head>
 <body class="zero-page">
@@ -235,13 +249,12 @@
         </div>
         <div class="page">
             <div class="horizontal-gallery-container" style="width: 100vw; overflow: hidden; position: relative; display: flex; flex-direction: column; align-items: center;">
-                <button class="gallery-arrow left" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); z-index: 10;">&#8592;</button>
-                <div class="horizontal-gallery" style="display: flex; overflow-x: auto; scroll-snap-type: x mandatory; width: 80vw; max-width: 900px; gap: 40px; align-items: center;">
-                    <video src="/media/videos/sarazero1.mp4" controls style="width: 80vw; max-width: 900px; height: 60vh; object-fit: contain; border-radius: 8px; background: #111; scroll-snap-align: center;"></video>
-                    <video src="/media/videos/kaizero.mp4" controls style="width: 80vw; max-width: 900px; height: 60vh; object-fit: contain; border-radius: 8px; background: #111; scroll-snap-align: center;"></video>
-                    <video src="/media/videos/tkzero.mp4" controls style="width: 80vw; max-width: 900px; height: 60vh; object-fit: contain; border-radius: 8px; background: #111; scroll-snap-align: center;"></video>
+                <div style="font-size: 1.2em; margin-bottom: 20px; opacity: 0.8; text-align: center;">Featured Artist Videos</div>
+                <div class="video-transition-container" style="position: relative; width: 80vw; max-width: 900px; height: 60vh; background: #000; border-radius: 8px; overflow: hidden;">
+                    <video id="sarazero1Video" src="/media/videos/sarazero1.mp4" style="width: 100%; height: 100%; object-fit: contain; position: absolute; top: 0; left: 0; opacity: 1; transition: opacity 2s ease-in-out;"></video>
+                    <video id="kaizeroVideo" src="/media/videos/kaizero.mp4" style="width: 100%; height: 100%; object-fit: contain; position: absolute; top: 0; left: 0; opacity: 0; transition: opacity 2s ease-in-out;"></video>
+                    <div id="blackOverlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #000; opacity: 0; transition: opacity 1s ease-in-out; pointer-events: none;"></div>
                 </div>
-                <button class="gallery-arrow right" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); z-index: 10;">&#8594;</button>
             </div>
         </div>
     </div>
@@ -262,23 +275,6 @@
         zero4Index = (zero4Index + dir + videos.length) % videos.length;
         videos[zero4Index].style.display = 'block';
     }
-
-    // Horizontal gallery navigation for page 5
-    document.addEventListener('DOMContentLoaded', function() {
-        const gallery = document.querySelector('.horizontal-gallery');
-        const leftArrow = document.querySelector('.gallery-arrow.left');
-        const rightArrow = document.querySelector('.gallery-arrow.right');
-        if (gallery && leftArrow && rightArrow) {
-            leftArrow.addEventListener('click', function(e) {
-                e.preventDefault();
-                gallery.scrollBy({ left: -gallery.offsetWidth, behavior: 'smooth' });
-            });
-            rightArrow.addEventListener('click', function(e) {
-                e.preventDefault();
-                gallery.scrollBy({ left: gallery.offsetWidth, behavior: 'smooth' });
-            });
-        }
-    });
 
     // Minimal down arrow scroll for ZERO page one
     window.addEventListener('DOMContentLoaded', function() {
@@ -432,6 +428,61 @@
                     video1.style.display = 'block';
                     video1.play();
                 }, 1200);
+            });
+        }
+    });
+
+    // Video transition logic for sarazero1 to kaizero
+    document.addEventListener('DOMContentLoaded', function() {
+        const sarazero1Video = document.getElementById('sarazero1Video');
+        const kaizeroVideo = document.getElementById('kaizeroVideo');
+        const blackOverlay = document.getElementById('blackOverlay');
+        
+        if (sarazero1Video && kaizeroVideo && blackOverlay) {
+            // Start playing sarazero1
+            sarazero1Video.play().catch(() => {});
+            
+            // When sarazero1 ends, start the transition
+            sarazero1Video.addEventListener('ended', function() {
+                // Fade sarazero1 to black
+                sarazero1Video.style.opacity = '0';
+                
+                // Show black overlay
+                blackOverlay.style.opacity = '1';
+                
+                // After fade to black, start kaizero
+                setTimeout(function() {
+                    // Start playing kaizero
+                    kaizeroVideo.play().catch(() => {});
+                    
+                    // Fade in kaizero
+                    kaizeroVideo.style.opacity = '1';
+                    
+                    // Hide black overlay
+                    blackOverlay.style.opacity = '0';
+                }, 1000); // Wait 1 second for black overlay
+            });
+            
+            // When kaizero ends, loop back to sarazero1
+            kaizeroVideo.addEventListener('ended', function() {
+                // Fade kaizero to black
+                kaizeroVideo.style.opacity = '0';
+                
+                // Show black overlay
+                blackOverlay.style.opacity = '1';
+                
+                // After fade to black, restart sarazero1
+                setTimeout(function() {
+                    // Reset sarazero1 to beginning
+                    sarazero1Video.currentTime = 0;
+                    sarazero1Video.play().catch(() => {});
+                    
+                    // Fade in sarazero1
+                    sarazero1Video.style.opacity = '1';
+                    
+                    // Hide black overlay
+                    blackOverlay.style.opacity = '0';
+                }, 1000); // Wait 1 second for black overlay
             });
         }
     });
