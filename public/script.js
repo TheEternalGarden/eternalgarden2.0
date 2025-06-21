@@ -32,17 +32,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Hamburger menu functionality
-    hamburgerIcon.addEventListener('click', () => {
-        console.log('Hamburger icon clicked');
-        menuItems.classList.toggle('active');
-        hamburgerIcon.classList.toggle('active');
-    });
+    if (hamburgerIcon) {
+        hamburgerIcon.addEventListener('click', () => {
+            console.log('Hamburger icon clicked');
+            menuItems.classList.toggle('active');
+            hamburgerIcon.classList.toggle('active');
+        });
+    }
 
     // Close menu when clicking outside
-    document.addEventListener('click', (e) => {
-        if (!hamburgerIcon.contains(e.target) && !menuItems.contains(e.target)) {
-            menuItems.classList.remove('active');
-            hamburgerIcon.classList.remove('active');
-        }
-    });
+    if (hamburgerIcon && menuItems) {
+        document.addEventListener('click', (e) => {
+            if (!hamburgerIcon.contains(e.target) && !menuItems.contains(e.target)) {
+                menuItems.classList.remove('active');
+                hamburgerIcon.classList.remove('active');
+            }
+        });
+    }
 });
