@@ -542,6 +542,20 @@
                 if (sarazero1Video.currentTime > sarazero1Video.duration - 0.5) {
                     console.log('sarazero1 near end, currentTime:', sarazero1Video.currentTime, 'duration:', sarazero1Video.duration);
                 }
+                
+                // Fallback: trigger transition when video is very close to ending
+                if (sarazero1Video.currentTime > sarazero1Video.duration - 0.1 && sarazero1Video.style.opacity !== '0') {
+                    console.log('Fallback: sarazero1 very close to end, triggering transition');
+                    transitionToKaizero();
+                }
+            });
+            
+            kaizeroVideo.addEventListener('timeupdate', function() {
+                // Fallback: trigger transition when kaizero is very close to ending
+                if (kaizeroVideo.currentTime > kaizeroVideo.duration - 0.1 && kaizeroVideo.style.opacity !== '0') {
+                    console.log('Fallback: kaizero very close to end, triggering transition back to sarazero1');
+                    transitionToSarazero1();
+                }
             });
             
             // Add error event listeners for debugging
