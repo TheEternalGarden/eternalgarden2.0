@@ -255,9 +255,10 @@
                         <video src="/media/videos/sarazero1.mp4" controls style="width: 100%; height: 100%; object-fit: contain; border-radius: 8px;"></video>
                     </div>
                     <div class="video-item" style="min-width: 80vw; max-width: 900px; height: 60vh; background: #000; border-radius: 8px; overflow: hidden; scroll-snap-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1);">
-                        <video src="/media/videos/kaizero.mp4" controls preload="metadata" style="width: 100%; height: 100%; object-fit: contain; border-radius: 8px;" onloadstart="console.log('kaizero video loading started')" onloadeddata="console.log('kaizero video loaded')" onerror="console.error('kaizero video error:', this.error)">
+                        <video id="kaizeroVideo" src="/media/videos/kaizero.mp4" controls preload="metadata" style="width: 100%; height: 100%; object-fit: contain; border-radius: 8px;" onloadstart="console.log('kaizero video loading started')" onloadeddata="console.log('kaizero video loaded successfully')" onerror="console.error('kaizero video error:', this.error)" oncanplay="console.log('kaizero video can play')" onloadedmetadata="console.log('kaizero video metadata loaded, duration:', this.duration)">
                             Your browser does not support the video tag.
                         </video>
+                        <div id="kaizeroDebug" style="position: absolute; top: 10px; left: 10px; color: white; background: rgba(0,0,0,0.7); padding: 5px; font-size: 12px; z-index: 10;">Loading kaizero...</div>
                     </div>
                 </div>
                 <div style="margin-top: 20px; font-size: 0.9em; opacity: 0.6; text-align: center;">Scroll horizontally to view videos</div>
@@ -389,6 +390,47 @@
             typeWriter(chooseJourney, 'CHOOSE YOUR JOURNEY', 80);
         }
     }, 400);
+
+    // Debug kaizero video loading
+    document.addEventListener('DOMContentLoaded', function() {
+        const kaizeroVideo = document.getElementById('kaizeroVideo');
+        const kaizeroDebug = document.getElementById('kaizeroDebug');
+        
+        if (kaizeroVideo && kaizeroDebug) {
+            console.log('Kaizero video element found:', kaizeroVideo);
+            
+            kaizeroVideo.addEventListener('loadstart', function() {
+                kaizeroDebug.textContent = 'Loading kaizero...';
+                console.log('Kaizero loadstart event');
+            });
+            
+            kaizeroVideo.addEventListener('loadedmetadata', function() {
+                kaizeroDebug.textContent = 'Kaizero loaded (' + this.duration.toFixed(1) + 's)';
+                console.log('Kaizero metadata loaded, duration:', this.duration);
+            });
+            
+            kaizeroVideo.addEventListener('canplay', function() {
+                kaizeroDebug.textContent = 'Kaizero ready to play';
+                console.log('Kaizero can play');
+            });
+            
+            kaizeroVideo.addEventListener('error', function() {
+                kaizeroDebug.textContent = 'Kaizero error: ' + (this.error ? this.error.message : 'Unknown error');
+                console.error('Kaizero video error:', this.error);
+            });
+            
+            // Test if video loads after a delay
+            setTimeout(function() {
+                if (kaizeroVideo.readyState === 0) {
+                    kaizeroDebug.textContent = 'Kaizero not loading - trying to reload';
+                    console.log('Kaizero not loading, attempting reload');
+                    kaizeroVideo.load();
+                }
+            }, 3000);
+        } else {
+            console.error('Kaizero video elements not found:', { kaizeroVideo, kaizeroDebug });
+        }
+    });
     </script>
 </body>
 <script src="script.js"></script>
