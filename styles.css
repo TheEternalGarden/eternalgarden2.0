@@ -130,6 +130,34 @@ body {
     transform: scale(1.1);
 }
 
+/* Sub-menu styles */
+.menu-items ul li .sub-menu {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0 0;
+    text-align: center;
+}
+
+.menu-items ul li .sub-menu li {
+    margin: 8px 0;
+}
+
+.menu-items ul li .sub-menu li a {
+    color: #ccc;
+    text-decoration: none;
+    font-size: 1.2em;
+    font-weight: 300;
+    letter-spacing: 1px;
+    transition: 0.3s ease;
+    display: inline-block;
+    padding: 5px 15px;
+}
+
+.menu-items ul li .sub-menu li a:hover {
+    color: #fff;
+    transform: scale(1.05);
+}
+
 /* Video Styles */
 .video-container {
     position: fixed;
