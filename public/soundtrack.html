@@ -69,6 +69,14 @@
             box-sizing: border-box;
             justify-content: flex-start;
             position: relative;
+            /* Hide scrollbar for webkit browsers */
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        
+        /* Hide scrollbar for webkit browsers */
+        .embed-gallery::-webkit-scrollbar {
+            display: none;
         }
         .embed-gallery .disco-embed {
             flex: 0 0 auto;
