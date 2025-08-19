@@ -59,6 +59,71 @@
             z-index: 1000;
         }
         
+        .fade-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #000;
+            z-index: 500;
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+            pointer-events: none;
+        }
+        
+        .fade-overlay.active {
+            opacity: 1;
+        }
+        
+        .final-content {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 600;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            padding: 50px;
+            box-sizing: border-box;
+        }
+        
+        .final-content.active {
+            opacity: 1;
+        }
+        
+        .kindred-title {
+            font-size: 3rem;
+            font-weight: 300;
+            letter-spacing: 4px;
+            text-align: center;
+            margin-bottom: 40px;
+            font-family: 'HeliosExt', Arial, Helvetica, sans-serif;
+        }
+        
+        .kindred-description {
+            font-size: 1.1rem;
+            font-weight: 300;
+            line-height: 1.6;
+            text-align: center;
+            max-width: 800px;
+            margin-bottom: 40px;
+            letter-spacing: 1px;
+        }
+        
+        .novel-coming-soon {
+            font-size: 1.5rem;
+            font-weight: 300;
+            letter-spacing: 3px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        
         .typewriter-cursor {
             animation: blink 1s infinite;
             color: #888;
@@ -111,7 +176,7 @@
     
     <div class="kindred-container">
         <div class="page-title" id="page-title"></div>
-        <video class="kindred-video" controls autoplay muted loop preload="metadata">
+        <video class="kindred-video" controls autoplay muted preload="metadata">
             <source src="media/videos/kindredtrailer.mov" type="video/quicktime">
             <source src="media/videos/kindredtrailer.mov" type="video/mp4">
             Your browser does not support the video tag.
@@ -119,10 +184,20 @@
         <div class="coming-soon-text" id="coming-soon-text"></div>
     </div>
     
+    <div class="fade-overlay" id="fade-overlay"></div>
+    
+    <div class="final-content" id="final-content">
+        <div class="kindred-title" id="kindred-title"></div>
+        <div class="kindred-description" id="kindred-description"></div>
+        <div class="novel-coming-soon" id="novel-coming-soon"></div>
+    </div>
+    
     <script src="script.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const video = document.querySelector('.kindred-video');
+            const fadeOverlay = document.getElementById('fade-overlay');
+            const finalContent = document.getElementById('final-content');
             
             video.addEventListener('loadstart', function() {
                 console.log('Video loading started');
@@ -176,6 +251,75 @@
             
             // Start "COMING SOON" typewriter effect after title finishes
             setTimeout(typeWriter, 3000);
+            
+            // Video ended event
+            video.addEventListener('ended', function() {
+                console.log('Video ended, starting fade effect');
+                
+                // Start fade to black
+                fadeOverlay.classList.add('active');
+                
+                // After fade completes, show final content
+                setTimeout(() => {
+                    finalContent.classList.add('active');
+                    startFinalTypewriter();
+                }, 2000);
+            });
+            
+            // Final typewriter effects
+            function startFinalTypewriter() {
+                // Typewriter for KINDRED title
+                const kindredTitle = document.getElementById('kindred-title');
+                const titleText = 'KINDRED';
+                let titleIndex = 0;
+                
+                function typeKindredTitle() {
+                    if (titleIndex < titleText.length) {
+                        kindredTitle.innerHTML = titleText.substring(0, titleIndex + 1) + '<span class="typewriter-cursor">|</span>';
+                        titleIndex++;
+                        setTimeout(typeKindredTitle, 150);
+                    } else {
+                        kindredTitle.innerHTML = titleText + '<span class="typewriter-cursor">|</span>';
+                        // Start description after title
+                        setTimeout(typeDescription, 1000);
+                    }
+                }
+                
+                // Typewriter for description
+                const kindredDescription = document.getElementById('kindred-description');
+                const descriptionText = 'In the ash valleys of planet Phoenix, a young Kindred girl named Red uncovers her innate power and questions the social chains forged by the ruling Elites of the Nexus solar system. Torn between dreams of rising beyond her lowborn status and the tug of a deeper calling, Red goes on a journey that will ultimately entwine her fate with the Eternal Garden, and the truth behind Nexus\'s complex history.';
+                let descIndex = 0;
+                
+                function typeDescription() {
+                    if (descIndex < descriptionText.length) {
+                        kindredDescription.innerHTML = descriptionText.substring(0, descIndex + 1) + '<span class="typewriter-cursor">|</span>';
+                        descIndex++;
+                        setTimeout(typeDescription, 30);
+                    } else {
+                        kindredDescription.innerHTML = descriptionText + '<span class="typewriter-cursor">|</span>';
+                        // Start "NOVEL COMING SOON" after description
+                        setTimeout(typeNovelComingSoon, 1000);
+                    }
+                }
+                
+                // Typewriter for "NOVEL COMING SOON"
+                const novelComingSoon = document.getElementById('novel-coming-soon');
+                const novelText = 'NOVEL COMING SOON';
+                let novelIndex = 0;
+                
+                function typeNovelComingSoon() {
+                    if (novelIndex < novelText.length) {
+                        novelComingSoon.innerHTML = novelText.substring(0, novelIndex + 1) + '<span class="typewriter-cursor">|</span>';
+                        novelIndex++;
+                        setTimeout(typeNovelComingSoon, 100);
+                    } else {
+                        novelComingSoon.innerHTML = novelText + '<span class="typewriter-cursor">|</span>';
+                    }
+                }
+                
+                // Start the sequence
+                typeKindredTitle();
+            }
         });
     </script>
 </body>
