@@ -22,6 +22,16 @@
             z-index: 2;
         }
         
+        .kindred-video {
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+        
         .page-title {
             position: absolute;
             top: 50px;
@@ -166,6 +176,11 @@
     
     <div class="kindred-container">
         <div class="page-title" id="page-title"></div>
+        <video class="kindred-video" controls muted preload="metadata">
+            <source src="media/videos/kindredtrailer.mov" type="video/quicktime">
+            <source src="media/videos/kindredtrailer.mov" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
         <div class="coming-soon-text" id="coming-soon-text"></div>
     </div>
     
@@ -180,6 +195,7 @@
     <script src="script.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            const video = document.querySelector('.kindred-video');
             const fadeOverlay = document.getElementById('fade-overlay');
             const finalContent = document.getElementById('final-content');
             
@@ -287,6 +303,17 @@
                 setTimeout(() => {
                     fadeOverlay.classList.add('active');
                     console.log('Fade to black complete');
+                    
+                    // After fade to black, start video immediately
+                    setTimeout(() => {
+                        console.log('Starting video playback');
+                        video.currentTime = 0;
+                        video.play().then(() => {
+                            console.log('Video started playing successfully');
+                        }).catch(error => {
+                            console.error('Error playing video:', error);
+                        });
+                    }, 1000);
                 }, 1000);
             }
             
