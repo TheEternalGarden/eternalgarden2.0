@@ -69,123 +69,139 @@
         </nav>
     </div>
     <div class="soundtrack-container">
-        <div class="soundtrack-description">
-            ZERO
-        </div>
-        <iframe id="disco-playlist-14698203" name="disco-playlist-14698203" allowfullscreen frameborder="0" class="disco-embed" src="https://tk.disco.ac/e/p/14698203?download=true&s=ZxpCRmVa3MXhLJCoyZffE5lreMA%3AKWUPoI0Z&artwork=true&color=%2332B57C&theme=white" width="408" height="336"></iframe>
-    </div>
-    
-    <!-- Second Page - DARKSIDE -->
-    <div class="soundtrack-container" id="darkside-page" style="display: none;">
-        <div class="soundtrack-description">
-            <div class="typewriter" id="darkside-typewriter-text">
-                <p>DARKSIDE</p>
-            </div>
-        </div>
-        <div class="track-navigation">
-            <button class="nav-arrow left" id="prev-track-darkside">‹</button>
-            <div class="track-content">
-                <video id="track-video-darkside" autoplay muted loop style="width: 100%; max-width: 700px; display: block; margin: 0 auto 20px auto; border-radius: 12px; box-shadow: 0 2px 16px rgba(0,0,0,0.08); background: #111;">
-                    <source src="media/videos/dsrunningtrailer.mov" type="video/quicktime">
-                    <source src="media/videos/dsrunningtrailer.mov" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <div class="song-title" id="track-title-darkside">DARKSIDE TRAILER</div>
-            </div>
-            <button class="nav-arrow right" id="next-track-darkside">›</button>
-        </div>
-        <div class="custom-audio-player">
-            <audio id="audio-element-darkside">
-                <source src="media/videos/dsrunningtrailer.mov" type="video/quicktime">
-                <source src="media/videos/dsrunningtrailer.mov" type="video/mp4">
-                Your browser does not support the audio element.
-            </audio>
-            <div class="player-controls">
-                <button class="play-pause-btn" id="play-pause-btn-darkside">
-                    <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M8 5v14l11-7z"/>
-                    </svg>
-                    <svg class="pause-icon" viewBox="0 0 24 24" fill="currentColor" style="display: none;">
-                        <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
-                    </svg>
-                </button>
-                <div class="progress-container">
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="progress-fill-darkside"></div>
-                    </div>
-                    <div class="time-display">
-                        <span id="current-time-darkside">0:00</span>
-                        <span id="total-time-darkside">0:00</span>
-                    </div>
+        <!-- ZERO Section -->
+        <div class="soundtrack-section" id="zero-section">
+            <div class="soundtrack-description">
+                <div class="typewriter" id="typewriter-text">
+                    <p>ZERO</p>
                 </div>
-                <div class="volume-container">
-                    <button class="volume-btn" id="volume-btn-darkside">
-                        <svg class="volume-icon" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+            </div>
+            <div class="track-navigation">
+                <button class="nav-arrow left" id="prev-track">‹</button>
+                <div class="track-content">
+                    <video id="track-video" autoplay muted loop style="width: 100%; max-width: 700px; display: block; margin: 0 auto 20px auto; border-radius: 12px; box-shadow: 0 2px 16px rgba(0,0,0,0.08); background: #111;">
+                        <source src="media/videos/sarazero1.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="song-title" id="track-title">IMAGINE by Sara Phillips w/ TK</div>
+                </div>
+                <button class="nav-arrow right" id="next-track">›</button>
+            </div>
+            <div class="custom-audio-player">
+                <audio id="audio-element">
+                    <source src="media/imagine.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+                <div class="player-controls">
+                    <button class="play-pause-btn" id="play-pause-btn">
+                        <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M8 5v14l11-7z"/>
+                        </svg>
+                        <svg class="pause-icon" viewBox="0 0 24 24" fill="currentColor" style="display: none;">
+                            <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
                         </svg>
                     </button>
-                    <div class="volume-slider">
-                        <input type="range" id="volume-slider-darkside" min="0" max="100" value="100">
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progress-fill"></div>
+                        </div>
+                        <div class="time-display">
+                            <span id="current-time">0:00</span>
+                            <span id="total-time">0:00</span>
+                        </div>
+                    </div>
+                    <div class="volume-container">
+                        <button class="volume-btn" id="volume-btn">
+                            <svg class="volume-icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+                            </svg>
+                        </button>
+                        <div class="volume-slider">
+                            <input type="range" id="volume-slider" min="0" max="100" value="100">
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    
-    <!-- Page Navigation -->
-    <div class="page-navigation" style="position: fixed; top: 50%; transform: translateY(-50%); z-index: 1000;">
-        <button class="page-nav-btn" id="page-zero" style="position: fixed; left: 20px; background: rgba(0,0,0,0.7); color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; font-family: 'HeliosExt', Arial, sans-serif;">ZERO</button>
-        <button class="page-nav-btn" id="page-darkside" style="position: fixed; right: 20px; background: rgba(0,0,0,0.7); color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; font-family: 'HeliosExt', Arial, sans-serif;">DARKSIDE</button>
+        
+        <!-- DARKSIDE Section -->
+        <div class="soundtrack-section" id="darkside-section" style="margin-top: 100px;">
+            <div class="soundtrack-description">
+                <div class="typewriter" id="darkside-typewriter-text">
+                    <p>DARKSIDE</p>
+                </div>
+            </div>
+            <div class="track-navigation">
+                <button class="nav-arrow left" id="prev-track-darkside">‹</button>
+                <div class="track-content">
+                    <video id="track-video-darkside" autoplay muted loop style="width: 100%; max-width: 700px; display: block; margin: 0 auto 20px auto; border-radius: 12px; box-shadow: 0 2px 16px rgba(0,0,0,0.08); background: #111;">
+                        <source src="media/videos/dsrunningtrailer.mov" type="video/quicktime">
+                        <source src="media/videos/dsrunningtrailer.mov" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="song-title" id="track-title-darkside">DARKSIDE TRAILER</div>
+                </div>
+                <button class="nav-arrow right" id="next-track-darkside">›</button>
+            </div>
+            <div class="custom-audio-player">
+                <audio id="audio-element-darkside">
+                    <source src="media/videos/dsrunningtrailer.mov" type="video/quicktime">
+                    <source src="media/videos/dsrunningtrailer.mov" type="video/mp4">
+                    Your browser does not support the audio element.
+                </audio>
+                <div class="player-controls">
+                    <button class="play-pause-btn" id="play-pause-btn-darkside">
+                        <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M8 5v14l11-7z"/>
+                        </svg>
+                        <svg class="pause-icon" viewBox="0 0 24 24" fill="currentColor" style="display: none;">
+                            <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                        </svg>
+                    </button>
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progress-fill-darkside"></div>
+                        </div>
+                        <div class="time-display">
+                            <span id="current-time-darkside">0:00</span>
+                            <span id="total-time-darkside">0:00</span>
+                        </div>
+                    </div>
+                    <div class="volume-container">
+                        <button class="volume-btn" id="volume-btn-darkside">
+                            <svg class="volume-icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+                            </svg>
+                        </button>
+                        <div class="volume-slider">
+                            <input type="range" id="volume-slider-darkside" min="0" max="100" value="100">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     
     <script src="script.js"></script>
     <script>
-    // Page Navigation
+    // Initialize DARKSIDE typewriter effect when page loads
     document.addEventListener('DOMContentLoaded', function() {
-        const zeroPage = document.querySelector('.soundtrack-container');
-        const darksidePage = document.getElementById('darkside-page');
-        const pageZeroBtn = document.getElementById('page-zero');
-        const pageDarksideBtn = document.getElementById('page-darkside');
-        
-        // Show ZERO page
-        function showZeroPage() {
-            zeroPage.style.display = 'flex';
-            darksidePage.style.display = 'none';
-            pageZeroBtn.style.background = 'rgba(255,255,255,0.2)';
-            pageDarksideBtn.style.background = 'rgba(0,0,0,0.7)';
-        }
-        
-        // Show DARKSIDE page
-        function showDarksidePage() {
-            zeroPage.style.display = 'none';
-            darksidePage.style.display = 'flex';
-            pageZeroBtn.style.background = 'rgba(0,0,0,0.7)';
-            pageDarksideBtn.style.background = 'rgba(255,255,255,0.2)';
-            
-            // Initialize DARKSIDE typewriter effect
-            const darksideTw = document.getElementById('darkside-typewriter-text');
-            if (darksideTw) {
-                const darksideP = darksideTw.querySelector('p');
-                const darksideOriginalText = darksideP.textContent;
-                darksideP.textContent = '';
-                let darksideCharIndex = 0;
-                function typeNextCharDarkside() {
-                    if (darksideCharIndex < darksideOriginalText.length) {
-                        darksideP.textContent += darksideOriginalText[darksideCharIndex];
-                        darksideCharIndex++;
-                        setTimeout(typeNextCharDarkside, 55);
-                    }
+        const darksideTw = document.getElementById('darkside-typewriter-text');
+        if (darksideTw) {
+            const darksideP = darksideTw.querySelector('p');
+            const darksideOriginalText = darksideP.textContent;
+            darksideP.textContent = '';
+            let darksideCharIndex = 0;
+            function typeNextCharDarkside() {
+                if (darksideCharIndex < darksideOriginalText.length) {
+                    darksideP.textContent += darksideOriginalText[darksideCharIndex];
+                    darksideCharIndex++;
+                    setTimeout(typeNextCharDarkside, 55);
                 }
-                typeNextCharDarkside();
             }
+            // Start DARKSIDE typewriter after a delay
+            setTimeout(typeNextCharDarkside, 2000);
         }
-        
-        // Page navigation event listeners
-        pageZeroBtn.addEventListener('click', showZeroPage);
-        pageDarksideBtn.addEventListener('click', showDarksidePage);
-        
-        // Initialize with ZERO page active
-        pageZeroBtn.style.background = 'rgba(255,255,255,0.2)';
     });
     </script>
 </body>
