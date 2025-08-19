@@ -130,6 +130,31 @@
             margin-top: 20px;
         }
         
+        .play-button {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px 40px;
+            font-size: 24px;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            display: none;
+        }
+        
+        .play-button:hover {
+            background: white;
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+        
+        .play-button.show {
+            display: block;
+        }
+        
         .typewriter-cursor {
             animation: blink 1s infinite;
             color: #888;
@@ -198,12 +223,15 @@
         <div class="novel-coming-soon" id="novel-coming-soon"></div>
     </div>
     
+    <button class="play-button" id="play-button">▶ PLAY TRAILER</button>
+    
     <script src="script.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const video = document.querySelector('.kindred-video');
             const fadeOverlay = document.getElementById('fade-overlay');
             const finalContent = document.getElementById('final-content');
+            const playButton = document.getElementById('play-button');
             
             video.addEventListener('loadstart', function() {
                 console.log('Video loading started');
@@ -220,6 +248,17 @@
             
             video.addEventListener('canplay', function() {
                 console.log('Video can start playing');
+            });
+            
+            // Play button event listener
+            playButton.addEventListener('click', function() {
+                console.log('Play button clicked');
+                video.play().then(() => {
+                    console.log('Video started playing from button click');
+                    playButton.classList.remove('show');
+                }).catch(error => {
+                    console.error('Error playing video from button:', error);
+                });
             });
             
             // Typewriter effect for page title
@@ -328,14 +367,35 @@
                     
                     // After fade to black, show video and start playing
                     setTimeout(() => {
+                        console.log('Attempting to show and play video');
                         video.classList.add('active');
-                        // Ensure video is ready to play
-                        video.currentTime = 0;
-                        video.play().then(() => {
-                            console.log('Video started playing successfully');
-                        }).catch(error => {
-                            console.error('Error playing video:', error);
-                        });
+                        
+                        // Make sure video is loaded and ready
+                        if (video.readyState >= 2) {
+                            console.log('Video is ready, attempting to play');
+                            video.currentTime = 0;
+                            video.play().then(() => {
+                                console.log('Video started playing successfully');
+                            }).catch(error => {
+                                console.error('Error playing video:', error);
+                                // Show play button if autoplay fails
+                                playButton.classList.add('show');
+                            });
+                        } else {
+                            console.log('Video not ready, waiting for canplay event');
+                            video.addEventListener('canplay', function playWhenReady() {
+                                console.log('Video can now play, starting...');
+                                video.currentTime = 0;
+                                video.play().then(() => {
+                                    console.log('Video started playing successfully');
+                                }).catch(error => {
+                                    console.error('Error playing video:', error);
+                                    // Show play button if autoplay fails
+                                    playButton.classList.add('show');
+                                });
+                                video.removeEventListener('canplay', playWhenReady);
+                            }, { once: true });
+                        }
                     }, 1000);
                 }, 1000);
             }
