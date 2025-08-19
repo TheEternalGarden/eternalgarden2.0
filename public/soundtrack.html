@@ -20,38 +20,17 @@
             min-height: 100vh;
             padding-top: 20px;
         }
-        .translucent-menu {
-            position: fixed;
-            top: 50%;
-            left: 0;
-            transform: translateY(-50%);
-            background: rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(10px);
-            padding: 40px 30px;
-            border-radius: 0 12px 12px 0;
-            z-index: 1000;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 20px;
-        }
-        
-        .menu-title {
-            font-size: 2.5rem;
-            font-weight: bold;
+        .soundtrack-description {
+            max-width: 1000px;
+            margin-bottom: 32px;
+            margin-left: 24px;
+            margin-right: 24px;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            text-align: center;
             color: #fff;
+            font-weight: normal;
             font-family: 'HeliosExt', Arial, sans-serif;
-            letter-spacing: 2px;
-            margin: 0;
-        }
-        
-        .menu-subtitle {
-            font-size: 1.2rem;
-            color: #fff;
-            font-family: 'HeliosExt', Arial, sans-serif;
-            letter-spacing: 1px;
-            margin: 0;
-            opacity: 0.8;
         }
         .typewriter {
             overflow: hidden;
@@ -263,11 +242,12 @@
     </style>
 </head>
 <body>
-    <div class="translucent-menu">
-        <h1 class="menu-title">ZERO</h1>
-        <p class="menu-subtitle">DARKSIDE</p>
-    </div>
     <div class="soundtrack-container">
+        <div class="soundtrack-description">
+            <div class="typewriter" id="typewriter-text">
+                <p>ZERO</p>
+            </div>
+        </div>
         <div class="track-navigation">
             <button class="nav-arrow left" id="prev-track">‹</button>
             <div class="track-content">
