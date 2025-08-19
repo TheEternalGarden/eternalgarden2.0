@@ -56,37 +56,136 @@
             font-weight: normal;
             font-style: normal;
         }
-        .audio-player {
+        /* Custom Audio Player */
+        .custom-audio-player {
             margin-top: 20px;
+            width: 400px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
             border-radius: 12px;
-            box-shadow: 0 2px 16px rgba(0,0,0,0.08);
-            width: 300px;
-            height: 50px;
-            background: transparent;
-            filter: invert(1) hue-rotate(180deg);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
-        /* Custom styling for audio player elements */
-        .audio-player::-webkit-media-controls-panel {
-            background: transparent !important;
+        .player-controls {
+            display: flex;
+            align-items: center;
+            gap: 20px;
         }
         
-        .audio-player::-webkit-media-controls-play-button {
-            filter: invert(1) hue-rotate(180deg) !important;
+        /* Play/Pause Button */
+        .play-pause-btn {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
-        .audio-player::-webkit-media-controls-timeline {
-            filter: invert(1) hue-rotate(180deg);
+        .play-pause-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(1.1);
         }
         
-        .audio-player::-webkit-media-controls-current-time-display,
-        .audio-player::-webkit-media-controls-time-remaining-display {
-            color: white !important;
-            filter: invert(1) hue-rotate(180deg);
+        .play-pause-btn svg {
+            width: 24px;
+            height: 24px;
         }
         
-        .audio-player::-webkit-media-controls-volume-slider {
-            filter: invert(1) hue-rotate(180deg);
+        /* Progress Bar */
+        .progress-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 1px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: white;
+            border-radius: 1px;
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+        
+        .progress-bar:hover .progress-fill {
+            background: rgba(255, 255, 255, 0.8);
+        }
+        
+        .time-display {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.7);
+            font-family: 'HeliosExt', Arial, sans-serif;
+        }
+        
+        /* Volume Controls */
+        .volume-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .volume-btn {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .volume-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .volume-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+        
+        .volume-slider {
+            width: 60px;
+        }
+        
+        .volume-slider input[type="range"] {
+            width: 100%;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 1px;
+            outline: none;
+            -webkit-appearance: none;
+        }
+        
+        .volume-slider input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 12px;
+            height: 12px;
+            background: white;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .volume-slider input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
         }
     </style>
 </head>
@@ -101,10 +200,41 @@
             <source src="media/videos/sarazero1.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
-        <audio controls class="audio-player">
-            <source src="media/imagine.mp3" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
+        <div class="custom-audio-player">
+            <audio id="audio-element">
+                <source src="media/imagine.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+            <div class="player-controls">
+                <button class="play-pause-btn" id="play-pause-btn">
+                    <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M8 5v14l11-7z"/>
+                    </svg>
+                    <svg class="pause-icon" viewBox="0 0 24 24" fill="currentColor" style="display: none;">
+                        <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                    </svg>
+                </button>
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                    <div class="time-display">
+                        <span id="current-time">0:00</span>
+                        <span id="total-time">0:00</span>
+                    </div>
+                </div>
+                <div class="volume-container">
+                    <button class="volume-btn" id="volume-btn">
+                        <svg class="volume-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+                        </svg>
+                    </button>
+                    <div class="volume-slider">
+                        <input type="range" id="volume-slider" min="0" max="100" value="100">
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <script src="script.js"></script>
     <script>
@@ -124,6 +254,67 @@
             }
         }
         typeNextChar();
+    });
+    
+    // Custom Audio Player Functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const audio = document.getElementById('audio-element');
+        const playPauseBtn = document.getElementById('play-pause-btn');
+        const playIcon = playPauseBtn.querySelector('.play-icon');
+        const pauseIcon = playPauseBtn.querySelector('.pause-icon');
+        const progressFill = document.getElementById('progress-fill');
+        const progressBar = document.querySelector('.progress-bar');
+        const currentTimeSpan = document.getElementById('current-time');
+        const totalTimeSpan = document.getElementById('total-time');
+        const volumeSlider = document.getElementById('volume-slider');
+        const volumeBtn = document.getElementById('volume-btn');
+        
+        // Play/Pause functionality
+        playPauseBtn.addEventListener('click', function() {
+            if (audio.paused) {
+                audio.play();
+                playIcon.style.display = 'none';
+                pauseIcon.style.display = 'block';
+            } else {
+                audio.pause();
+                playIcon.style.display = 'block';
+                pauseIcon.style.display = 'none';
+            }
+        });
+        
+        // Update progress bar
+        audio.addEventListener('timeupdate', function() {
+            const progress = (audio.currentTime / audio.duration) * 100;
+            progressFill.style.width = progress + '%';
+            
+            // Update time display
+            currentTimeSpan.textContent = formatTime(audio.currentTime);
+        });
+        
+        // Update total time when metadata loads
+        audio.addEventListener('loadedmetadata', function() {
+            totalTimeSpan.textContent = formatTime(audio.duration);
+        });
+        
+        // Click on progress bar to seek
+        progressBar.addEventListener('click', function(e) {
+            const rect = progressBar.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            const progress = clickX / rect.width;
+            audio.currentTime = progress * audio.duration;
+        });
+        
+        // Volume control
+        volumeSlider.addEventListener('input', function() {
+            audio.volume = this.value / 100;
+        });
+        
+        // Format time helper function
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return mins + ':' + (secs < 10 ? '0' : '') + secs;
+        }
     });
 
     </script>
