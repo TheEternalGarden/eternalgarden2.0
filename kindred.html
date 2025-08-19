@@ -80,9 +80,10 @@
             border: 1px solid rgba(255, 255, 255, 0.3);
             color: #fff;
             cursor: pointer;
-            z-index: 1000;
+            z-index: 10000;
             transition: all 0.3s ease;
             text-transform: uppercase;
+            pointer-events: auto;
         }
         
         .watch-trailer-btn:hover {
@@ -232,21 +233,50 @@
             const watchTrailerBtn = document.getElementById('watch-trailer-btn');
             
             // Watch trailer button event listener
-            watchTrailerBtn.addEventListener('click', function() {
-                console.log('Watch trailer button clicked');
+            watchTrailerBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                console.log('Watch trailer button clicked - event triggered');
+                console.log('Video element:', video);
+                console.log('Button element:', watchTrailerBtn);
+                
+                // Test alert to verify button works
+                alert('Button clicked! Video should start playing.');
                 
                 // Hide the button and page title
                 watchTrailerBtn.style.display = 'none';
                 pageTitle.style.display = 'none';
+                console.log('Button and title hidden');
                 
                 // Show and play the video
                 video.classList.add('show');
+                console.log('Video show class added');
                 video.currentTime = 0;
-                video.play().then(() => {
-                    console.log('Video started playing from button click');
-                }).catch(error => {
-                    console.error('Error playing video from button:', error);
-                });
+                
+                // Try to play the video
+                const playPromise = video.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        console.log('Video started playing successfully');
+                    }).catch(error => {
+                        console.error('Error playing video:', error);
+                        // Try again with user interaction
+                        document.addEventListener('click', function playVideo() {
+                            video.play().then(() => {
+                                console.log('Video started playing on second attempt');
+                            }).catch(err => {
+                                console.error('Still failed to play:', err);
+                            });
+                            document.removeEventListener('click', playVideo);
+                        }, { once: true });
+                    });
+                }
+            });
+            
+            // Also add a fallback click handler
+            document.addEventListener('click', function(e) {
+                if (e.target === watchTrailerBtn) {
+                    console.log('Fallback click handler triggered');
+                }
             });
             
             // Typewriter effect for page title
