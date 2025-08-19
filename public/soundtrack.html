@@ -192,6 +192,17 @@
         .volume-slider input[type="range"]::-webkit-slider-thumb:hover {
             transform: scale(1.2);
         }
+        
+        /* Song Title */
+        .song-title {
+            text-align: center;
+            color: white;
+            font-size: 18px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-bottom: 40px;
+            font-family: 'HeliosExt', Arial, sans-serif;
+        }
     </style>
 </head>
 <body>
@@ -201,10 +212,11 @@
                 <p>The ZERO music album features six tracks from six independent artists in collaboration with Eternal Music and serves as the soundtrack to the CODEX. In addition to their own tracks on the album, each featured artist has embarked on a transformative journey to become a main character in the expansive storyline of Eternal Garden. This is the first RPG that musicians play using their creativity.</p>
             </div>
         </div>
-        <video autoplay muted loop style="width: 100%; max-width: 800px; display: block; margin: 0 auto 40px auto; border-radius: 12px; box-shadow: 0 2px 16px rgba(0,0,0,0.08); background: #111;">
+        <video autoplay muted loop style="width: 100%; max-width: 600px; display: block; margin: 0 auto 20px auto; border-radius: 12px; box-shadow: 0 2px 16px rgba(0,0,0,0.08); background: #111;">
             <source src="media/videos/sarazero1.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
+        <div class="song-title">IMAGINE by Sara Phillips w/ TK</div>
         <div class="custom-audio-player">
             <audio id="audio-element">
                 <source src="media/imagine.mp3" type="audio/mpeg">
