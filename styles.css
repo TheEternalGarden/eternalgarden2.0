@@ -143,15 +143,15 @@ body {
 }
 
 .menu-items ul li .sub-menu li a {
-    color: #999;
-    text-decoration: none;
-    font-size: 0.6em;
-    font-weight: 200;
-    letter-spacing: 0.5px;
-    transition: 0.3s ease;
-    display: inline-block;
-    padding: 3px 10px;
-    opacity: 0.8;
+    color: #999 !important;
+    text-decoration: none !important;
+    font-size: 0.4em !important;
+    font-weight: 200 !important;
+    letter-spacing: 0.5px !important;
+    transition: 0.3s ease !important;
+    display: inline-block !important;
+    padding: 3px 10px !important;
+    opacity: 0.8 !important;
 }
 
 .menu-items ul li .sub-menu li a:hover {
