@@ -58,19 +58,24 @@
         }
         /* Custom Audio Player */
         .custom-audio-player {
-            margin-top: 20px;
-            width: 400px;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            padding: 40px 60px;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1000;
         }
         
         .player-controls {
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
         
         /* Play/Pause Button */
@@ -79,7 +84,7 @@
             border: none;
             color: white;
             cursor: pointer;
-            padding: 8px;
+            padding: 16px;
             border-radius: 50%;
             transition: all 0.3s ease;
             display: flex;
@@ -93,8 +98,8 @@
         }
         
         .play-pause-btn svg {
-            width: 24px;
-            height: 24px;
+            width: 36px;
+            height: 36px;
         }
         
         /* Progress Bar */
@@ -107,9 +112,9 @@
         
         .progress-bar {
             width: 100%;
-            height: 2px;
+            height: 4px;
             background: rgba(255, 255, 255, 0.2);
-            border-radius: 1px;
+            border-radius: 2px;
             cursor: pointer;
             position: relative;
             overflow: hidden;
@@ -118,7 +123,7 @@
         .progress-fill {
             height: 100%;
             background: white;
-            border-radius: 1px;
+            border-radius: 2px;
             width: 0%;
             transition: width 0.1s ease;
         }
@@ -130,8 +135,8 @@
         .time-display {
             display: flex;
             justify-content: space-between;
-            font-size: 12px;
-            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
             font-family: 'HeliosExt', Arial, sans-serif;
         }
         
@@ -196,7 +201,7 @@
                 <p>The ZERO music album features six tracks from six independent artists in collaboration with Eternal Music and serves as the soundtrack to the CODEX. In addition to their own tracks on the album, each featured artist has embarked on a transformative journey to become a main character in the expansive storyline of Eternal Garden. This is the first RPG that musicians play using their creativity.</p>
             </div>
         </div>
-        <video autoplay muted loop style="width: 100%; max-width: 595px; display: block; margin: 0 auto 20px auto; border-radius: 12px; box-shadow: 0 2px 16px rgba(0,0,0,0.08); background: #111;">
+        <video autoplay muted loop style="width: 100%; max-width: 800px; display: block; margin: 0 auto 40px auto; border-radius: 12px; box-shadow: 0 2px 16px rgba(0,0,0,0.08); background: #111;">
             <source src="media/videos/sarazero1.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
