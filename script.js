@@ -6,31 +6,65 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Only run video/volume code if both exist
     if (video && volumeToggle) {
-        // Initialize video with sound on
+        console.log('Video and volume toggle found, initializing...');
+        
+        // Start with muted to ensure autoplay works
         video.volume = 0.5;
-        video.muted = false;
-        volumeToggle.textContent = '🔊';
-        volumeToggle.classList.remove('muted');
+        video.muted = true;
+        volumeToggle.textContent = '🔇';
+        volumeToggle.classList.add('muted');
+        
+        console.log('Video initialized - muted:', video.muted, 'volume:', video.volume);
 
         volumeToggle.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
+            console.log('Volume toggle clicked, current muted state:', video.muted);
+            
             if (video.muted) {
                 video.muted = false;
                 video.volume = 0.5;
                 volumeToggle.textContent = '🔊';
                 volumeToggle.classList.remove('muted');
+                console.log('Unmuted video');
             } else {
                 video.muted = true;
                 volumeToggle.textContent = '🔇';
                 volumeToggle.classList.add('muted');
+                console.log('Muted video');
             }
         });
 
-        // Ensure video plays with sound
-        video.play().catch(error => {
-            console.error('Error playing video:', error);
-        });
+        // Handle autoplay restrictions
+        const playVideo = async () => {
+            try {
+                await video.play();
+                console.log('Video started playing successfully (muted)');
+            } catch (error) {
+                console.error('Error playing video:', error);
+            }
+        };
+
+        // Try to play the video (muted first)
+        playVideo();
+        
+        // Try to unmute on first user interaction
+        const unmuteOnInteraction = () => {
+            if (video.muted) {
+                video.muted = false;
+                video.volume = 0.5;
+                volumeToggle.textContent = '🔊';
+                volumeToggle.classList.remove('muted');
+                console.log('Unmuted video on user interaction');
+            }
+            // Remove the event listeners after first interaction
+            document.removeEventListener('click', unmuteOnInteraction);
+            document.removeEventListener('keydown', unmuteOnInteraction);
+        };
+        
+        // Listen for user interaction to unmute
+        document.addEventListener('click', unmuteOnInteraction);
+        document.addEventListener('keydown', unmuteOnInteraction);
     }
 
     // Hamburger menu functionality
