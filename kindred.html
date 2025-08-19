@@ -32,6 +32,29 @@
             box-shadow: 0 4px 20px rgba(0,0,0,0.5);
         }
         
+        .coming-soon-text {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #fff;
+            font-size: 1.5em;
+            font-weight: 300;
+            letter-spacing: 3px;
+            text-align: center;
+            z-index: 1000;
+        }
+        
+        .typewriter-cursor {
+            animation: blink 1s infinite;
+            color: #888;
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+        
         /* Ensure hamburger menu is visible */
         .hamburger-menu {
             position: fixed !important;
@@ -78,6 +101,7 @@
             <source src="media/videos/kindredtrailer.mov" type="video/mp4">
             Your browser does not support the video tag.
         </video>
+        <div class="coming-soon-text" id="coming-soon-text"></div>
     </div>
     
     <script src="script.js"></script>
@@ -101,6 +125,24 @@
             video.addEventListener('canplay', function() {
                 console.log('Video can start playing');
             });
+            
+            // Typewriter effect for "COMING SOON"
+            const comingSoonText = document.getElementById('coming-soon-text');
+            const text = 'COMING SOON';
+            let i = 0;
+            
+            function typeWriter() {
+                if (i < text.length) {
+                    comingSoonText.innerHTML = text.substring(0, i + 1) + '<span class="typewriter-cursor">|</span>';
+                    i++;
+                    setTimeout(typeWriter, 150);
+                } else {
+                    comingSoonText.innerHTML = text + '<span class="typewriter-cursor">|</span>';
+                }
+            }
+            
+            // Start typewriter effect after a short delay
+            setTimeout(typeWriter, 1000);
         });
     </script>
 </body>
