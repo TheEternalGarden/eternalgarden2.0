@@ -36,6 +36,11 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('Hamburger icon clicked');
         menuItems.classList.toggle('active');
         hamburgerIcon.classList.toggle('active');
+        
+        // Start typewriter effect when menu opens
+        if (menuItems.classList.contains('active')) {
+            startTypewriterEffect();
+        }
     });
 
     // Close menu when clicking outside
@@ -45,4 +50,43 @@ document.addEventListener('DOMContentLoaded', () => {
             hamburgerIcon.classList.remove('active');
         }
     });
+
+    // Typewriter effect function
+    function startTypewriterEffect() {
+        const zero1Link = document.querySelector('a[href="zero1.html"]');
+        const darksideLink = document.querySelector('a[href="darkside.html"]');
+        const kindredLink = document.querySelector('a[href="kindred.html"]');
+
+        if (zero1Link) {
+            typeWriter(zero1Link, 'ZERO1', 100);
+        }
+        
+        setTimeout(() => {
+            if (darksideLink) {
+                typeWriter(darksideLink, 'DARKSIDE', 100);
+            }
+        }, 1000);
+        
+        setTimeout(() => {
+            if (kindredLink) {
+                typeWriter(kindredLink, 'KINDRED', 100);
+            }
+        }, 2000);
+    }
+
+    function typeWriter(element, text, speed) {
+        let i = 0;
+        element.innerHTML = '';
+        
+        function typing() {
+            if (i < text.length) {
+                element.innerHTML = text.substring(0, i + 1) + '<span class="typewriter-cursor">|</span>';
+                i++;
+                setTimeout(typing, speed);
+            } else {
+                element.innerHTML = text + '<span class="typewriter-cursor">|</span>';
+            }
+        }
+        typing();
+    }
 });

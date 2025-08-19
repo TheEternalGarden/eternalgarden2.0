@@ -142,6 +142,13 @@ body {
     margin: 8px 0;
 }
 
+/* Grey color for ZERO1, DARKSIDE, and KINDRED */
+.menu-items ul li a[href="zero1.html"],
+.menu-items ul li .sub-menu li a[href="darkside.html"],
+.menu-items ul li .sub-menu li a[href="kindred.html"] {
+    color: #888 !important;
+}
+
 .menu-items ul li .sub-menu li a {
     color: #999 !important;
     text-decoration: none !important;
@@ -159,6 +166,17 @@ body {
     font-size: 12px !important;
     color: #999 !important;
     font-weight: 200 !important;
+}
+
+/* Typewriter cursor animation */
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+.typewriter-cursor {
+    animation: blink 1s infinite;
+    color: #888;
 }
 
 .menu-items ul li .sub-menu li a:hover {
