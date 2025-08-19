@@ -59,6 +59,29 @@
             z-index: 1000;
         }
         
+        .watch-trailer-btn {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 15px 30px;
+            font-size: 1em;
+            font-weight: 300;
+            letter-spacing: 3px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #fff;
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+        
+        .watch-trailer-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+        
         .fade-overlay {
             position: fixed;
             top: 0;
@@ -181,7 +204,7 @@
             <source src="media/videos/kindredtrailer.mov" type="video/mp4">
             Your browser does not support the video tag.
         </video>
-        <div class="coming-soon-text" id="coming-soon-text"></div>
+        <button class="watch-trailer-btn" id="watch-trailer-btn">WATCH TRAILER</button>
     </div>
     
     <div class="fade-overlay" id="fade-overlay"></div>
@@ -198,6 +221,18 @@
             const video = document.querySelector('.kindred-video');
             const fadeOverlay = document.getElementById('fade-overlay');
             const finalContent = document.getElementById('final-content');
+            const watchTrailerBtn = document.getElementById('watch-trailer-btn');
+            
+            // Watch trailer button event listener
+            watchTrailerBtn.addEventListener('click', function() {
+                console.log('Watch trailer button clicked');
+                video.currentTime = 0;
+                video.play().then(() => {
+                    console.log('Video started playing from button click');
+                }).catch(error => {
+                    console.error('Error playing video from button:', error);
+                });
+            });
             
             // Typewriter effect for page title
             const pageTitle = document.getElementById('page-title');
@@ -214,26 +249,8 @@
                 }
             }
             
-            // Typewriter effect for "COMING SOON"
-            const comingSoonText = document.getElementById('coming-soon-text');
-            const text = 'COMING SOON';
-            let i = 0;
-            
-            function typeWriter() {
-                if (i < text.length) {
-                    comingSoonText.innerHTML = text.substring(0, i + 1) + '<span class="typewriter-cursor">|</span>';
-                    i++;
-                    setTimeout(typeWriter, 150);
-                } else {
-                    comingSoonText.innerHTML = text + '<span class="typewriter-cursor">|</span>';
-                }
-            }
-            
             // Start title typewriter effect immediately
             typeTitle();
-            
-            // Start "COMING SOON" typewriter effect after title finishes
-            setTimeout(typeWriter, 3000);
             
             // Initial typewriter effects for final content
             function startInitialTypewriter() {
