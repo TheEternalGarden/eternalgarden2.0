@@ -37,7 +37,80 @@
             left: 0;
         }
         
-
+        .fade-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #000;
+            z-index: 500;
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+            pointer-events: none;
+        }
+        
+        .fade-overlay.active {
+            opacity: 1;
+        }
+        
+        .final-content {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 600;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            padding: 50px;
+            box-sizing: border-box;
+        }
+        
+        .final-content.active {
+            opacity: 1;
+        }
+        
+        .darkside-title {
+            font-size: 3rem;
+            font-weight: 300;
+            letter-spacing: 4px;
+            text-align: center;
+            margin-bottom: 40px;
+            font-family: 'HeliosExt', Arial, Helvetica, sans-serif;
+        }
+        
+        .darkside-description {
+            font-size: 1.1rem;
+            font-weight: 300;
+            line-height: 1.6;
+            text-align: center;
+            max-width: 800px;
+            margin-bottom: 40px;
+            letter-spacing: 1px;
+        }
+        
+        .music-out-now {
+            font-size: 1.5rem;
+            font-weight: 300;
+            letter-spacing: 3px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .typewriter-cursor {
+            animation: blink 1s infinite;
+            color: #888;
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
         
         /* Ensure hamburger menu is visible on darkside page */
         .hamburger-menu {
@@ -83,13 +156,97 @@
     </div>
     
     <div class="darkside-container">
-        <video class="fullscreen-video" autoplay loop playsinline controls>
+        <video class="fullscreen-video" autoplay muted playsinline controls preload="metadata">
             <source src="media/videos/dsrunningtrailer.mov" type="video/quicktime">
             <source src="media/videos/dsrunningtrailer.mov" type="video/mp4">
             Your browser does not support the video tag.
         </video>
     </div>
     
+    <div class="fade-overlay" id="fade-overlay"></div>
+    
+    <div class="final-content" id="final-content">
+        <div class="darkside-title" id="darkside-title"></div>
+        <div class="darkside-description" id="darkside-description"></div>
+        <div class="music-out-now" id="music-out-now"></div>
+    </div>
+    
     <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const video = document.querySelector('.fullscreen-video');
+            const fadeOverlay = document.getElementById('fade-overlay');
+            const finalContent = document.getElementById('final-content');
+            
+            // Video ended event
+            video.addEventListener('ended', function() {
+                console.log('Video ended, starting fade effect');
+                
+                // Start fade to black
+                fadeOverlay.classList.add('active');
+                
+                // After fade completes, show final content
+                setTimeout(() => {
+                    finalContent.classList.add('active');
+                    startFinalTypewriter();
+                }, 2000);
+            });
+            
+            // Final typewriter effects
+            function startFinalTypewriter() {
+                // Typewriter for DARKSIDE title
+                const darksideTitle = document.getElementById('darkside-title');
+                const titleText = 'DARKSIDE';
+                let titleIndex = 0;
+                
+                function typeDarksideTitle() {
+                    if (titleIndex < titleText.length) {
+                        darksideTitle.innerHTML = titleText.substring(0, titleIndex + 1) + '<span class="typewriter-cursor">|</span>';
+                        titleIndex++;
+                        setTimeout(typeDarksideTitle, 150);
+                    } else {
+                        darksideTitle.innerHTML = titleText + '<span class="typewriter-cursor">|</span>';
+                        // Start description after title
+                        setTimeout(typeDescription, 1000);
+                    }
+                }
+                
+                // Typewriter for description
+                const darksideDescription = document.getElementById('darkside-description');
+                const descriptionText = 'DARKSIDE is an audio-visual experience following TK, a traveler seeking the answers from his past. One day he discovers the DARKSIDE archive, an ancient realm holding the history of his Arcadian ancestry. Here, TK must confront ancestral traumas, and unlock his arcadian powers.';
+                let descIndex = 0;
+                
+                function typeDescription() {
+                    if (descIndex < descriptionText.length) {
+                        darksideDescription.innerHTML = descriptionText.substring(0, descIndex + 1) + '<span class="typewriter-cursor">|</span>';
+                        descIndex++;
+                        setTimeout(typeDescription, 50);
+                    } else {
+                        darksideDescription.innerHTML = descriptionText + '<span class="typewriter-cursor">|</span>';
+                        // Start "MUSIC OUT NOW" after description
+                        setTimeout(typeMusicOutNow, 1000);
+                    }
+                }
+                
+                // Typewriter for "MUSIC OUT NOW"
+                const musicOutNow = document.getElementById('music-out-now');
+                const musicText = 'MUSIC OUT NOW';
+                let musicIndex = 0;
+                
+                function typeMusicOutNow() {
+                    if (musicIndex < musicText.length) {
+                        musicOutNow.innerHTML = musicText.substring(0, musicIndex + 1) + '<span class="typewriter-cursor">|</span>';
+                        musicIndex++;
+                        setTimeout(typeMusicOutNow, 100);
+                    } else {
+                        musicOutNow.innerHTML = musicText + '<span class="typewriter-cursor">|</span>';
+                    }
+                }
+                
+                // Start the sequence
+                typeDarksideTitle();
+            }
+        });
+    </script>
 </body>
 </html>
