@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KINDRED</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background: #000;
+            margin: 0;
+            padding: 0;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            color: #fff;
+            overflow: hidden;
+        }
+        
+        .kindred-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            width: 100vw;
+        }
+        
+        .kindred-video {
+            max-width: 90vw;
+            max-height: 90vh;
+            width: auto;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+        
+        /* Ensure hamburger menu is visible */
+        .hamburger-menu {
+            position: fixed !important;
+            top: 20px !important;
+            right: 20px !important;
+            z-index: 9999 !important;
+        }
+        
+        .hamburger-icon {
+            z-index: 10000 !important;
+        }
+        
+        .hamburger-icon span {
+            background: #fff !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="hamburger-menu">
+        <div class="hamburger-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <nav class="menu-items">
+            <ul>
+                <li><a href="index.html">HOME</a></li>
+                <li><a href="story-universe.html">STORY UNIVERSE</a></li>
+                <li>
+                    <a href="zero1.html">ZERO1</a>
+                    <ul class="sub-menu">
+                        <li><a href="darkside.html">DARKSIDE</a></li>
+                        <li><a href="kindred.html">KINDRED</a></li>
+                    </ul>
+                </li>
+                <li><a href="soundtrack.html">SOUNDTRACK</a></li>
+            </ul>
+        </nav>
+    </div>
+    
+    <div class="kindred-container">
+        <video class="kindred-video" controls autoplay muted loop>
+            <source src="media/videos/kindredtrailer.mov" type="video/quicktime">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
