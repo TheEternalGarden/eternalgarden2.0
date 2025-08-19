@@ -32,13 +32,27 @@
             box-shadow: 0 4px 20px rgba(0,0,0,0.5);
         }
         
+        .page-title {
+            position: absolute;
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #fff;
+            font-size: 2em;
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-align: center;
+            z-index: 1000;
+            font-family: 'HeliosExt', Arial, Helvetica, sans-serif;
+        }
+        
         .coming-soon-text {
             position: absolute;
             bottom: 30px;
             left: 50%;
             transform: translateX(-50%);
             color: #fff;
-            font-size: 1.2em;
+            font-size: 1em;
             font-weight: 300;
             letter-spacing: 3px;
             text-align: center;
@@ -96,6 +110,7 @@
     </div>
     
     <div class="kindred-container">
+        <div class="page-title" id="page-title"></div>
         <video class="kindred-video" controls autoplay muted loop preload="metadata">
             <source src="media/videos/kindredtrailer.mov" type="video/quicktime">
             <source src="media/videos/kindredtrailer.mov" type="video/mp4">
@@ -126,6 +141,21 @@
                 console.log('Video can start playing');
             });
             
+            // Typewriter effect for page title
+            const pageTitle = document.getElementById('page-title');
+            const titleText = 'ETERNAL GARDEN // KINDRED';
+            let titleIndex = 0;
+            
+            function typeTitle() {
+                if (titleIndex < titleText.length) {
+                    pageTitle.innerHTML = titleText.substring(0, titleIndex + 1) + '<span class="typewriter-cursor">|</span>';
+                    titleIndex++;
+                    setTimeout(typeTitle, 100);
+                } else {
+                    pageTitle.innerHTML = titleText + '<span class="typewriter-cursor">|</span>';
+                }
+            }
+            
             // Typewriter effect for "COMING SOON"
             const comingSoonText = document.getElementById('coming-soon-text');
             const text = 'COMING SOON';
@@ -141,8 +171,11 @@
                 }
             }
             
-            // Start typewriter effect after a short delay
-            setTimeout(typeWriter, 1000);
+            // Start title typewriter effect immediately
+            typeTitle();
+            
+            // Start "COMING SOON" typewriter effect after title finishes
+            setTimeout(typeWriter, 3000);
         });
     </script>
 </body>
