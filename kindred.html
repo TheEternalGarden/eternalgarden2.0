@@ -30,6 +30,14 @@
             top: 0;
             left: 0;
             z-index: 1;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            pointer-events: none;
+        }
+        
+        .kindred-video.show {
+            opacity: 1;
+            pointer-events: auto;
         }
         
         .page-title {
@@ -226,6 +234,13 @@
             // Watch trailer button event listener
             watchTrailerBtn.addEventListener('click', function() {
                 console.log('Watch trailer button clicked');
+                
+                // Hide the button and page title
+                watchTrailerBtn.style.display = 'none';
+                pageTitle.style.display = 'none';
+                
+                // Show and play the video
+                video.classList.add('show');
                 video.currentTime = 0;
                 video.play().then(() => {
                     console.log('Video started playing from button click');
