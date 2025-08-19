@@ -57,8 +57,8 @@
                 scrollbar-width: none;
             }
             
-            /* Navigation arrows */
-            .nav-arrow {
+            /* Gallery Navigation arrows */
+            .gallery-nav-arrow {
                 position: absolute;
                 top: 50%;
                 transform: translateY(-50%);
@@ -77,16 +77,16 @@
                 justify-content: center;
             }
             
-            .nav-arrow:hover {
+            .gallery-nav-arrow:hover {
                 background: rgba(0, 0, 0, 0.8);
                 transform: translateY(-50%) scale(1.1);
             }
             
-            .nav-arrow.left {
+            .gallery-nav-arrow.left {
                 left: 20px;
             }
             
-            .nav-arrow.right {
+            .gallery-nav-arrow.right {
                 right: 20px;
             }
             
@@ -185,8 +185,8 @@
 
     <div class="gallery-container">
         <!-- Gallery 1 -->
-        <button class="nav-arrow left" data-gallery="gallery1" aria-label="Previous image">‹</button>
-        <button class="nav-arrow right" data-gallery="gallery1" aria-label="Next image">›</button>
+        <button class="gallery-nav-arrow left" data-gallery="gallery1" aria-label="Previous image">‹</button>
+        <button class="gallery-nav-arrow right" data-gallery="gallery1" aria-label="Next image">›</button>
         <div class="horizontal-gallery" id="gallery1">
             <img src="media/images2/1.jpg" alt="Story Image 1">
             <img src="media/images2/2.jpg" alt="Story Image 2">
@@ -200,8 +200,8 @@
         </div>
 
         <!-- Gallery 2 -->
-        <button class="nav-arrow left" data-gallery="gallery2" aria-label="Previous image">‹</button>
-        <button class="nav-arrow right" data-gallery="gallery2" aria-label="Next image">›</button>
+        <button class="gallery-nav-arrow left" data-gallery="gallery2" aria-label="Previous image">‹</button>
+        <button class="gallery-nav-arrow right" data-gallery="gallery2" aria-label="Next image">›</button>
         <div class="horizontal-gallery" id="gallery2">
             <img src="media/images2/visitors/9.jpg" alt="Visitors Image 1">
             <img src="media/images2/visitors/10.jpg" alt="Visitors Image 2">
@@ -213,8 +213,8 @@
         </div>
 
         <!-- Gallery 3 -->
-        <button class="nav-arrow left" data-gallery="gallery3" aria-label="Previous image">‹</button>
-        <button class="nav-arrow right" data-gallery="gallery3" aria-label="Next image">›</button>
+        <button class="gallery-nav-arrow left" data-gallery="gallery3" aria-label="Previous image">‹</button>
+        <button class="gallery-nav-arrow right" data-gallery="gallery3" aria-label="Next image">›</button>
         <div class="horizontal-gallery" id="gallery3">
             <img src="media/images2/arcadians/17.jpg" alt="Arcadians Image 1">
             <img src="media/images2/arcadians/18.jpg" alt="Arcadians Image 2">
@@ -227,8 +227,8 @@
         </div>
 
         <!-- Gallery 4 -->
-        <button class="nav-arrow left" data-gallery="gallery4" aria-label="Previous image">‹</button>
-        <button class="nav-arrow right" data-gallery="gallery4" aria-label="Next image">›</button>
+        <button class="gallery-nav-arrow left" data-gallery="gallery4" aria-label="Previous image">‹</button>
+        <button class="gallery-nav-arrow right" data-gallery="gallery4" aria-label="Next image">›</button>
         <div class="horizontal-gallery" id="gallery4">
             <img src="media/images2/humanity/25.jpg" alt="Humanity Image 1">
             <img src="media/images2/humanity/26.jpg" alt="Humanity Image 2">
@@ -254,8 +254,8 @@
         </div>
 
         <!-- Gallery 5 -->
-        <button class="nav-arrow left" data-gallery="gallery5" aria-label="Previous image">‹</button>
-        <button class="nav-arrow right" data-gallery="gallery5" aria-label="Next image">›</button>
+        <button class="gallery-nav-arrow left" data-gallery="gallery5" aria-label="Previous image">‹</button>
+        <button class="gallery-nav-arrow right" data-gallery="gallery5" aria-label="Next image">›</button>
         <div class="horizontal-gallery" id="gallery5">
             <img src="media/images2/revelation/46.jpg" alt="Revelation Image 1">
             <img src="media/images2/revelation/47.jpg" alt="Revelation Image 2">
@@ -278,8 +278,8 @@
             let currentIndex = 0;
 
             // Arrow navigation
-            const arrowLeft = document.querySelector(`.nav-arrow.left[data-gallery="${galleryId}"]`);
-            const arrowRight = document.querySelector(`.nav-arrow.right[data-gallery="${galleryId}"]`);
+            const arrowLeft = document.querySelector(`.gallery-nav-arrow.left[data-gallery="${galleryId}"]`);
+            const arrowRight = document.querySelector(`.gallery-nav-arrow.right[data-gallery="${galleryId}"]`);
 
             arrowLeft.addEventListener('click', () => {
                 if (currentIndex > 0) {
@@ -318,8 +318,8 @@
             const activeGallery = document.querySelector('.horizontal-gallery:hover');
             if (activeGallery) {
                 const galleryId = activeGallery.id;
-                const arrowLeft = document.querySelector(`.nav-arrow.left[data-gallery="${galleryId}"]`);
-                const arrowRight = document.querySelector(`.nav-arrow.right[data-gallery="${galleryId}"]`);
+                const arrowLeft = document.querySelector(`.gallery-nav-arrow.left[data-gallery="${galleryId}"]`);
+                const arrowRight = document.querySelector(`.gallery-nav-arrow.right[data-gallery="${galleryId}"]`);
                 
                 if (e.key === 'ArrowLeft') arrowLeft.click();
                 if (e.key === 'ArrowRight') arrowRight.click();
