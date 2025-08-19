@@ -13,6 +13,7 @@
             margin: 0;
             padding: 0;
             min-height: 100vh;
+            overflow: hidden;
         }
         .about-container {
             display: flex;
@@ -22,6 +23,8 @@
             min-height: 100vh;
             padding: 40px 20px 20px 20px;
             box-sizing: border-box;
+            position: relative;
+            z-index: 10;
         }
         .about-title {
             font-size: 2rem;
@@ -46,6 +49,45 @@
         @keyframes blink {
             0%, 100% { opacity: 1; }
             50% { opacity: 0; }
+        }
+        
+        /* Flowing Line Animation */
+        .flowing-line-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        .flowing-line {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .flowing-path {
+            fill: none;
+            stroke: #333;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        
+        .light-segment {
+            fill: none;
+            stroke: #32B57C;
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            filter: drop-shadow(0 0 8px #32B57C);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .light-segment.active {
+            opacity: 1;
         }
     </style>
 </head>
@@ -74,6 +116,44 @@
             </ul>
         </nav>
     </div>
+    <div class="flowing-line-container">
+        <svg class="flowing-line" viewBox="0 0 1000 1000" preserveAspectRatio="none">
+            <!-- Main flowing path -->
+            <path class="flowing-path" d="M 50,100 Q 200,50 350,150 T 650,100 T 950,200 Q 800,300 650,350 T 350,400 T 50,500 Q 200,600 350,550 T 650,600 T 950,700 Q 800,800 650,750 T 350,800 T 50,900" />
+            
+            <!-- Light segments that will illuminate randomly -->
+            <path class="light-segment" d="M 50,100 Q 200,50 350,150" />
+            <path class="light-segment" d="M 350,150 T 650,100" />
+            <path class="light-segment" d="M 650,100 T 950,200" />
+            <path class="light-segment" d="M 950,200 Q 800,300 650,350" />
+            <path class="light-segment" d="M 650,350 T 350,400" />
+            <path class="light-segment" d="M 350,400 T 50,500" />
+            <path class="light-segment" d="M 50,500 Q 200,600 350,550" />
+            <path class="light-segment" d="M 350,550 T 650,600" />
+            <path class="light-segment" d="M 650,600 T 950,700" />
+            <path class="light-segment" d="M 950,700 Q 800,800 650,750" />
+            <path class="light-segment" d="M 650,750 T 350,800" />
+            <path class="light-segment" d="M 350,800 T 50,900" />
+            
+            <!-- Additional flowing branches -->
+            <path class="flowing-path" d="M 200,200 Q 300,150 400,250 T 600,200" />
+            <path class="light-segment" d="M 200,200 Q 300,150 400,250" />
+            <path class="light-segment" d="M 400,250 T 600,200" />
+            
+            <path class="flowing-path" d="M 400,600 Q 500,550 600,650 T 800,600" />
+            <path class="light-segment" d="M 400,600 Q 500,550 600,650" />
+            <path class="light-segment" d="M 600,650 T 800,600" />
+            
+            <path class="flowing-path" d="M 100,300 Q 250,250 400,350 T 550,300" />
+            <path class="light-segment" d="M 100,300 Q 250,250 400,350" />
+            <path class="light-segment" d="M 400,350 T 550,300" />
+            
+            <path class="flowing-path" d="M 450,750 Q 600,700 750,800 T 900,750" />
+            <path class="light-segment" d="M 450,750 Q 600,700 750,800" />
+            <path class="light-segment" d="M 750,800 T 900,750" />
+        </svg>
+    </div>
+    
     <div class="about-container">
         <div class="about-title" id="aboutTitle"></div>
         <div class="about-text" id="aboutText" style="font-size: 0.9rem;"></div>
@@ -102,6 +182,47 @@
         }
         typing();
     }
+    // Flowing Line Animation
+    function initFlowingLineAnimation() {
+        const lightSegments = document.querySelectorAll('.light-segment');
+        let activeSegments = [];
+        
+        function lightRandomSegment() {
+            // Remove active class from a random active segment (if any)
+            if (activeSegments.length > 0 && Math.random() < 0.3) {
+                const randomActiveIndex = Math.floor(Math.random() * activeSegments.length);
+                const segmentToDeactivate = activeSegments[randomActiveIndex];
+                segmentToDeactivate.classList.remove('active');
+                activeSegments.splice(randomActiveIndex, 1);
+            }
+            
+            // Light up a random segment
+            const randomIndex = Math.floor(Math.random() * lightSegments.length);
+            const randomSegment = lightSegments[randomIndex];
+            
+            // Don't light up the same segment twice
+            if (!randomSegment.classList.contains('active')) {
+                randomSegment.classList.add('active');
+                activeSegments.push(randomSegment);
+                
+                // Limit the number of active segments
+                if (activeSegments.length > 4) {
+                    const oldestSegment = activeSegments.shift();
+                    oldestSegment.classList.remove('active');
+                }
+            }
+        }
+        
+        // Start the animation
+        setInterval(lightRandomSegment, 800);
+        
+        // Initial lighting
+        setTimeout(() => {
+            lightRandomSegment();
+            lightRandomSegment();
+        }, 1000);
+    }
+    
     document.addEventListener('DOMContentLoaded', function() {
         const title = document.getElementById('aboutTitle');
         const about = document.getElementById('aboutText');
@@ -109,6 +230,10 @@
         title.innerHTML = '';
         about.innerHTML = '';
         founded.innerHTML = '';
+        
+        // Initialize the flowing line animation
+        initFlowingLineAnimation();
+        
         typeWriter(title, 'ETERNAL GARDEN', 120, function() {
             setTimeout(function() {
                 typeWriter(about, 'Eternal Garden is a sci-fi fantasy epic about a mystical seed with the power to spawn infinite worlds.', 48, function() {
