@@ -16,20 +16,20 @@
         }
         
         .kindred-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            position: relative;
             width: 100vw;
+            height: 100vh;
+            z-index: 2;
         }
         
         .kindred-video {
-            max-width: 90vw;
-            max-height: 90vh;
-            width: auto;
-            height: auto;
-            border-radius: 8px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1;
         }
         
         .page-title {
