@@ -260,8 +260,7 @@
     </style>
 </head>
 <body>
-    <!-- ZERO Page -->
-    <div class="soundtrack-container" id="zero-page">
+    <div class="soundtrack-container">
         <div class="soundtrack-description">
             <div class="typewriter" id="typewriter-text">
                 <p>ZERO</p>
@@ -313,67 +312,6 @@
                 </div>
             </div>
         </div>
-    </div>
-    
-    <!-- Second Page -->
-    <div class="soundtrack-container" id="second-page" style="display: none;">
-        <div class="soundtrack-description">
-            <div class="typewriter" id="second-typewriter-text">
-                <p>SECOND PAGE</p>
-            </div>
-        </div>
-        <div class="track-navigation">
-            <button class="nav-arrow left" id="prev-track-second">‹</button>
-            <div class="track-content">
-                <video id="track-video-second" autoplay muted loop style="width: 100%; max-width: 700px; display: block; margin: 0 auto 20px auto; border-radius: 12px; box-shadow: 0 2px 16px rgba(0,0,0,0.08); background: #111;">
-                    <source src="media/videos/kevinzerocompressed.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <div class="song-title" id="track-title-second">PARANOID by Kevin George w/ TK</div>
-            </div>
-            <button class="nav-arrow right" id="next-track-second">›</button>
-        </div>
-        <div class="custom-audio-player">
-            <audio id="audio-element-second">
-                <source src="media/videos/paranoidzero.mp3" type="audio/mpeg">
-                Your browser does not support the audio element.
-            </audio>
-            <div class="player-controls">
-                <button class="play-pause-btn" id="play-pause-btn-second">
-                    <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M8 5v14l11-7z"/>
-                    </svg>
-                    <svg class="pause-icon" viewBox="0 0 24 24" fill="currentColor" style="display: none;">
-                        <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
-                    </svg>
-                </button>
-                <div class="progress-container">
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="progress-fill-second"></div>
-                    </div>
-                    <div class="time-display">
-                        <span id="current-time-second">0:00</span>
-                        <span id="total-time-second">0:00</span>
-                    </div>
-                </div>
-                <div class="volume-container">
-                    <button class="volume-btn" id="volume-btn-second">
-                        <svg class="volume-icon" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
-                        </svg>
-                    </button>
-                    <div class="volume-slider">
-                        <input type="range" id="volume-slider-second" min="0" max="100" value="100">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Page Navigation -->
-    <div class="page-navigation" style="position: fixed; top: 50%; transform: translateY(-50%); z-index: 1000; width: 100%; pointer-events: none;">
-        <button class="page-nav-btn" id="page-zero" style="position: fixed; left: 20px; background: rgba(255,255,255,0.3); color: white; border: 1px solid rgba(255,255,255,0.5); padding: 12px 18px; border-radius: 8px; cursor: pointer; font-family: 'HeliosExt', Arial, sans-serif; font-size: 14px; font-weight: bold; pointer-events: auto; transition: all 0.3s ease;">ZERO</button>
-        <button class="page-nav-btn" id="page-second" style="position: fixed; right: 20px; background: rgba(0,0,0,0.8); color: white; border: 1px solid rgba(255,255,255,0.3); padding: 12px 18px; border-radius: 8px; cursor: pointer; font-family: 'HeliosExt', Arial, sans-serif; font-size: 14px; font-weight: bold; pointer-events: auto; transition: all 0.3s ease;">SECOND</button>
     </div>
     
     <script src="script.js"></script>
@@ -588,51 +526,7 @@
             audioDarkside.volume = this.value / 100;
         });
         
-        // Page Navigation
-        const zeroPage = document.getElementById('zero-page');
-        const secondPage = document.getElementById('second-page');
-        const pageZeroBtn = document.getElementById('page-zero');
-        const pageSecondBtn = document.getElementById('page-second');
-        
-        // Show ZERO page
-        function showZeroPage() {
-            zeroPage.style.display = 'flex';
-            secondPage.style.display = 'none';
-            pageZeroBtn.style.background = 'rgba(255,255,255,0.3)';
-            pageSecondBtn.style.background = 'rgba(0,0,0,0.8)';
-        }
-        
-        // Show Second page
-        function showSecondPage() {
-            zeroPage.style.display = 'none';
-            secondPage.style.display = 'flex';
-            pageZeroBtn.style.background = 'rgba(0,0,0,0.8)';
-            pageSecondBtn.style.background = 'rgba(255,255,255,0.3)';
-            
-            // Initialize Second page typewriter effect
-            const secondTw = document.getElementById('second-typewriter-text');
-            if (secondTw) {
-                const secondP = secondTw.querySelector('p');
-                const secondOriginalText = secondP.textContent;
-                secondP.textContent = '';
-                let secondCharIndex = 0;
-                function typeNextCharSecond() {
-                    if (secondCharIndex < secondOriginalText.length) {
-                        secondP.textContent += secondOriginalText[secondCharIndex];
-                        secondCharIndex++;
-                        setTimeout(typeNextCharSecond, 55);
-                    }
-                }
-                typeNextCharSecond();
-            }
-        }
-        
-        // Page navigation event listeners
-        pageZeroBtn.addEventListener('click', showZeroPage);
-        pageSecondBtn.addEventListener('click', showSecondPage);
-        
-        // Initialize with ZERO page active
-        pageZeroBtn.style.background = 'rgba(255,255,255,0.3)';
+
     });
 
     </script>
