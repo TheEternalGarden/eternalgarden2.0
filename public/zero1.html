@@ -148,8 +148,6 @@
 
     <div class="gallery-container">
         <!-- Gallery 1 -->
-        <button class="arrow left" data-gallery="gallery1" aria-label="Previous image">&#8592;</button>
-        <button class="arrow right" data-gallery="gallery1" aria-label="Next image">&#8594;</button>
         <div class="horizontal-gallery" id="gallery1">
             <img src="media/images2/1.jpg" alt="Story Image 1">
             <img src="media/images2/2.jpg" alt="Story Image 2">
@@ -161,11 +159,8 @@
             <img src="media/images2/8.jpg" alt="Story Image 8">
             <video src="media/videos/zerocapsule1.mp4" controls></video>
         </div>
-        <div class="nav-indicators" id="navIndicators1"></div>
 
         <!-- Gallery 2 -->
-        <button class="arrow left" data-gallery="gallery2" aria-label="Previous image">&#8592;</button>
-        <button class="arrow right" data-gallery="gallery2" aria-label="Next image">&#8594;</button>
         <div class="horizontal-gallery" id="gallery2">
             <img src="media/images2/visitors/9.jpg" alt="Visitors Image 1">
             <img src="media/images2/visitors/10.jpg" alt="Visitors Image 2">
@@ -175,11 +170,8 @@
             <img src="media/images2/visitors/14.jpg" alt="Visitors Image 6">
             <img src="media/images2/visitors/15.jpg" alt="Visitors Image 7">
         </div>
-        <div class="nav-indicators" id="navIndicators2"></div>
 
         <!-- Gallery 3 -->
-        <button class="arrow left" data-gallery="gallery3" aria-label="Previous image">&#8592;</button>
-        <button class="arrow right" data-gallery="gallery3" aria-label="Next image">&#8594;</button>
         <div class="horizontal-gallery" id="gallery3">
             <img src="media/images2/arcadians/17.jpg" alt="Arcadians Image 1">
             <img src="media/images2/arcadians/18.jpg" alt="Arcadians Image 2">
@@ -190,11 +182,8 @@
             <img src="media/images2/arcadians/23.jpg" alt="Arcadians Image 7">
             <img src="media/images2/arcadians/24.jpg" alt="Arcadians Image 8">
         </div>
-        <div class="nav-indicators" id="navIndicators3"></div>
 
         <!-- Gallery 4 -->
-        <button class="arrow left" data-gallery="gallery4" aria-label="Previous image">&#8592;</button>
-        <button class="arrow right" data-gallery="gallery4" aria-label="Next image">&#8594;</button>
         <div class="horizontal-gallery" id="gallery4">
             <img src="media/images2/humanity/25.jpg" alt="Humanity Image 1">
             <img src="media/images2/humanity/26.jpg" alt="Humanity Image 2">
@@ -218,11 +207,8 @@
             <img src="media/images2/humanity/44.jpg" alt="Humanity Image 20">
             <img src="media/images2/humanity/45.jpg" alt="Humanity Image 21">
         </div>
-        <div class="nav-indicators" id="navIndicators4"></div>
 
         <!-- Gallery 5 -->
-        <button class="arrow left" data-gallery="gallery5" aria-label="Previous image">&#8592;</button>
-        <button class="arrow right" data-gallery="gallery5" aria-label="Next image">&#8594;</button>
         <div class="horizontal-gallery" id="gallery5">
             <img src="media/images2/revelation/46.jpg" alt="Revelation Image 1">
             <img src="media/images2/revelation/47.jpg" alt="Revelation Image 2">
@@ -234,89 +220,19 @@
             <img src="media/images2/epilogue/54.jpg" alt="Epilogue Image 5">
             <img src="media/images2/epilogue/55.jpg" alt="Epilogue Image 6">
         </div>
-        <div class="nav-indicators" id="navIndicators5"></div>
     </div>
 
     <script>
+        // Simple gallery initialization - just for scroll snap functionality
         function initializeGallery(galleryId) {
             const gallery = document.getElementById(galleryId);
-            const navIndicators = document.getElementById(`navIndicators${galleryId.slice(-1)}`);
-            const images = gallery.getElementsByTagName('img');
-            const videos = gallery.getElementsByTagName('video');
-            const totalItems = images.length + videos.length;
-            let currentIndex = 0;
-
-            // Create navigation dots
-            for (let i = 0; i < totalItems; i++) {
-                const dot = document.createElement('div');
-                dot.className = 'nav-dot';
-                dot.addEventListener('click', () => {
-                    gallery.scrollTo({
-                        left: i * window.innerWidth,
-                        behavior: 'smooth'
-                    });
-                });
-                navIndicators.appendChild(dot);
-            }
-
-            // Update active dot
-            function updateActiveDot() {
-                const scrollPosition = gallery.scrollLeft;
-                const activeIndex = Math.round(scrollPosition / window.innerWidth);
-                const dots = navIndicators.getElementsByClassName('nav-dot');
-                for (let i = 0; i < dots.length; i++) {
-                    dots[i].classList.toggle('active', i === activeIndex);
-                }
-                currentIndex = activeIndex;
-            }
-
-            gallery.addEventListener('scroll', updateActiveDot);
-            if (navIndicators.firstChild) {
-                navIndicators.firstChild.classList.add('active');
-            }
-
-            // Arrow navigation
-            const arrowLeft = document.querySelector(`.arrow.left[data-gallery="${galleryId}"]`);
-            const arrowRight = document.querySelector(`.arrow.right[data-gallery="${galleryId}"]`);
-
-            arrowLeft.addEventListener('click', () => {
-                if (currentIndex > 0) {
-                    currentIndex--;
-                    gallery.scrollTo({
-                        left: currentIndex * window.innerWidth,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-
-            arrowRight.addEventListener('click', () => {
-                if (currentIndex < totalItems - 1) {
-                    currentIndex++;
-                    gallery.scrollTo({
-                        left: currentIndex * window.innerWidth,
-                        behavior: 'smooth'
-                    });
-                }
-            });
+            // Gallery is now purely CSS-driven with scroll snap
         }
 
         // Initialize all galleries
         for (let i = 1; i <= 5; i++) {
             initializeGallery(`gallery${i}`);
         }
-
-        // Keyboard navigation
-        document.addEventListener('keydown', (e) => {
-            const activeGallery = document.querySelector('.horizontal-gallery:hover');
-            if (activeGallery) {
-                const galleryId = activeGallery.id;
-                const arrowLeft = document.querySelector(`.arrow.left[data-gallery="${galleryId}"]`);
-                const arrowRight = document.querySelector(`.arrow.right[data-gallery="${galleryId}"]`);
-                
-                if (e.key === 'ArrowLeft') arrowLeft.click();
-                if (e.key === 'ArrowRight') arrowRight.click();
-            }
-        });
     </script>
     <script src="script.js"></script>
 </body>
