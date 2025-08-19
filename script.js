@@ -6,17 +6,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Only run video/volume code if both exist
     if (video && volumeToggle) {
-        video.muted = true;
-        video.volume = 1;
-        volumeToggle.textContent = '🔇';
-        volumeToggle.classList.add('muted');
+        // Initialize video with sound on
+        video.volume = 0.5;
+        video.muted = false;
+        volumeToggle.textContent = '🔊';
+        volumeToggle.classList.remove('muted');
 
         volumeToggle.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
             if (video.muted) {
                 video.muted = false;
-                video.volume = 1;
+                video.volume = 0.5;
                 volumeToggle.textContent = '🔊';
                 volumeToggle.classList.remove('muted');
             } else {
@@ -26,6 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
+        // Ensure video plays with sound
         video.play().catch(error => {
             console.error('Error playing video:', error);
         });
