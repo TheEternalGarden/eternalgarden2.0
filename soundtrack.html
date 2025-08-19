@@ -13,16 +13,38 @@
             justify-content: center;
             min-height: 100vh;
         }
-        .soundtrack-description {
-            max-width: 1000px;
-            margin-bottom: 32px;
-            margin-left: 24px;
-            margin-right: 24px;
-            font-size: 0.95rem;
-            line-height: 1.6;
-            text-align: center;
+        .translucent-menu {
+            position: fixed;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            padding: 40px 30px;
+            border-radius: 0 12px 12px 0;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 20px;
+        }
+        
+        .menu-title {
+            font-size: 2.5rem;
+            font-weight: bold;
             color: #fff;
-            font-weight: normal;
+            font-family: 'HeliosExt', Arial, sans-serif;
+            letter-spacing: 2px;
+            margin: 0;
+        }
+        
+        .menu-subtitle {
+            font-size: 1.2rem;
+            color: #fff;
+            font-family: 'HeliosExt', Arial, sans-serif;
+            letter-spacing: 1px;
+            margin: 0;
+            opacity: 0.8;
         }
         .disco-embed {
             border-radius: 12px;
@@ -68,10 +90,11 @@
             </ul>
         </nav>
     </div>
+    <div class="translucent-menu">
+        <h1 class="menu-title">ZERO</h1>
+        <p class="menu-subtitle">DARKSIDE</p>
+    </div>
     <div class="soundtrack-container">
-        <div class="soundtrack-description">
-            ZERO
-        </div>
         <iframe id="disco-playlist-14698203" name="disco-playlist-14698203" allowfullscreen frameborder="0" class="disco-embed" src="https://tk.disco.ac/e/p/14698203?download=true&s=ZxpCRmVa3MXhLJCoyZffE5lreMA%3AKWUPoI0Z&artwork=true&color=%2332B57C&theme=white" width="408" height="336"></iframe>
     </div>
     <script src="script.js"></script>
