@@ -126,3 +126,45 @@ body.story-page {
 body.zero-page {
   font-family: 'HeliosExt', Arial, Helvetica, sans-serif;
 } 
+/* SUB-MENU: style only the nested links */
+.menu-items ul li ul.sub-menu {            /* indent the group */
+  margin: 6px 0 10px;
+  padding-left: 16px;
+  border-left: 1px solid rgba(255,255,255,.18);
+  text-align: left;                        /* optional: avoid full-center look */
+}
+
+.menu-items ul li ul.sub-menu li a {       /* more specific than the global rule */
+  font-size: 12px !important;              /* much smaller than 2em */
+  color: #999 !important;                  /* grey color */
+  font-weight: 200 !important;
+  letter-spacing: 0.5px !important;
+  padding: 3px 10px !important;
+  display: inline-block !important;        /* easier click target */
+  opacity: 0.8 !important;
+}
+
+.menu-items ul li ul.sub-menu li a:hover {
+  color: #fff;
+  transform: none;                         /* prevent the big scale effect */
+  opacity: 1;
+}
+
+/* Grey color for ZERO1, DARKSIDE, and KINDRED */
+.menu-items ul li a[href="zero1.html"],
+.menu-items ul li .sub-menu li a[href="darkside.html"],
+.menu-items ul li .sub-menu li a[href="kindred.html"] {
+  color: #666 !important;
+  font-weight: 300 !important;
+}
+
+/* Typewriter cursor animation */
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+.typewriter-cursor {
+  animation: blink 1s infinite;
+  color: #888;
+}
