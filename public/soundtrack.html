@@ -62,17 +62,18 @@
             box-shadow: 0 2px 16px rgba(0,0,0,0.08);
             width: 300px;
             height: 50px;
-            background: transparent;
+            background: #000 !important;
             filter: invert(1) hue-rotate(180deg);
         }
         
         /* Custom styling for audio player elements */
         .audio-player::-webkit-media-controls-panel {
-            background: transparent !important;
+            background: #000 !important;
         }
         
         .audio-player::-webkit-media-controls-play-button {
-            filter: invert(1) hue-rotate(180deg);
+            filter: invert(1) hue-rotate(180deg) !important;
+            background: #000 !important;
         }
         
         .audio-player::-webkit-media-controls-timeline {
