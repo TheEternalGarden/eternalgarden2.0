@@ -22,16 +22,6 @@
             z-index: 2;
         }
         
-        .kindred-video {
-            width: 100vw;
-            height: 100vh;
-            object-fit: cover;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 1;
-        }
-        
         .page-title {
             position: absolute;
             top: 50px;
@@ -124,31 +114,6 @@
             margin-top: 20px;
         }
         
-        .play-button {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            padding: 20px 40px;
-            font-size: 24px;
-            background: rgba(255, 255, 255, 0.9);
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            z-index: 1000;
-            transition: all 0.3s ease;
-            display: none;
-        }
-        
-        .play-button:hover {
-            background: white;
-            transform: translate(-50%, -50%) scale(1.1);
-        }
-        
-        .play-button.show {
-            display: block;
-        }
-        
         .typewriter-cursor {
             animation: blink 1s infinite;
             color: #888;
@@ -201,11 +166,6 @@
     
     <div class="kindred-container">
         <div class="page-title" id="page-title"></div>
-        <video class="kindred-video" controls muted preload="metadata">
-            <source src="media/videos/kindredtrailer.mov" type="video/quicktime">
-            <source src="media/videos/kindredtrailer.mov" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
         <div class="coming-soon-text" id="coming-soon-text"></div>
     </div>
     
@@ -217,43 +177,11 @@
         <div class="novel-coming-soon" id="novel-coming-soon"></div>
     </div>
     
-    <button class="play-button" id="play-button">▶ PLAY TRAILER</button>
-    
     <script src="script.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const video = document.querySelector('.kindred-video');
             const fadeOverlay = document.getElementById('fade-overlay');
             const finalContent = document.getElementById('final-content');
-            const playButton = document.getElementById('play-button');
-            
-            video.addEventListener('loadstart', function() {
-                console.log('Video loading started');
-            });
-            
-            video.addEventListener('loadeddata', function() {
-                console.log('Video data loaded');
-            });
-            
-            video.addEventListener('error', function(e) {
-                console.error('Video error:', e);
-                console.error('Video error details:', video.error);
-            });
-            
-            video.addEventListener('canplay', function() {
-                console.log('Video can start playing');
-            });
-            
-            // Play button event listener
-            playButton.addEventListener('click', function() {
-                console.log('Play button clicked');
-                video.play().then(() => {
-                    console.log('Video started playing from button click');
-                    playButton.classList.remove('show');
-                }).catch(error => {
-                    console.error('Error playing video from button:', error);
-                });
-            });
             
             // Typewriter effect for page title
             const pageTitle = document.getElementById('page-title');
@@ -339,8 +267,8 @@
                         setTimeout(typeNovelComingSoon, 100);
                     } else {
                         novelComingSoon.innerHTML = novelText + '<span class="typewriter-cursor">|</span>';
-                        // After all text is complete, wait a bit then start the transition
-                        setTimeout(startVideoTransition, 2000);
+                        // After all text is complete, wait a bit then start the fade
+                        setTimeout(startFadeTransition, 2000);
                     }
                 }
                 
@@ -348,9 +276,9 @@
                 typeKindredTitle();
             }
             
-            // Function to start video transition
-            function startVideoTransition() {
-                console.log('Starting video transition');
+            // Function to start fade transition
+            function startFadeTransition() {
+                console.log('Starting fade transition');
                 
                 // Fade out the final content
                 finalContent.classList.add('fade-out');
@@ -358,27 +286,7 @@
                 // After content fades out, start fade to black
                 setTimeout(() => {
                     fadeOverlay.classList.add('active');
-                    
-                    // After fade to black, start video immediately
-                    setTimeout(() => {
-                        console.log('Starting video playback');
-                        
-                        // Ensure video is at the beginning
-                        video.currentTime = 0;
-                        
-                        // Try to play the video
-                        const playPromise = video.play();
-                        
-                        if (playPromise !== undefined) {
-                            playPromise.then(() => {
-                                console.log('Video started playing successfully');
-                            }).catch(error => {
-                                console.error('Autoplay failed:', error);
-                                // Show play button if autoplay fails
-                                playButton.classList.add('show');
-                            });
-                        }
-                    }, 1000);
+                    console.log('Fade to black complete');
                 }, 1000);
             }
             
