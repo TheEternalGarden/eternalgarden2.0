@@ -69,21 +69,21 @@
         
         .flowing-path {
             fill: none;
-            stroke: #333;
-            stroke-width: 2;
+            stroke: transparent;
+            stroke-width: 1;
             stroke-linecap: round;
             stroke-linejoin: round;
         }
         
         .light-segment {
             fill: none;
-            stroke: #32B57C;
-            stroke-width: 3;
+            stroke: white;
+            stroke-width: 2;
             stroke-linecap: round;
             stroke-linejoin: round;
-            filter: drop-shadow(0 0 8px #32B57C);
+            filter: drop-shadow(0 0 12px white) drop-shadow(0 0 20px rgba(255, 255, 255, 0.6));
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.4s ease;
         }
         
         .light-segment.active {
@@ -118,39 +118,64 @@
     </div>
     <div class="flowing-line-container">
         <svg class="flowing-line" viewBox="0 0 1000 1000" preserveAspectRatio="none">
-            <!-- Main flowing path -->
-            <path class="flowing-path" d="M 50,100 Q 200,50 350,150 T 650,100 T 950,200 Q 800,300 650,350 T 350,400 T 50,500 Q 200,600 350,550 T 650,600 T 950,700 Q 800,800 650,750 T 350,800 T 50,900" />
+            <!-- Single long flowing path (invisible) -->
+            <path class="flowing-path" d="M 50,100 Q 150,80 250,120 T 450,100 T 650,150 Q 550,200 450,250 T 250,300 T 50,350 Q 150,400 250,450 T 450,500 T 650,550 Q 550,600 450,650 T 250,700 T 50,750 Q 150,800 250,850 T 450,900 T 650,950 Q 750,900 850,850 T 950,800 Q 850,750 750,700 T 650,650 Q 750,600 850,550 T 950,500 Q 850,450 750,400 T 650,350 Q 750,300 850,250 T 950,200 Q 850,150 750,100 T 650,50 Q 550,100 450,150 T 250,200 T 50,250" />
             
-            <!-- Light segments that will illuminate randomly -->
-            <path class="light-segment" d="M 50,100 Q 200,50 350,150" />
-            <path class="light-segment" d="M 350,150 T 650,100" />
-            <path class="light-segment" d="M 650,100 T 950,200" />
-            <path class="light-segment" d="M 950,200 Q 800,300 650,350" />
-            <path class="light-segment" d="M 650,350 T 350,400" />
-            <path class="light-segment" d="M 350,400 T 50,500" />
-            <path class="light-segment" d="M 50,500 Q 200,600 350,550" />
-            <path class="light-segment" d="M 350,550 T 650,600" />
-            <path class="light-segment" d="M 650,600 T 950,700" />
-            <path class="light-segment" d="M 950,700 Q 800,800 650,750" />
-            <path class="light-segment" d="M 650,750 T 350,800" />
-            <path class="light-segment" d="M 350,800 T 50,900" />
-            
-            <!-- Additional flowing branches -->
-            <path class="flowing-path" d="M 200,200 Q 300,150 400,250 T 600,200" />
-            <path class="light-segment" d="M 200,200 Q 300,150 400,250" />
-            <path class="light-segment" d="M 400,250 T 600,200" />
-            
-            <path class="flowing-path" d="M 400,600 Q 500,550 600,650 T 800,600" />
-            <path class="light-segment" d="M 400,600 Q 500,550 600,650" />
-            <path class="light-segment" d="M 600,650 T 800,600" />
-            
-            <path class="flowing-path" d="M 100,300 Q 250,250 400,350 T 550,300" />
-            <path class="light-segment" d="M 100,300 Q 250,250 400,350" />
-            <path class="light-segment" d="M 400,350 T 550,300" />
-            
-            <path class="flowing-path" d="M 450,750 Q 600,700 750,800 T 900,750" />
-            <path class="light-segment" d="M 450,750 Q 600,700 750,800" />
-            <path class="light-segment" d="M 750,800 T 900,750" />
+            <!-- Small light segments along the path -->
+            <path class="light-segment" d="M 50,100 Q 100,90 150,110" />
+            <path class="light-segment" d="M 150,110 T 250,120" />
+            <path class="light-segment" d="M 250,120 T 350,110" />
+            <path class="light-segment" d="M 350,110 T 450,100" />
+            <path class="light-segment" d="M 450,100 T 550,125" />
+            <path class="light-segment" d="M 550,125 T 650,150" />
+            <path class="light-segment" d="M 650,150 Q 600,175 550,200" />
+            <path class="light-segment" d="M 550,200 T 450,250" />
+            <path class="light-segment" d="M 450,250 T 350,275" />
+            <path class="light-segment" d="M 350,275 T 250,300" />
+            <path class="light-segment" d="M 250,300 T 150,325" />
+            <path class="light-segment" d="M 150,325 T 50,350" />
+            <path class="light-segment" d="M 50,350 Q 100,375 150,400" />
+            <path class="light-segment" d="M 150,400 T 250,450" />
+            <path class="light-segment" d="M 250,450 T 350,475" />
+            <path class="light-segment" d="M 350,475 T 450,500" />
+            <path class="light-segment" d="M 450,500 T 550,525" />
+            <path class="light-segment" d="M 550,525 T 650,550" />
+            <path class="light-segment" d="M 650,550 Q 600,575 550,600" />
+            <path class="light-segment" d="M 550,600 T 450,650" />
+            <path class="light-segment" d="M 450,650 T 350,675" />
+            <path class="light-segment" d="M 350,675 T 250,700" />
+            <path class="light-segment" d="M 250,700 T 150,725" />
+            <path class="light-segment" d="M 150,725 T 50,750" />
+            <path class="light-segment" d="M 50,750 Q 100,775 150,800" />
+            <path class="light-segment" d="M 150,800 T 250,850" />
+            <path class="light-segment" d="M 250,850 T 350,875" />
+            <path class="light-segment" d="M 350,875 T 450,900" />
+            <path class="light-segment" d="M 450,900 T 550,925" />
+            <path class="light-segment" d="M 550,925 T 650,950" />
+            <path class="light-segment" d="M 650,950 Q 700,925 750,900" />
+            <path class="light-segment" d="M 750,900 T 850,850" />
+            <path class="light-segment" d="M 850,850 T 950,800" />
+            <path class="light-segment" d="M 950,800 Q 900,775 850,750" />
+            <path class="light-segment" d="M 850,750 T 750,700" />
+            <path class="light-segment" d="M 750,700 T 650,650" />
+            <path class="light-segment" d="M 650,650 Q 700,625 750,600" />
+            <path class="light-segment" d="M 750,600 T 850,550" />
+            <path class="light-segment" d="M 850,550 T 950,500" />
+            <path class="light-segment" d="M 950,500 Q 900,475 850,450" />
+            <path class="light-segment" d="M 850,450 T 750,400" />
+            <path class="light-segment" d="M 750,400 T 650,350" />
+            <path class="light-segment" d="M 650,350 Q 700,325 750,300" />
+            <path class="light-segment" d="M 750,300 T 850,250" />
+            <path class="light-segment" d="M 850,250 T 950,200" />
+            <path class="light-segment" d="M 950,200 Q 900,175 850,150" />
+            <path class="light-segment" d="M 850,150 T 750,100" />
+            <path class="light-segment" d="M 750,100 T 650,50" />
+            <path class="light-segment" d="M 650,50 Q 600,75 550,100" />
+            <path class="light-segment" d="M 550,100 T 450,150" />
+            <path class="light-segment" d="M 450,150 T 350,175" />
+            <path class="light-segment" d="M 350,175 T 250,200" />
+            <path class="light-segment" d="M 250,200 T 150,225" />
+            <path class="light-segment" d="M 150,225 T 50,250" />
         </svg>
     </div>
     
@@ -189,7 +214,7 @@
         
         function lightRandomSegment() {
             // Remove active class from a random active segment (if any)
-            if (activeSegments.length > 0 && Math.random() < 0.3) {
+            if (activeSegments.length > 0 && Math.random() < 0.4) {
                 const randomActiveIndex = Math.floor(Math.random() * activeSegments.length);
                 const segmentToDeactivate = activeSegments[randomActiveIndex];
                 segmentToDeactivate.classList.remove('active');
@@ -205,22 +230,21 @@
                 randomSegment.classList.add('active');
                 activeSegments.push(randomSegment);
                 
-                // Limit the number of active segments
-                if (activeSegments.length > 4) {
+                // Limit the number of active segments to only 1-2 at a time
+                if (activeSegments.length > 2) {
                     const oldestSegment = activeSegments.shift();
                     oldestSegment.classList.remove('active');
                 }
             }
         }
         
-        // Start the animation
-        setInterval(lightRandomSegment, 800);
+        // Start the animation with longer intervals
+        setInterval(lightRandomSegment, 1200);
         
-        // Initial lighting
+        // Initial lighting - just one segment
         setTimeout(() => {
             lightRandomSegment();
-            lightRandomSegment();
-        }, 1000);
+        }, 1500);
     }
     
     document.addEventListener('DOMContentLoaded', function() {
