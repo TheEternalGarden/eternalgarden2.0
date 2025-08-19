@@ -129,9 +129,9 @@ body.zero-page {
 /* SUB-MENU: style only the nested links */
 .menu-items ul li ul.sub-menu {            /* indent the group */
   margin: 6px 0 10px;
-  padding-left: 16px;
-  border-left: 1px solid rgba(255,255,255,.18);
-  text-align: left;                        /* optional: avoid full-center look */
+  padding-left: 0;
+  border-left: none;
+  text-align: center;                      /* center the sub-menu items */
 }
 
 .menu-items ul li ul.sub-menu li a {       /* more specific than the global rule */
@@ -160,8 +160,8 @@ body.zero-page {
   letter-spacing: 0.5px !important;
   padding: 3px 10px !important;
   opacity: 0.8 !important;
-  text-align: left !important;
-  display: block !important;
+  text-align: center !important;
+  display: inline-block !important;
 }
 
 /* Typewriter cursor animation */
