@@ -421,18 +421,25 @@
             playIcon.style.display = 'block';
             pauseIcon.style.display = 'none';
             
-            // Start playing the new track
-            audio.play();
+            // Wait for audio to load before playing
+            audio.addEventListener('canplay', function playAudio() {
+                audio.play().catch(function(error) {
+                    console.log('Audio play failed:', error);
+                });
+                audio.removeEventListener('canplay', playAudio);
+            }, { once: true });
         }
         
         // Navigation button event listeners
         prevTrackBtn.addEventListener('click', function() {
             currentTrackIndex = (currentTrackIndex - 1 + tracks.length) % tracks.length;
+            console.log('Loading track:', currentTrackIndex, tracks[currentTrackIndex]);
             loadTrack(currentTrackIndex);
         });
         
         nextTrackBtn.addEventListener('click', function() {
             currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
+            console.log('Loading track:', currentTrackIndex, tracks[currentTrackIndex]);
             loadTrack(currentTrackIndex);
         });
     });
