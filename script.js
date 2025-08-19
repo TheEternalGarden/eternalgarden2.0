@@ -39,7 +39,9 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Start typewriter effect when menu opens
         if (menuItems.classList.contains('active')) {
-            startTypewriterEffect();
+            setTimeout(() => {
+                startTypewriterEffect();
+            }, 100);
         }
     });
 
@@ -53,22 +55,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Typewriter effect function
     function startTypewriterEffect() {
+        console.log('Starting typewriter effect...');
         const zero1Link = document.querySelector('a[href="zero1.html"]');
         const darksideLink = document.querySelector('a[href="darkside.html"]');
         const kindredLink = document.querySelector('a[href="kindred.html"]');
 
+        console.log('Found elements:', { zero1Link, darksideLink, kindredLink });
+
         if (zero1Link) {
+            console.log('Starting ZERO1 typewriter...');
             typeWriter(zero1Link, 'ZERO1', 100);
         }
         
         setTimeout(() => {
             if (darksideLink) {
+                console.log('Starting DARKSIDE typewriter...');
                 typeWriter(darksideLink, 'DARKSIDE', 100);
             }
         }, 1000);
         
         setTimeout(() => {
             if (kindredLink) {
+                console.log('Starting KINDRED typewriter...');
                 typeWriter(kindredLink, 'KINDRED', 100);
             }
         }, 2000);

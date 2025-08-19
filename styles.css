@@ -146,7 +146,8 @@ body {
 .menu-items ul li a[href="zero1.html"],
 .menu-items ul li .sub-menu li a[href="darkside.html"],
 .menu-items ul li .sub-menu li a[href="kindred.html"] {
-    color: #888 !important;
+    color: #666 !important;
+    font-weight: 300 !important;
 }
 
 .menu-items ul li .sub-menu li a {
