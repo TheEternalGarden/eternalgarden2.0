@@ -93,6 +93,12 @@
             .gallery-container {
                 position: relative;
             }
+            
+            .gallery-section {
+                position: relative;
+                height: 100vh;
+                width: 100%;
+            }
         /* Navigation indicators */
         .nav-indicators {
             position: fixed;
@@ -185,87 +191,97 @@
 
     <div class="gallery-container">
         <!-- Gallery 1 -->
-        <button class="gallery-nav-arrow left" data-gallery="gallery1" aria-label="Previous image">‹</button>
-        <button class="gallery-nav-arrow right" data-gallery="gallery1" aria-label="Next image">›</button>
-        <div class="horizontal-gallery" id="gallery1">
-            <img src="media/images2/1.jpg" alt="Story Image 1">
-            <img src="media/images2/2.jpg" alt="Story Image 2">
-            <img src="media/images2/3.png" alt="Story Image 3">
-            <img src="media/images2/4.jpg" alt="Story Image 4">
-            <img src="media/images2/5.jpg" alt="Story Image 5">
-            <img src="media/images2/6.jpg" alt="Story Image 6">
-            <img src="media/images2/7.jpg" alt="Story Image 7">
-            <img src="media/images2/8.jpg" alt="Story Image 8">
-            <video src="media/videos/zerocapsule1.mp4" controls></video>
+        <div class="gallery-section">
+            <button class="gallery-nav-arrow left" data-gallery="gallery1" aria-label="Previous image">‹</button>
+            <button class="gallery-nav-arrow right" data-gallery="gallery1" aria-label="Next image">›</button>
+            <div class="horizontal-gallery" id="gallery1">
+                <img src="media/images2/1.jpg" alt="Story Image 1">
+                <img src="media/images2/2.jpg" alt="Story Image 2">
+                <img src="media/images2/3.png" alt="Story Image 3">
+                <img src="media/images2/4.jpg" alt="Story Image 4">
+                <img src="media/images2/5.jpg" alt="Story Image 5">
+                <img src="media/images2/6.jpg" alt="Story Image 6">
+                <img src="media/images2/7.jpg" alt="Story Image 7">
+                <img src="media/images2/8.jpg" alt="Story Image 8">
+                <video src="media/videos/zerocapsule1.mp4" controls></video>
+            </div>
         </div>
 
         <!-- Gallery 2 -->
-        <button class="gallery-nav-arrow left" data-gallery="gallery2" aria-label="Previous image">‹</button>
-        <button class="gallery-nav-arrow right" data-gallery="gallery2" aria-label="Next image">›</button>
-        <div class="horizontal-gallery" id="gallery2">
-            <img src="media/images2/visitors/9.jpg" alt="Visitors Image 1">
-            <img src="media/images2/visitors/10.jpg" alt="Visitors Image 2">
-            <img src="media/images2/visitors/11.jpg" alt="Visitors Image 3">
-            <img src="media/images2/visitors/12.jpg" alt="Visitors Image 4">
-            <img src="media/images2/visitors/13.jpg" alt="Visitors Image 5">
-            <img src="media/images2/visitors/14.jpg" alt="Visitors Image 6">
-            <img src="media/images2/visitors/15.jpg" alt="Visitors Image 7">
+        <div class="gallery-section">
+            <button class="gallery-nav-arrow left" data-gallery="gallery2" aria-label="Previous image">‹</button>
+            <button class="gallery-nav-arrow right" data-gallery="gallery2" aria-label="Next image">›</button>
+            <div class="horizontal-gallery" id="gallery2">
+                <img src="media/images2/visitors/9.jpg" alt="Visitors Image 1">
+                <img src="media/images2/visitors/10.jpg" alt="Visitors Image 2">
+                <img src="media/images2/visitors/11.jpg" alt="Visitors Image 3">
+                <img src="media/images2/visitors/12.jpg" alt="Visitors Image 4">
+                <img src="media/images2/visitors/13.jpg" alt="Visitors Image 5">
+                <img src="media/images2/visitors/14.jpg" alt="Visitors Image 6">
+                <img src="media/images2/visitors/15.jpg" alt="Visitors Image 7">
+            </div>
         </div>
 
         <!-- Gallery 3 -->
-        <button class="gallery-nav-arrow left" data-gallery="gallery3" aria-label="Previous image">‹</button>
-        <button class="gallery-nav-arrow right" data-gallery="gallery3" aria-label="Next image">›</button>
-        <div class="horizontal-gallery" id="gallery3">
-            <img src="media/images2/arcadians/17.jpg" alt="Arcadians Image 1">
-            <img src="media/images2/arcadians/18.jpg" alt="Arcadians Image 2">
-            <img src="media/images2/arcadians/19.jpg" alt="Arcadians Image 3">
-            <img src="media/images2/arcadians/20.jpg" alt="Arcadians Image 4">
-            <img src="media/images2/arcadians/21.jpg" alt="Arcadians Image 5">
-            <img src="media/images2/arcadians/22.jpg" alt="Arcadians Image 6">
-            <img src="media/images2/arcadians/23.jpg" alt="Arcadians Image 7">
-            <img src="media/images2/arcadians/24.jpg" alt="Arcadians Image 8">
+        <div class="gallery-section">
+            <button class="gallery-nav-arrow left" data-gallery="gallery3" aria-label="Previous image">‹</button>
+            <button class="gallery-nav-arrow right" data-gallery="gallery3" aria-label="Next image">›</button>
+            <div class="horizontal-gallery" id="gallery3">
+                <img src="media/images2/arcadians/17.jpg" alt="Arcadians Image 1">
+                <img src="media/images2/arcadians/18.jpg" alt="Arcadians Image 2">
+                <img src="media/images2/arcadians/19.jpg" alt="Arcadians Image 3">
+                <img src="media/images2/arcadians/20.jpg" alt="Arcadians Image 4">
+                <img src="media/images2/arcadians/21.jpg" alt="Arcadians Image 5">
+                <img src="media/images2/arcadians/22.jpg" alt="Arcadians Image 6">
+                <img src="media/images2/arcadians/23.jpg" alt="Arcadians Image 7">
+                <img src="media/images2/arcadians/24.jpg" alt="Arcadians Image 8">
+            </div>
         </div>
 
         <!-- Gallery 4 -->
-        <button class="gallery-nav-arrow left" data-gallery="gallery4" aria-label="Previous image">‹</button>
-        <button class="gallery-nav-arrow right" data-gallery="gallery4" aria-label="Next image">›</button>
-        <div class="horizontal-gallery" id="gallery4">
-            <img src="media/images2/humanity/25.jpg" alt="Humanity Image 1">
-            <img src="media/images2/humanity/26.jpg" alt="Humanity Image 2">
-            <img src="media/images2/humanity/27.jpg" alt="Humanity Image 3">
-            <img src="media/images2/humanity/28.jpg" alt="Humanity Image 4">
-            <img src="media/images2/humanity/29.jpg" alt="Humanity Image 5">
-            <img src="media/images2/humanity/30.jpg" alt="Humanity Image 6">
-            <img src="media/images2/humanity/31.jpg" alt="Humanity Image 7">
-            <img src="media/images2/humanity/32.jpg" alt="Humanity Image 8">
-            <img src="media/images2/humanity/33.jpg" alt="Humanity Image 9">
-            <img src="media/images2/humanity/34.jpg" alt="Humanity Image 10">
-            <img src="media/images2/humanity/35.jpg" alt="Humanity Image 11">
-            <img src="media/images2/humanity/36.jpg" alt="Humanity Image 12">
-            <img src="media/images2/humanity/37.jpg" alt="Humanity Image 13">
-            <img src="media/images2/humanity/38.jpg" alt="Humanity Image 14">
-            <img src="media/images2/humanity/39.jpg" alt="Humanity Image 15">
-            <img src="media/images2/humanity/40.jpg" alt="Humanity Image 16">
-            <img src="media/images2/humanity/41.jpg" alt="Humanity Image 17">
-            <img src="media/images2/humanity/42.jpg" alt="Humanity Image 18">
-            <img src="media/images2/humanity/43.jpg" alt="Humanity Image 19">
-            <img src="media/images2/humanity/44.jpg" alt="Humanity Image 20">
-            <img src="media/images2/humanity/45.jpg" alt="Humanity Image 21">
+        <div class="gallery-section">
+            <button class="gallery-nav-arrow left" data-gallery="gallery4" aria-label="Previous image">‹</button>
+            <button class="gallery-nav-arrow right" data-gallery="gallery4" aria-label="Next image">›</button>
+            <div class="horizontal-gallery" id="gallery4">
+                <img src="media/images2/humanity/25.jpg" alt="Humanity Image 1">
+                <img src="media/images2/humanity/26.jpg" alt="Humanity Image 2">
+                <img src="media/images2/humanity/27.jpg" alt="Humanity Image 3">
+                <img src="media/images2/humanity/28.jpg" alt="Humanity Image 4">
+                <img src="media/images2/humanity/29.jpg" alt="Humanity Image 5">
+                <img src="media/images2/humanity/30.jpg" alt="Humanity Image 6">
+                <img src="media/images2/humanity/31.jpg" alt="Humanity Image 7">
+                <img src="media/images2/humanity/32.jpg" alt="Humanity Image 8">
+                <img src="media/images2/humanity/33.jpg" alt="Humanity Image 9">
+                <img src="media/images2/humanity/34.jpg" alt="Humanity Image 10">
+                <img src="media/images2/humanity/35.jpg" alt="Humanity Image 11">
+                <img src="media/images2/humanity/36.jpg" alt="Humanity Image 12">
+                <img src="media/images2/humanity/37.jpg" alt="Humanity Image 13">
+                <img src="media/images2/humanity/38.jpg" alt="Humanity Image 14">
+                <img src="media/images2/humanity/39.jpg" alt="Humanity Image 15">
+                <img src="media/images2/humanity/40.jpg" alt="Humanity Image 16">
+                <img src="media/images2/humanity/41.jpg" alt="Humanity Image 17">
+                <img src="media/images2/humanity/42.jpg" alt="Humanity Image 18">
+                <img src="media/images2/humanity/43.jpg" alt="Humanity Image 19">
+                <img src="media/images2/humanity/44.jpg" alt="Humanity Image 20">
+                <img src="media/images2/humanity/45.jpg" alt="Humanity Image 21">
+            </div>
         </div>
 
         <!-- Gallery 5 -->
-        <button class="gallery-nav-arrow left" data-gallery="gallery5" aria-label="Previous image">‹</button>
-        <button class="gallery-nav-arrow right" data-gallery="gallery5" aria-label="Next image">›</button>
-        <div class="horizontal-gallery" id="gallery5">
-            <img src="media/images2/revelation/46.jpg" alt="Revelation Image 1">
-            <img src="media/images2/revelation/47.jpg" alt="Revelation Image 2">
-            <img src="media/images2/revelation/48.jpg" alt="Revelation Image 3">
-            <img src="media/images2/epilogue/49.jpg" alt="Epilogue Image 1">
-            <img src="media/images2/epilogue/50.jpg" alt="Epilogue Image 2">
-            <img src="media/images2/epilogue/51.jpg" alt="Epilogue Image 3">
-            <img src="media/images2/epilogue/52.jpg" alt="Epilogue Image 4">
-            <img src="media/images2/epilogue/54.jpg" alt="Epilogue Image 5">
-            <img src="media/images2/epilogue/55.jpg" alt="Epilogue Image 6">
+        <div class="gallery-section">
+            <button class="gallery-nav-arrow left" data-gallery="gallery5" aria-label="Previous image">‹</button>
+            <button class="gallery-nav-arrow right" data-gallery="gallery5" aria-label="Next image">›</button>
+            <div class="horizontal-gallery" id="gallery5">
+                <img src="media/images2/revelation/46.jpg" alt="Revelation Image 1">
+                <img src="media/images2/revelation/47.jpg" alt="Revelation Image 2">
+                <img src="media/images2/revelation/48.jpg" alt="Revelation Image 3">
+                <img src="media/images2/epilogue/49.jpg" alt="Epilogue Image 1">
+                <img src="media/images2/epilogue/50.jpg" alt="Epilogue Image 2">
+                <img src="media/images2/epilogue/51.jpg" alt="Epilogue Image 3">
+                <img src="media/images2/epilogue/52.jpg" alt="Epilogue Image 4">
+                <img src="media/images2/epilogue/54.jpg" alt="Epilogue Image 5">
+                <img src="media/images2/epilogue/55.jpg" alt="Epilogue Image 6">
+            </div>
         </div>
     </div>
 
