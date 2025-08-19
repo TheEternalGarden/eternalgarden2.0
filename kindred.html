@@ -30,12 +30,6 @@
             top: 0;
             left: 0;
             z-index: 1;
-            opacity: 0;
-            transition: opacity 2s ease-in-out;
-        }
-        
-        .kindred-video.active {
-            opacity: 1;
         }
         
         .page-title {
@@ -365,36 +359,24 @@
                 setTimeout(() => {
                     fadeOverlay.classList.add('active');
                     
-                    // After fade to black, show video and start playing
+                    // After fade to black, start video immediately
                     setTimeout(() => {
-                        console.log('Attempting to show and play video');
-                        video.classList.add('active');
+                        console.log('Starting video playback');
                         
-                        // Make sure video is loaded and ready
-                        if (video.readyState >= 2) {
-                            console.log('Video is ready, attempting to play');
-                            video.currentTime = 0;
-                            video.play().then(() => {
+                        // Ensure video is at the beginning
+                        video.currentTime = 0;
+                        
+                        // Try to play the video
+                        const playPromise = video.play();
+                        
+                        if (playPromise !== undefined) {
+                            playPromise.then(() => {
                                 console.log('Video started playing successfully');
                             }).catch(error => {
-                                console.error('Error playing video:', error);
+                                console.error('Autoplay failed:', error);
                                 // Show play button if autoplay fails
                                 playButton.classList.add('show');
                             });
-                        } else {
-                            console.log('Video not ready, waiting for canplay event');
-                            video.addEventListener('canplay', function playWhenReady() {
-                                console.log('Video can now play, starting...');
-                                video.currentTime = 0;
-                                video.play().then(() => {
-                                    console.log('Video started playing successfully');
-                                }).catch(error => {
-                                    console.error('Error playing video:', error);
-                                    // Show play button if autoplay fails
-                                    playButton.classList.add('show');
-                                });
-                                video.removeEventListener('canplay', playWhenReady);
-                            }, { once: true });
                         }
                     }, 1000);
                 }, 1000);
