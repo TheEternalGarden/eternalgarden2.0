@@ -30,6 +30,12 @@
             top: 0;
             left: 0;
             z-index: 1;
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+        }
+        
+        .kindred-video.active {
+            opacity: 1;
         }
         
         .page-title {
@@ -87,14 +93,14 @@
             justify-content: center;
             align-items: center;
             z-index: 600;
-            opacity: 0;
-            transition: opacity 1s ease-in-out;
+            opacity: 1;
+            transition: opacity 2s ease-in-out;
             padding: 50px;
             box-sizing: border-box;
         }
         
-        .final-content.active {
-            opacity: 1;
+        .final-content.fade-out {
+            opacity: 0;
         }
         
         .kindred-title {
@@ -176,7 +182,7 @@
     
     <div class="kindred-container">
         <div class="page-title" id="page-title"></div>
-        <video class="kindred-video" controls autoplay muted preload="metadata">
+        <video class="kindred-video" controls muted preload="metadata">
             <source src="media/videos/kindredtrailer.mov" type="video/quicktime">
             <source src="media/videos/kindredtrailer.mov" type="video/mp4">
             Your browser does not support the video tag.
@@ -252,22 +258,8 @@
             // Start "COMING SOON" typewriter effect after title finishes
             setTimeout(typeWriter, 3000);
             
-            // Video ended event
-            video.addEventListener('ended', function() {
-                console.log('Video ended, starting fade effect');
-                
-                // Start fade to black
-                fadeOverlay.classList.add('active');
-                
-                // After fade completes, show final content
-                setTimeout(() => {
-                    finalContent.classList.add('active');
-                    startFinalTypewriter();
-                }, 2000);
-            });
-            
-            // Final typewriter effects
-            function startFinalTypewriter() {
+            // Initial typewriter effects for final content
+            function startInitialTypewriter() {
                 // Typewriter for KINDRED title
                 const kindredTitle = document.getElementById('kindred-title');
                 const titleText = 'KINDRED';
@@ -314,12 +306,38 @@
                         setTimeout(typeNovelComingSoon, 100);
                     } else {
                         novelComingSoon.innerHTML = novelText + '<span class="typewriter-cursor">|</span>';
+                        // After all text is complete, wait a bit then start the transition
+                        setTimeout(startVideoTransition, 2000);
                     }
                 }
                 
                 // Start the sequence
                 typeKindredTitle();
             }
+            
+            // Function to start video transition
+            function startVideoTransition() {
+                console.log('Starting video transition');
+                
+                // Fade out the final content
+                finalContent.classList.add('fade-out');
+                
+                // After content fades out, start fade to black
+                setTimeout(() => {
+                    fadeOverlay.classList.add('active');
+                    
+                    // After fade to black, show video and start playing
+                    setTimeout(() => {
+                        video.classList.add('active');
+                        video.play().catch(error => {
+                            console.error('Error playing video:', error);
+                        });
+                    }, 2000);
+                }, 2000);
+            }
+            
+            // Start the initial typewriter sequence
+            startInitialTypewriter();
         });
     </script>
 </body>
