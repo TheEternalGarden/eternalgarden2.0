@@ -328,7 +328,7 @@
                     <source src="media/videos/dsrunningtrailer.mov" type="video/quicktime">
                     Your browser does not support the video tag.
                 </video>
-                <div class="song-title" id="track-title">DARKSIDE INTRO by TK</div>
+                <div class="song-title" id="track-title">DARKSIDE INTRO</div>
             </div>
             <button class="nav-arrow right" id="next-track">›</button>
         </div>
@@ -376,24 +376,6 @@
     
     <script src="script.js"></script>
     <script>
-    // Typewriter effect for a single paragraph
-    document.addEventListener('DOMContentLoaded', function() {
-        const tw = document.getElementById('typewriter-text');
-        if (!tw) return;
-        const p = tw.querySelector('p');
-        const originalText = p.textContent;
-        p.textContent = '';
-        let charIndex = 0;
-        function typeNextChar() {
-            if (charIndex < originalText.length) {
-                p.textContent += originalText[charIndex];
-                charIndex++;
-                setTimeout(typeNextChar, 55);
-            }
-        }
-        typeNextChar();
-    });
-    
     // Track Data for DARKSIDE
     const tracks = [
         {
@@ -425,8 +407,26 @@
     
     let currentTrackIndex = 0;
     
-    // Custom Audio Player Functionality
+    // Combined DOMContentLoaded event listener
     document.addEventListener('DOMContentLoaded', function() {
+        // Typewriter effect for a single paragraph
+        const tw = document.getElementById('typewriter-text');
+        if (tw) {
+            const p = tw.querySelector('p');
+            const originalText = p.textContent;
+            p.textContent = '';
+            let charIndex = 0;
+            function typeNextChar() {
+                if (charIndex < originalText.length) {
+                    p.textContent += originalText[charIndex];
+                    charIndex++;
+                    setTimeout(typeNextChar, 55);
+                }
+            }
+            typeNextChar();
+        }
+        
+        // Custom Audio Player Functionality
         const audio = document.getElementById('audio-element');
         const playPauseBtn = document.getElementById('play-pause-btn');
         const playIcon = playPauseBtn.querySelector('.play-icon');
@@ -497,6 +497,4 @@
             
             // Update video source
             trackVideo.src = track.video;
-            trackVideo.load();
-            
-          
+            trackVid
