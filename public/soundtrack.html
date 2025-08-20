@@ -324,7 +324,7 @@
         <div class="track-navigation">
             <button class="nav-arrow left" id="prev-track">‹</button>
             <div class="track-content">
-                <video id="track-video" autoplay muted loop style="width: 100%; max-width: 700px; display: block; margin: 0 auto 20px auto; border-radius: 12px; box-shadow: 0 2px 16px rgba(0,0,0,0.08); background: #111;">
+                <video id="track-video" autoplay loop style="width: 100%; max-width: 700px; display: block; margin: 0 auto 20px auto; border-radius: 12px; box-shadow: 0 2px 16px rgba(0,0,0,0.08); background: #111;">
                     <source src="media/videos/sarazero1.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
@@ -524,6 +524,13 @@
             }, { once: true });
         }
         
+        // Enable audio on first user interaction
+        document.addEventListener('click', function enableAudio() {
+            audio.muted = false;
+            audio.volume = 1;
+            document.removeEventListener('click', enableAudio);
+        }, { once: true });
+        
         // Navigation button event listeners
         prevTrackBtn.addEventListener('click', function() {
             currentTrackIndex = (currentTrackIndex - 1 + tracks.length) % tracks.length;
@@ -531,4 +538,16 @@
             loadTrack(currentTrackIndex);
         });
         
-        nextTrackBtn.addEventListener('
+        nextTrackBtn.addEventListener('click', function() {
+            currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
+            console.log('Loading track:', currentTrackIndex, tracks[currentTrackIndex]);
+            loadTrack(currentTrackIndex);
+        });
+        
+        // Load initial track
+        loadTrack(currentTrackIndex);
+    });
+    </script>
+
+</body>
+</html> 
