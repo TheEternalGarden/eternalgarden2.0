@@ -308,6 +308,8 @@
                 <li><a href="soundtracks.html">SOUNDTRACKS</a></li>
                 <li><a href="soundtrack.html">ZERO SOUNDTRACK</a></li>
                 <li><a href="darkside-soundtrack.html">DARKSIDE SOUNDTRACK</a></li>
+                <li><a href="about.html">ABOUT</a></li>
+                <li><a href="oracle.html">ORACLE</a></li>
             </ul>
         </nav>
     </div>
@@ -529,13 +531,4 @@
             loadTrack(currentTrackIndex);
         });
         
-        nextTrackBtn.addEventListener('click', function() {
-            currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
-            console.log('Loading track:', currentTrackIndex, tracks[currentTrackIndex]);
-            loadTrack(currentTrackIndex);
-        });
-    });
-    </script>
-
-</body>
-</html> 
+        nextTrackBtn.addEventListener('
