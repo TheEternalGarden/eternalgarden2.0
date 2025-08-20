@@ -6,6 +6,10 @@
     <title>Soundtrack</title>
     <link rel="stylesheet" href="styles.css">
     <style>
+        body {
+            overflow-y: auto;
+        }
+        
         .soundtrack-container {
             display: flex;
             flex-direction: column;
@@ -13,6 +17,7 @@
             justify-content: center;
             min-height: 100vh;
         }
+        
         .soundtrack-description {
             max-width: 1000px;
             margin-bottom: 32px;
@@ -24,9 +29,18 @@
             color: #fff;
             font-weight: normal;
         }
+        
         .disco-embed {
             border-radius: 12px;
             box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+        }
+        
+        .second-page {
+            min-height: 100vh;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         /* Ensure hamburger menu is visible on soundtrack page */
@@ -68,6 +82,8 @@
             </ul>
         </nav>
     </div>
+    
+    <!-- First page - ZERO soundtrack -->
     <div class="soundtrack-container">
         <div class="soundtrack-description">
             <div class="typewriter" id="typewriter-text">
@@ -120,6 +136,11 @@
                 </div>
             </div>
         </div>
+    </div>
+    
+    <!-- Second page - blank black page -->
+    <div class="second-page">
+        <!-- This is a blank black page that users can scroll down to -->
     </div>
     
     <script src="script.js"></script>
