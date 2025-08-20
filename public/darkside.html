@@ -215,7 +215,7 @@
                 
                 // Typewriter for description
                 const darksideDescription = document.getElementById('darkside-description');
-                const descriptionText = 'DARKSIDE is an audio-visual experience following TK, a traveler seeking the answers from his past. One day he discovers the DARKSIDE archive, an ancient realm holding the history of his Arcadian ancestry. Here, TK must confront ancestral traumas, and unlock his arcadian powers.';
+                const descriptionText = 'DARKSIDE is an audio-visual experience following TK, a traveler seeking the answers from his past. One day he discovers the DARKSIDE archive, an ancient realm holding the history of his Arcadian ancestry. Here, TK must confront ancestral traumas, and unlock his Arcadian powers.';
                 let descIndex = 0;
                 
                 function typeDescription() {
@@ -225,23 +225,23 @@
                         setTimeout(typeDescription, 50);
                     } else {
                         darksideDescription.innerHTML = descriptionText + '<span class="typewriter-cursor">|</span>';
-                        // Start "MUSIC OUT NOW" after description
-                        setTimeout(typeMusicOutNow, 1000);
+                        // Start "LISTEN NOW" after description
+                        setTimeout(typeListenNow, 1000);
                     }
                 }
                 
-                // Typewriter for "MUSIC OUT NOW"
+                // Typewriter for "LISTEN NOW"
                 const musicOutNow = document.getElementById('music-out-now');
-                const musicText = 'MUSIC OUT NOW';
-                let musicIndex = 0;
+                const listenText = 'LISTEN NOW';
+                let listenIndex = 0;
                 
-                function typeMusicOutNow() {
-                    if (musicIndex < musicText.length) {
-                        musicOutNow.innerHTML = musicText.substring(0, musicIndex + 1) + '<span class="typewriter-cursor">|</span>';
-                        musicIndex++;
-                        setTimeout(typeMusicOutNow, 100);
+                function typeListenNow() {
+                    if (listenIndex < listenText.length) {
+                        musicOutNow.innerHTML = listenText.substring(0, listenIndex + 1) + '<span class="typewriter-cursor">|</span>';
+                        listenIndex++;
+                        setTimeout(typeListenNow, 100);
                     } else {
-                        musicOutNow.innerHTML = musicText + '<span class="typewriter-cursor">|</span>';
+                        musicOutNow.innerHTML = '<a href="soundtrack.html" style="color: #fff; text-decoration: none;">' + listenText + '</a><span class="typewriter-cursor">|</span>';
                     }
                 }
                 
