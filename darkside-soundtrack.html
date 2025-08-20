@@ -306,6 +306,7 @@
                     </ul>
                 </li>
                 <li><a href="soundtrack.html">SOUNDTRACK</a></li>
+                <li><a href="darkside-soundtrack.html">DARKSIDE SOUNDTRACK</a></li>
             </ul>
         </nav>
     </div>
@@ -501,4 +502,40 @@
             
             // Update audio source
             audio.src = track.audio;
-   
+            audio.load();
+            
+            // Reset audio player
+            audio.currentTime = 0;
+            progressFill.style.width = '0%';
+            currentTimeSpan.textContent = '0:00';
+            
+            // Reset play button to play state
+            playIcon.style.display = 'block';
+            pauseIcon.style.display = 'none';
+            
+            // Wait for audio to load before playing
+            audio.addEventListener('canplay', function playAudio() {
+                audio.play().catch(function(error) {
+                    console.log('Audio play failed:', error);
+                });
+                audio.removeEventListener('canplay', playAudio);
+            }, { once: true });
+        }
+        
+        // Navigation button event listeners
+        prevTrackBtn.addEventListener('click', function() {
+            currentTrackIndex = (currentTrackIndex - 1 + tracks.length) % tracks.length;
+            console.log('Loading track:', currentTrackIndex, tracks[currentTrackIndex]);
+            loadTrack(currentTrackIndex);
+        });
+        
+        nextTrackBtn.addEventListener('click', function() {
+            currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
+            console.log('Loading track:', currentTrackIndex, tracks[currentTrackIndex]);
+            loadTrack(currentTrackIndex);
+        });
+    });
+    </script>
+
+</body>
+</html> 
