@@ -5,48 +5,60 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eternal Garden</title>
     <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div class="hamburger-menu">
-        <div class="hamburger-icon">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-        <nav class="menu-items">
-            <ul>
-                <li><a href="index.html">HOME</a></li>
-                <li><a href="story-universe.html">STORY UNIVERSE</a></li>
-                <li>
-                    <a href="zero1.html">ZERO1</a>
-                    <ul class="sub-menu">
-                        <li><a href="darkside.html">DARKSIDE</a></li>
-                        <li><a href="kindred.html">KINDRED</a></li>
-                    </ul>
-                </li>
-                <li><a href="soundtracks.html">SOUNDTRACKS</a></li>
-                <li><a href="soundtrack.html">ZERO SOUNDTRACK</a></li>
-                <li><a href="darkside-soundtrack.html">DARKSIDE SOUNDTRACK</a></li>
-                <li><a href="about.html">ABOUT</a></li>
-                <li><a href="oracle.html">ORACLE</a></li>
-            </ul>
-        </nav>
-    </div>
-
-    <div class="video-container">
-        <video id="introVideo" autoplay loop playsinline preload="auto">
-            <source src="./media/videos/gardenerintro.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-        <div id="videoError" class="video-error" style="display: none;">
-            Video failed to load. Please refresh the page.
-        </div>
-        <button id="volumeToggle" class="volume-toggle" aria-label="Toggle sound">
-            <span class="volume-icon">🔇</span>
-        </button>
-        <div class="title">ETERNAL GARDEN</div>
-    </div>
-
-    <script src="script.js"></script>
-</body>
-</html> 
+    <style>
+        body {
+            background: #000;
+            margin: 0;
+            padding: 0;
+            font-family: 'HeliosExt', Arial, Helvetica, sans-serif;
+            color: #fff;
+            overflow: hidden;
+        }
+        
+        .intro-text-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            background: #000;
+            transition: opacity 2s ease-in-out;
+        }
+        
+        .intro-text-container.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .eternal-garden-title {
+            font-size: 3rem;
+            font-weight: 300;
+            letter-spacing: 4px;
+            text-align: center;
+            margin-bottom: 40px;
+            font-family: 'HeliosExt', Arial, Helvetica, sans-serif;
+        }
+        
+        .eternal-garden-subtext {
+            font-size: 1.1rem;
+            font-weight: 300;
+            line-height: 1.6;
+            text-align: center;
+            max-width: 800px;
+            margin-bottom: 40px;
+            letter-spacing: 1px;
+            font-family: 'HeliosExt', Arial, Helvetica, sans-serif;
+        }
+        
+        .typewriter-cursor {
+            animation: blink 1s infinite;
+            color: #888;
+        }
+        
+        @keyframes blink {
+            0%, 50

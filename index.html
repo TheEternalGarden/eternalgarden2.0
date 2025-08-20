@@ -5,6 +5,132 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eternal Garden</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background: #000;
+            margin: 0;
+            padding: 0;
+            font-family: 'HeliosExt', Arial, Helvetica, sans-serif;
+            color: #fff;
+            overflow: hidden;
+        }
+        
+        .intro-text-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            background: #000;
+            transition: opacity 2s ease-in-out;
+        }
+        
+        .intro-text-container.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .eternal-garden-title {
+            font-size: 3rem;
+            font-weight: 300;
+            letter-spacing: 4px;
+            text-align: center;
+            margin-bottom: 40px;
+            font-family: 'HeliosExt', Arial, Helvetica, sans-serif;
+        }
+        
+        .eternal-garden-subtext {
+            font-size: 1.1rem;
+            font-weight: 300;
+            line-height: 1.6;
+            text-align: center;
+            max-width: 800px;
+            margin-bottom: 40px;
+            letter-spacing: 1px;
+            font-family: 'HeliosExt', Arial, Helvetica, sans-serif;
+        }
+        
+        .typewriter-cursor {
+            animation: blink 1s infinite;
+            color: #888;
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+        
+        .video-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            z-index: 0;
+            background-color: #000;
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+        }
+        
+        .video-container.show {
+            opacity: 1;
+        }
+        
+        .video-container video {
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        
+        .volume-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            border: none;
+            color: white;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 2000;
+            font-size: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .volume-toggle:hover {
+            background: rgba(0, 0, 0, 0.9);
+            transform: scale(1.1);
+        }
+        
+        .title {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            font-weight: 300;
+            letter-spacing: 4px;
+            text-align: center;
+            z-index: 1000;
+            font-family: 'HeliosExt', Arial, Helvetica, sans-serif;
+        }
+        
+        @font-face {
+            font-family: 'HeliosExt';
+            src: url('fonts/HeliosExt.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+        }
+    </style>
 </head>
 <body>
     <div class="hamburger-menu">
@@ -27,11 +153,20 @@
                 <li><a href="soundtracks.html">SOUNDTRACKS</a></li>
                 <li><a href="soundtrack.html">ZERO SOUNDTRACK</a></li>
                 <li><a href="darkside-soundtrack.html">DARKSIDE SOUNDTRACK</a></li>
+                <li><a href="about.html">ABOUT</a></li>
+                <li><a href="oracle.html">ORACLE</a></li>
             </ul>
         </nav>
     </div>
 
-    <div class="video-container">
+    <!-- Intro Text Container -->
+    <div class="intro-text-container" id="introTextContainer">
+        <div class="eternal-garden-title" id="eternalGardenTitle"></div>
+        <div class="eternal-garden-subtext" id="eternalGardenSubtext"></div>
+    </div>
+
+    <!-- Video Container -->
+    <div class="video-container" id="videoContainer">
         <video id="introVideo" autoplay loop playsinline preload="auto">
             <source src="./media/videos/gardenerintro.mp4" type="video/mp4">
             Your browser does not support the video tag.
@@ -46,5 +181,110 @@
     </div>
 
     <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const introTextContainer = document.getElementById('introTextContainer');
+            const videoContainer = document.getElementById('videoContainer');
+            const eternalGardenTitle = document.getElementById('eternalGardenTitle');
+            const eternalGardenSubtext = document.getElementById('eternalGardenSubtext');
+            const video = document.getElementById('introVideo');
+            const volumeToggle = document.getElementById('volumeToggle');
+            
+            // Typewriter effect for title
+            const titleText = 'ETERNAL GARDEN';
+            let titleIndex = 0;
+            
+            function typeTitle() {
+                if (titleIndex < titleText.length) {
+                    eternalGardenTitle.innerHTML = titleText.substring(0, titleIndex + 1) + '<span class="typewriter-cursor">|</span>';
+                    titleIndex++;
+                    setTimeout(typeTitle, 100);
+                } else {
+                    eternalGardenTitle.innerHTML = titleText + '<span class="typewriter-cursor">|</span>';
+                    // Start typing subtext after title is complete
+                    setTimeout(typeSubtext, 1000);
+                }
+            }
+            
+            // Typewriter effect for subtext
+            const subtextText = 'Eternal Garden is a sci-fi fantasy epic about a mystical seed with the power to spawn infinite worlds';
+            let subtextIndex = 0;
+            
+            function typeSubtext() {
+                if (subtextIndex < subtextText.length) {
+                    eternalGardenSubtext.innerHTML = subtextText.substring(0, subtextIndex + 1) + '<span class="typewriter-cursor">|</span>';
+                    subtextIndex++;
+                    setTimeout(typeSubtext, 50);
+                } else {
+                    eternalGardenSubtext.innerHTML = subtextText + '<span class="typewriter-cursor">|</span>';
+                    // Fade to black and start video after subtext is complete
+                    setTimeout(startVideoTransition, 2000);
+                }
+            }
+            
+            // Start video transition
+            function startVideoTransition() {
+                // Fade out intro text
+                introTextContainer.classList.add('fade-out');
+                
+                // After fade out, show video container and start video
+                setTimeout(() => {
+                    videoContainer.classList.add('show');
+                    video.play().catch(error => {
+                        console.error('Error playing video:', error);
+                    });
+                }, 2000);
+            }
+            
+            // Start the typewriter sequence
+            setTimeout(typeTitle, 500);
+            
+            // Volume toggle functionality
+            if (video && volumeToggle) {
+                console.log('Video and volume toggle found, initializing...');
+                
+                // Initialize video with sound on
+                video.volume = 0.5;
+                video.muted = true; // Start muted to ensure autoplay works
+                volumeToggle.textContent = '🔇';
+                
+                console.log('Video initialized - muted:', video.muted, 'volume:', video.volume);
+                
+                volumeToggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('Volume toggle clicked, current muted state:', video.muted);
+                    
+                    if (video.muted) {
+                        video.muted = false;
+                        video.volume = 0.5;
+                        volumeToggle.textContent = '🔊';
+                        console.log('Unmuted video');
+                    } else {
+                        video.muted = true;
+                        volumeToggle.textContent = '🔇';
+                        console.log('Muted video');
+                    }
+                });
+                
+                // Try to unmute on first user interaction
+                const unmuteOnInteraction = () => {
+                    if (video.muted) {
+                        video.muted = false;
+                        video.volume = 0.5;
+                        volumeToggle.textContent = '🔊';
+                        console.log('Unmuted video on user interaction');
+                    }
+                    // Remove the event listeners after first interaction
+                    document.removeEventListener('click', unmuteOnInteraction);
+                    document.removeEventListener('keydown', unmuteOnInteraction);
+                };
+                
+                // Listen for user interaction to unmute
+                document.addEventListener('click', unmuteOnInteraction);
+                document.addEventListener('keydown', unmuteOnInteraction);
+            }
+        });
+    </script>
 </body>
 </html> 
