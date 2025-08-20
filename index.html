@@ -27,7 +27,7 @@
             align-items: center;
             z-index: 1000;
             background: #000;
-            transition: opacity 2s ease-in-out;
+            transition: opacity 1s ease-in-out;
         }
         
         .intro-text-container.fade-out {
@@ -77,7 +77,7 @@
             z-index: 0;
             background-color: #000;
             opacity: 0;
-            transition: opacity 2s ease-in-out;
+            transition: opacity 1s ease-in-out;
         }
         
         .video-container.show {
@@ -185,7 +185,7 @@
 
     <!-- Video Container -->
     <div class="video-container" id="videoContainer">
-        <video id="introVideo" autoplay loop playsinline preload="auto">
+        <video id="introVideo" loop playsinline preload="auto">
             <source src="./media/videos/gardenerintro.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
@@ -236,7 +236,7 @@
                 } else {
                     eternalGardenSubtext.innerHTML = subtextText + '<span class="typewriter-cursor">|</span>';
                     // Fade to black and start video after subtext is complete
-                    setTimeout(startVideoTransition, 2000);
+                    setTimeout(startVideoTransition, 1000);
                 }
             }
             
@@ -245,13 +245,17 @@
                 // Fade out intro text
                 introTextContainer.classList.add('fade-out');
                 
-                // After fade out, show video container and start video
+                // After fade out, show video container and start video from beginning
                 setTimeout(() => {
                     videoContainer.classList.add('show');
+                    video.currentTime = 0; // Start from beginning
+                    video.muted = false; // Unmute for audio
+                    video.volume = 0.5;
+                    volumeToggle.textContent = '🔊';
                     video.play().catch(error => {
                         console.error('Error playing video:', error);
                     });
-                }, 2000);
+                }, 1000);
             }
             
             // Start the typewriter sequence
@@ -261,9 +265,10 @@
             if (video && volumeToggle) {
                 console.log('Video and volume toggle found, initializing...');
                 
-                // Initialize video with sound on
+                // Initialize video - don't start playing yet
                 video.volume = 0.5;
-                video.muted = true; // Start muted to ensure autoplay works
+                video.muted = true; // Start muted
+                video.pause(); // Don't autoplay initially
                 volumeToggle.textContent = '🔇';
                 
                 console.log('Video initialized - muted:', video.muted, 'volume:', video.volume);
@@ -284,23 +289,6 @@
                         console.log('Muted video');
                     }
                 });
-                
-                // Try to unmute on first user interaction
-                const unmuteOnInteraction = () => {
-                    if (video.muted) {
-                        video.muted = false;
-                        video.volume = 0.5;
-                        volumeToggle.textContent = '🔊';
-                        console.log('Unmuted video on user interaction');
-                    }
-                    // Remove the event listeners after first interaction
-                    document.removeEventListener('click', unmuteOnInteraction);
-                    document.removeEventListener('keydown', unmuteOnInteraction);
-                };
-                
-                // Listen for user interaction to unmute
-                document.addEventListener('click', unmuteOnInteraction);
-                document.addEventListener('keydown', unmuteOnInteraction);
             }
         });
     </script>
