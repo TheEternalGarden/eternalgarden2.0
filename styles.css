@@ -142,8 +142,8 @@ body {
     margin: 8px 0;
 }
 
-/* Grey color and small font size for ZERO1, DARKSIDE, and KINDRED */
-.menu-items ul li a[href="zero1.html"],
+/* Grey color and small font size for ZERO, DARKSIDE, and KINDRED */
+.menu-items ul li a[href="zero.html"],
 .menu-items ul li .sub-menu li a[href="darkside.html"],
 .menu-items ul li .sub-menu li a[href="kindred.html"],
 .menu-items ul li a[href="soundtrack.html"],
