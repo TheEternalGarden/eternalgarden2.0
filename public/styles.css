@@ -180,7 +180,7 @@ body.zero-page {
 }
 
 /* Make ZERO SOUNDTRACK clickable */
-.menu-items ul li a.zero-soundtrack {
+.menu-items ul li a[href="soundtrack.html"].zero-soundtrack {
   pointer-events: auto !important;
   cursor: pointer !important;
 }
