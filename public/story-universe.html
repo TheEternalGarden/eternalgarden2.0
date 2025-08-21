@@ -22,6 +22,31 @@
             min-height: 100vh;
             padding: 20px;
         }
+        
+        .video-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .video-container video {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .video-title {
+            font-size: 0.9rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #fff;
+            margin: 0;
+            font-family: 'HeliosExt', Arial, sans-serif;
+        }
     </style>
 </head>
 <body>
@@ -48,6 +73,12 @@
     </div>
     
     <div class="story-universe-container">
+        <div class="video-container">
+            <video src="gardenerintro.mp4" controls muted>
+                Your browser does not support the video tag.
+            </video>
+            <p class="video-title">ZERO</p>
+        </div>
     </div>
     
     <script src="script.js"></script>
