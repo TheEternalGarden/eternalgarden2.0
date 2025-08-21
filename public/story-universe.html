@@ -76,10 +76,13 @@
             align-items: flex-start;
             gap: 40px;
             margin: 60px auto;
-            padding: 0 40px;
+            padding: 40px;
             max-width: 1200px;
             width: 100%;
             box-sizing: border-box;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
         }
         
         .video-container {
@@ -89,6 +92,9 @@
             align-items: center;
             text-align: center;
             min-width: 0;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
         }
         
         .video-container video {
@@ -97,7 +103,8 @@
             height: auto;
             border-radius: 8px;
             margin-bottom: 20px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
         
         .video-title {
@@ -108,6 +115,7 @@
             color: #fff;
             margin: 0;
             text-align: center;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
         }
         
         @media (max-width: 768px) {
@@ -156,6 +164,8 @@
         <div class="story-universe-description">
             Welcome to the expansive universe of Eternal Garden, where music, storytelling, and digital art converge to create an immersive narrative experience unlike any other.
         </div>
+        
+        <h2 style="text-align: center; color: #fff; margin: 40px 0; font-size: 2rem; text-transform: uppercase; letter-spacing: 3px;">VIDEO TRAILERS</h2>
         
         <div class="video-section">
             <div class="video-container">
