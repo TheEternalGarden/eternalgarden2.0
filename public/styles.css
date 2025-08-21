@@ -179,8 +179,16 @@ body.zero-page {
   cursor: default !important;
 }
 
-/* Make ZERO SOUNDTRACK clickable */
+/* Make ZERO SOUNDTRACK clickable and small */
 .menu-items ul li a[href="soundtrack.html"].zero-soundtrack {
+  color: #666 !important;
+  font-weight: 300 !important;
+  font-size: 12px !important;
+  letter-spacing: 0.5px !important;
+  padding: 3px 10px !important;
+  opacity: 0.8 !important;
+  text-align: center !important;
+  display: inline-block !important;
   pointer-events: auto !important;
   cursor: pointer !important;
 }
