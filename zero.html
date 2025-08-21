@@ -3,130 +3,163 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZERO - The Eternal Garden</title>
+    <title>Story Gallery</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #000;
-            color: #fff;
-            font-family: Arial, sans-serif;
-            overflow-x: hidden;
-        }
-
-        .page {
-            width: 100vw;
+        .gallery-container {
             height: 100vh;
+            overflow-y: auto;
+            scroll-snap-type: y mandatory;
+        }
+        .horizontal-gallery {
             display: flex;
-            flex-direction: column;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 0;
+            padding: 0;
+            background: #000;
+            height: 100vh;
             align-items: center;
-            justify-content: center;
-            padding: 20px;
-            box-sizing: border-box;
+            justify-content: flex-start;
+            position: relative;
+            width: 100vw;
+            -webkit-overflow-scrolling: touch;
             scroll-snap-align: start;
         }
-
-        .gallery {
-            width: 100%;
-            max-width: 1200px;
-            height: 70vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
-        .gallery-content {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        video {
-            max-width: 100%;
-            max-height: 100%;
+        .horizontal-gallery img, .horizontal-gallery video {
+            flex: 0 0 100vw;
+            max-width: 100vw;
+            max-height: 100vh;
+            width: 100vw;
+            height: 100vh;
             object-fit: contain;
+            border-radius: 0;
+            box-shadow: none;
+            scroll-snap-align: center;
+            transition: transform 0.3s;
+            background: #000;
+            display: block;
         }
-
-        .description {
-            position: relative;
-            font-size: 0.8em;
-            max-width: 800px;
-            width: 90%;
-            text-align: center;
-            line-height: 1.4;
-            opacity: 0.8;
-            margin: 20px auto;
-            padding: 0 20px;
-            box-sizing: border-box;
+        .horizontal-gallery img:hover {
+            transform: scale(1.01);
         }
-
-        .title {
+        body {
+            margin: 0;
+            background: #000;
+            overflow: hidden;
+        }
+                    /* Hide scrollbar for cleaner look */
+            .horizontal-gallery::-webkit-scrollbar {
+                display: none;
+            }
+            .horizontal-gallery {
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+            
+            /* Gallery Navigation arrows */
+            .gallery-nav-arrow {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                background: rgba(0, 0, 0, 0.5);
+                color: white;
+                border: none;
+                border-radius: 50%;
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+                cursor: pointer;
+                z-index: 1000;
+                transition: all 0.3s ease;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .gallery-nav-arrow:hover {
+                background: rgba(0, 0, 0, 0.8);
+                transform: translateY(-50%) scale(1.1);
+            }
+            
+            .gallery-nav-arrow.left {
+                left: 20px;
+            }
+            
+            .gallery-nav-arrow.right {
+                right: 20px;
+            }
+            
+            .gallery-container {
+                position: relative;
+            }
+            
+            .gallery-section {
+                position: relative;
+                height: 100vh;
+                width: 100%;
+            }
+        /* Navigation indicators */
+        .nav-indicators {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+        .nav-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .nav-dot.active {
+            background: #fff;
+        }
+        .arrow {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.3);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+        .arrow:hover {
+            opacity: 1;
+        }
+        .arrow.left {
+            left: 10px;
+        }
+        .arrow.right {
+            right: 10px;
+        }
+        .gallery-title {
             position: fixed;
             top: 20px;
             left: 50%;
             transform: translateX(-50%);
-            width: auto;
-            font-size: 1em;
-            text-align: center;
-            line-height: 1.4;
-            opacity: 0.9;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            letter-spacing: 2px;
-            z-index: 2000;
-        }
-
-        .scroll-container {
-            height: 100vh;
-            overflow-y: scroll;
-            scroll-snap-type: y mandatory;
-        }
-
-        .nav-arrows {
-            position: fixed;
-            top: 50%;
-            left: 0;
-            right: 0;
-            display: flex;
-            justify-content: space-between;
-            padding: 0 20px;
-            transform: translateY(-50%);
-            z-index: 100;
-        }
-
-        .nav-arrow {
-            color: #fff;
-            text-decoration: none;
-            font-size: 2em;
-            padding: 10px;
-            opacity: 0.7;
-            transition: opacity 0.3s;
-        }
-
-        .nav-arrow:hover {
-            opacity: 1;
-        }
-
-        .gallery-arrow {
-            background: rgba(0,0,0,0.5);
-            border: none;
-            color: #fff;
-            font-size: 2em;
+            color: #000;
+            font-size: 24px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.8);
             padding: 10px 20px;
-            cursor: pointer;
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 10;
+            border-radius: 20px;
         }
-
-        .gallery-arrow.left { left: 0; }
-        .gallery-arrow.right { right: 0; }
     </style>
 </head>
 <body>
@@ -141,45 +174,177 @@
                 <li><a href="index.html">HOME</a></li>
                 <li><a href="story-universe.html">STORY UNIVERSE</a></li>
                 <li>
-                    <a href="zero1.html">ZERO1</a>
+                    <a href="zero.html">ZERO</a>
                     <ul class="sub-menu">
                         <li><a href="darkside.html">DARKSIDE</a></li>
                         <li><a href="kindred.html">KINDRED</a></li>
                     </ul>
                 </li>
-                <li><a href="soundtrack.html">SOUNDTRACK</a></li>
+                <li><a href="soundtracks.html">SOUNDTRACKS</a></li>
+                <li><a href="soundtrack.html">ZERO SOUNDTRACK</a></li>
+                <li><a href="darkside-soundtrack.html">DARKSIDE SOUNDTRACK</a></li>
+                <li><a href="about.html">ABOUT</a></li>
+                <li><a href="oracle.html">ORACLE</a></li>
             </ul>
         </nav>
     </div>
-    <div class="scroll-container">
-        <div class="page">
-            <div class="title">ETERNAL GARDEN // ZERO</div>
-            <div class="gallery" style="display: flex; align-items: center; justify-content: center; width: 100%; height: 60vh;">
-                <video src="/media/videos/zerocapsule1.mp4" autoplay loop muted playsinline style="max-width: 100%; max-height: 100%; display: block;"></video>
-            </div>
-            <div class="description">ZERO serves as an exploration into how artists can blur the lines between mediums to create an immersive and impactful storytelling experience. Weaving the mediums of music, narration, imagery and animation together, while combining production tools with artificial intelligence, ZERO is a dynamic and evolving stage setting journey for all who choose to enter the world of Eternal Garden.</div>
-        </div>
-        <div class="page">
-            <div class="description">The CODEX is your key to the Eternal Garden universe. While the CODEX carries many answers to the story of Eternal Garden, it leaves us with even more questions. The book has been engineered to bring the secrets of the garden to life with audio and video experiences. In addition to fantastical visuals, the book also has an AR component; scan each page and experience animation, narrations, and original music.</div>
-        </div>
-        <div class="page">
-            <div class="description">ZEROred artist will embark on a transformative journey to become a main character in the expansive storyline of Eternal Garden. This is the first RPG that musicians play using their creativity.</div>
-        </div>
-        <div class="page">
-            <div class="description">Featured artist videos from the ZERO album. Use the arrows to navigate.</div>
-        </div>
-    </div>
     <div class="nav-arrows">
-        <!-- Navigation arrows removed as requested -->
+        <a href="index.html" class="nav-arrow left">←</a>
+        <a href="index.html" class="nav-arrow right">→</a>
     </div>
+
+    <div class="gallery-container">
+        <!-- Gallery 1 -->
+        <div class="gallery-section">
+            <button class="gallery-nav-arrow left" data-gallery="gallery1" aria-label="Previous image">‹</button>
+            <button class="gallery-nav-arrow right" data-gallery="gallery1" aria-label="Next image">›</button>
+            <div class="horizontal-gallery" id="gallery1">
+                <img src="media/images2/1.jpg" alt="Story Image 1">
+                <img src="media/images2/2.jpg" alt="Story Image 2">
+                <img src="media/images2/3.png" alt="Story Image 3">
+                <img src="media/images2/4.jpg" alt="Story Image 4">
+                <img src="media/images2/5.jpg" alt="Story Image 5">
+                <img src="media/images2/6.jpg" alt="Story Image 6">
+                <img src="media/images2/7.jpg" alt="Story Image 7">
+                <img src="media/images2/8.jpg" alt="Story Image 8">
+                <video src="media/videos/zerocapsule1.mp4" controls></video>
+            </div>
+        </div>
+
+        <!-- Gallery 2 -->
+        <div class="gallery-section">
+            <button class="gallery-nav-arrow left" data-gallery="gallery2" aria-label="Previous image">‹</button>
+            <button class="gallery-nav-arrow right" data-gallery="gallery2" aria-label="Next image">›</button>
+            <div class="horizontal-gallery" id="gallery2">
+                <img src="media/images2/visitors/9.jpg" alt="Visitors Image 1">
+                <img src="media/images2/visitors/10.jpg" alt="Visitors Image 2">
+                <img src="media/images2/visitors/11.jpg" alt="Visitors Image 3">
+                <img src="media/images2/visitors/12.jpg" alt="Visitors Image 4">
+                <img src="media/images2/visitors/13.jpg" alt="Visitors Image 5">
+                <img src="media/images2/visitors/14.jpg" alt="Visitors Image 6">
+                <img src="media/images2/visitors/15.jpg" alt="Visitors Image 7">
+            </div>
+        </div>
+
+        <!-- Gallery 3 -->
+        <div class="gallery-section">
+            <button class="gallery-nav-arrow left" data-gallery="gallery3" aria-label="Previous image">‹</button>
+            <button class="gallery-nav-arrow right" data-gallery="gallery3" aria-label="Next image">›</button>
+            <div class="horizontal-gallery" id="gallery3">
+                <img src="media/images2/arcadians/17.jpg" alt="Arcadians Image 1">
+                <img src="media/images2/arcadians/18.jpg" alt="Arcadians Image 2">
+                <img src="media/images2/arcadians/19.jpg" alt="Arcadians Image 3">
+                <img src="media/images2/arcadians/20.jpg" alt="Arcadians Image 4">
+                <img src="media/images2/arcadians/21.jpg" alt="Arcadians Image 5">
+                <img src="media/images2/arcadians/22.jpg" alt="Arcadians Image 6">
+                <img src="media/images2/arcadians/23.jpg" alt="Arcadians Image 7">
+                <img src="media/images2/arcadians/24.jpg" alt="Arcadians Image 8">
+            </div>
+        </div>
+
+        <!-- Gallery 4 -->
+        <div class="gallery-section">
+            <button class="gallery-nav-arrow left" data-gallery="gallery4" aria-label="Previous image">‹</button>
+            <button class="gallery-nav-arrow right" data-gallery="gallery4" aria-label="Next image">›</button>
+            <div class="horizontal-gallery" id="gallery4">
+                <img src="media/images2/humanity/25.jpg" alt="Humanity Image 1">
+                <img src="media/images2/humanity/26.jpg" alt="Humanity Image 2">
+                <img src="media/images2/humanity/27.jpg" alt="Humanity Image 3">
+                <img src="media/images2/humanity/28.jpg" alt="Humanity Image 4">
+                <img src="media/images2/humanity/29.jpg" alt="Humanity Image 5">
+                <img src="media/images2/humanity/30.jpg" alt="Humanity Image 6">
+                <img src="media/images2/humanity/31.jpg" alt="Humanity Image 7">
+                <img src="media/images2/humanity/32.jpg" alt="Humanity Image 8">
+                <img src="media/images2/humanity/33.jpg" alt="Humanity Image 9">
+                <img src="media/images2/humanity/34.jpg" alt="Humanity Image 10">
+                <img src="media/images2/humanity/35.jpg" alt="Humanity Image 11">
+                <img src="media/images2/humanity/36.jpg" alt="Humanity Image 12">
+                <img src="media/images2/humanity/37.jpg" alt="Humanity Image 13">
+                <img src="media/images2/humanity/38.jpg" alt="Humanity Image 14">
+                <img src="media/images2/humanity/39.jpg" alt="Humanity Image 15">
+                <img src="media/images2/humanity/40.jpg" alt="Humanity Image 16">
+                <img src="media/images2/humanity/41.jpg" alt="Humanity Image 17">
+                <img src="media/images2/humanity/42.jpg" alt="Humanity Image 18">
+                <img src="media/images2/humanity/43.jpg" alt="Humanity Image 19">
+                <img src="media/images2/humanity/44.jpg" alt="Humanity Image 20">
+                <img src="media/images2/humanity/45.jpg" alt="Humanity Image 21">
+            </div>
+        </div>
+
+        <!-- Gallery 5 -->
+        <div class="gallery-section">
+            <button class="gallery-nav-arrow left" data-gallery="gallery5" aria-label="Previous image">‹</button>
+            <button class="gallery-nav-arrow right" data-gallery="gallery5" aria-label="Next image">›</button>
+            <div class="horizontal-gallery" id="gallery5">
+                <img src="media/images2/revelation/46.jpg" alt="Revelation Image 1">
+                <img src="media/images2/revelation/47.jpg" alt="Revelation Image 2">
+                <img src="media/images2/revelation/48.jpg" alt="Revelation Image 3">
+                <img src="media/images2/epilogue/49.jpg" alt="Epilogue Image 1">
+                <img src="media/images2/epilogue/50.jpg" alt="Epilogue Image 2">
+                <img src="media/images2/epilogue/51.jpg" alt="Epilogue Image 3">
+                <img src="media/images2/epilogue/52.jpg" alt="Epilogue Image 4">
+                <img src="media/images2/epilogue/54.jpg" alt="Epilogue Image 5">
+                <img src="media/images2/epilogue/55.jpg" alt="Epilogue Image 6">
+            </div>
+        </div>
+    </div>
+
     <script>
-    let zero4Index = 0;
-    function moveGallery(dir) {
-        const videos = document.querySelectorAll('.zero4-video');
-        videos[zero4Index].style.display = 'none';
-        zero4Index = (zero4Index + dir + videos.length) % videos.length;
-        videos[zero4Index].style.display = 'block';
-    }
+        function initializeGallery(galleryId) {
+            const gallery = document.getElementById(galleryId);
+            const images = gallery.getElementsByTagName('img');
+            const videos = gallery.getElementsByTagName('video');
+            const totalItems = images.length + videos.length;
+            let currentIndex = 0;
+
+            // Arrow navigation
+            const arrowLeft = document.querySelector(`.gallery-nav-arrow.left[data-gallery="${galleryId}"]`);
+            const arrowRight = document.querySelector(`.gallery-nav-arrow.right[data-gallery="${galleryId}"]`);
+
+            arrowLeft.addEventListener('click', () => {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    gallery.scrollTo({
+                        left: currentIndex * window.innerWidth,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+
+            arrowRight.addEventListener('click', () => {
+                if (currentIndex < totalItems - 1) {
+                    currentIndex++;
+                    gallery.scrollTo({
+                        left: currentIndex * window.innerWidth,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+
+            // Update current index on scroll
+            gallery.addEventListener('scroll', () => {
+                const scrollPosition = gallery.scrollLeft;
+                currentIndex = Math.round(scrollPosition / window.innerWidth);
+            });
+        }
+
+        // Initialize all galleries
+        for (let i = 1; i <= 5; i++) {
+            initializeGallery(`gallery${i}`);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            const activeGallery = document.querySelector('.horizontal-gallery:hover');
+            if (activeGallery) {
+                const galleryId = activeGallery.id;
+                const arrowLeft = document.querySelector(`.gallery-nav-arrow.left[data-gallery="${galleryId}"]`);
+                const arrowRight = document.querySelector(`.gallery-nav-arrow.right[data-gallery="${galleryId}"]`);
+                
+                if (e.key === 'ArrowLeft') arrowLeft.click();
+                if (e.key === 'ArrowRight') arrowRight.click();
+            }
+        });
     </script>
     <script src="script.js"></script>
 </body>

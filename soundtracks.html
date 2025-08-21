@@ -299,7 +299,7 @@
                 <li><a href="index.html">HOME</a></li>
                 <li><a href="story-universe.html">STORY UNIVERSE</a></li>
                 <li>
-                    <a href="zero1.html">ZERO1</a>
+                    <a href="zero.html">ZERO</a>
                     <ul class="sub-menu">
                         <li><a href="darkside.html">DARKSIDE</a></li>
                         <li><a href="kindred.html">KINDRED</a></li>
@@ -533,4 +533,11 @@
         
         nextTrackBtn.addEventListener('click', function() {
             currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
- 
+            console.log('Loading track:', currentTrackIndex, tracks[currentTrackIndex]);
+            loadTrack(currentTrackIndex);
+        });
+    });
+    </script>
+
+</body>
+</html> 
