@@ -206,8 +206,8 @@ Type "BEGIN ASSESSMENT" to start your evaluation.`,
                 {
                     id: 2,
                     decisive: true,
-                    text: "Your physical vessel must be prepared. Which genetic enhancement best suits your capabilities?\n\n1. Fire-wielder with unmatched resilience. Do you burn brightly or dangerously?\n2. Fluid, intuitive being who thrive in the unknown. Do you sink or swim?\n3. Nature-bound strategist with an affinity for growth. Do you cultivate or consume?\n4. A guardian of structure, a fortifer of creation and builder of cities\n5. A channeler of light and translator of natural resources.\n6. An architect of expansion, one who paints with metal and designs with ease\n7. A multi-faceted visionary with structure, attuned to the dichotomy of skillsets\n\nEnter your choice (1-7):",
-                    options: ["1", "2", "3", "4", "5", "6", "7"]
+                    text: "Your physical vessel must be prepared. Which genetic enhancement best suits your capabilities?\n\n1. Fire-wielder with unmatched resilience\n2. Fluid, intuitive being who thrive in the unknown\n3. Nature-bound strategist with an affinity for growth\n4. A guardian of structure, a fortifer of creation and builder of cities\n5. A channeler of light and translator of natural resources\n6. An architect of expansion, one who paints with metal and designs with ease\n\nEnter your choice (1-6):",
+                    options: ["1", "2", "3", "4", "5", "6"]
                 },
                 {
                     id: 3,
@@ -245,11 +245,6 @@ Type "BEGIN ASSESSMENT" to start your evaluation.`,
                     race: "CHROMATIC",
                     planet: "Planet Prism",
                     description: `You have been selected for the CHROMATIC race. You will live a life on the Planet Prism. Chromatics possess an innate affinity for architectural innovation and the manipulation of metals. Your existence is centered around your unique ability to shape and interact with the physical world, particularly metals and alloys. This extraordinary gift has led you to become a master architect, engineer and creator of awe-inspiring structures that seamlessly blend technology and aesthetics.`
-                },
-                6: {
-                    race: "SYNTHESIS",
-                    planet: "Planet Nexus",
-                    description: `You have been selected for the SYNTHESIS race. You will live a life on Planet Nexus. Synthesis are multi-faceted visionaries with structure, attuned to the dichotomy of skillsets. Your unique ability to harmonize opposing forces and integrate diverse perspectives makes you a bridge between different worlds and ideologies. You excel at finding balance and creating unity from complexity.`
                 }
             }
         };
@@ -274,16 +269,19 @@ Type "BEGIN ASSESSMENT" to start your evaluation.`,
         }
 
         function startAssessment() {
+            console.log('startAssessment called');
             currentMode = 'assessment';
             assessmentStep = 0;
             userAnswers = {};
             decisiveAnswer = null;
             
+            console.log('About to append intro:', assessmentData.intro);
             appendLine(assessmentData.intro, 'system');
             inputEl.placeholder = "Type 'BEGIN ASSESSMENT' to start...";
         }
 
         function handleAssessmentInput(userInput) {
+            console.log('handleAssessmentInput called with:', userInput, 'step:', assessmentStep);
             if (assessmentStep === 0) {
                 if (userInput.toLowerCase().includes('begin assessment')) {
                     assessmentStep = 1;
@@ -346,6 +344,8 @@ Type "RESTART" to take the assessment again, or ask me anything else about the E
             const userText = inputEl.value.trim();
             if (!userText) return;
             
+            console.log('Form submitted with text:', userText, 'currentMode:', currentMode);
+            
             appendLine(userText, 'user');
             inputEl.value = '';
             
@@ -354,8 +354,10 @@ Type "RESTART" to take the assessment again, or ask me anything else about the E
             } else {
                 // Handle regular chat
                 if (userText.toLowerCase().includes('assessment') || userText.toLowerCase().includes('lifecorp')) {
+                    console.log('Assessment trigger detected, calling startAssessment');
                     startAssessment();
                 } else if (userText.toLowerCase().includes('restart')) {
+                    console.log('Restart trigger detected, calling startAssessment');
                     startAssessment();
                 } else {
                     conversation.push({ role: 'user', content: userText });
