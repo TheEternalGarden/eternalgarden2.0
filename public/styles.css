@@ -193,6 +193,12 @@ body.zero-page {
   cursor: pointer !important;
 }
 
+/* Make SOUNDTRACKS page non-clickable */
+.menu-items ul li a[href="soundtracks.html"] {
+  pointer-events: none !important;
+  cursor: default !important;
+}
+
 /* Typewriter cursor animation */
 @keyframes blink {
   0%, 50% { opacity: 1; }
