@@ -49,22 +49,26 @@
             margin: 0;
         }
         
-        .video-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            width: 100%;
-            max-width: 300px;
+        .story-video-container {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: center !important;
+            text-align: center !important;
+            width: 100% !important;
+            max-width: 300px !important;
+            position: static !important;
+            margin-bottom: 20px !important;
         }
         
-        .video-container video {
-            width: 100%;
-            max-width: 300px;
-            height: auto;
-            border-radius: 8px;
-            margin-bottom: 15px;
+        .story-video-container video {
+            width: 100% !important;
+            max-width: 300px !important;
+            height: auto !important;
+            border-radius: 8px !important;
+            margin-bottom: 15px !important;
+            position: static !important;
+            object-fit: contain !important;
         }
         
         .video-title {
@@ -104,7 +108,7 @@
     <div class="story-universe-container">
         <!-- ZERO Content Section -->
         <div class="content-section">
-            <div class="video-container">
+            <div class="story-video-container">
                 <video src="media/videos/gardenerintro.mp4" controls>
                     Your browser does not support the video tag.
                 </video>
