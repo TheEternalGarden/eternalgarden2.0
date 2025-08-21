@@ -165,14 +165,14 @@ body.zero-page {
   display: inline-block !important;
 }
 
-/* Make SOUNDTRACK page non-clickable and small */
+/* Make SOUNDTRACK page non-clickable but larger */
 .menu-items ul li a[href="soundtrack.html"] {
-  color: #666 !important;
+  color: #fff !important;
   font-weight: 300 !important;
-  font-size: 12px !important;
-  letter-spacing: 0.5px !important;
-  padding: 3px 10px !important;
-  opacity: 0.8 !important;
+  font-size: 2em !important;
+  letter-spacing: 2px !important;
+  padding: 10px 20px !important;
+  opacity: 1 !important;
   text-align: center !important;
   display: inline-block !important;
   pointer-events: none !important;
