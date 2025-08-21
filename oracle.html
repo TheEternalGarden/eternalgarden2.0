@@ -3,173 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LifeCorp Oracle - Eternal Garden</title>
+    <title>ORACLE - Eternal Garden</title>
     <link rel="stylesheet" href="styles.css">
     <style>
         body {
-            background: #000;
-            color: #fff;
-            font-family: 'HeliosExt', Arial, Helvetica, sans-serif;
+            background: #101010;
+            color: #00ff99;
+            font-family: 'Fira Mono', 'Consolas', 'Menlo', monospace;
             margin: 0;
             padding: 0;
             min-height: 100vh;
-            overflow-x: hidden;
         }
-        
         .oracle-container {
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            padding: 40px 20px;
-            box-sizing: border-box;
+            height: 100vh;
+            width: 100vw;
+            margin: 0;
+            border: none;
+            background: #181818;
         }
-        
-        .oracle-content {
-            max-width: 800px;
-            width: 100%;
-            text-align: center;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.8s ease-in-out;
-        }
-        
-        .oracle-content.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
         .oracle-title {
-            font-size: 2.5rem;
-            font-weight: 300;
-            letter-spacing: 4px;
-            margin-bottom: 40px;
+            text-align: center;
+            font-size: 2.5em;
+            letter-spacing: 2px;
+            margin: 32px 0 18px 0;
             color: #00ff99;
         }
-        
-        .oracle-text {
-            font-size: 1.2rem;
-            line-height: 1.8;
-            margin-bottom: 40px;
-            color: #ccc;
-            white-space: pre-line;
-        }
-        
-        .question-container {
-            margin-bottom: 40px;
-        }
-        
-        .question-text {
-            font-size: 1.4rem;
-            font-weight: 300;
-            margin-bottom: 30px;
-            color: #fff;
-            line-height: 1.6;
-        }
-        
-        .options-container {
+        .oracle-chat {
+            flex: 1;
+            overflow-y: auto;
+            padding: 32px 5vw 0 5vw;
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            max-width: 600px;
-            margin: 0 auto;
+            gap: 12px;
         }
-        
+        .oracle-line {
+            font-size: 1.1em;
+            white-space: pre-wrap;
+            font-family: inherit;
+            line-height: 1.5;
+        }
+        .oracle-line.user {
+            color: #00bfff;
+        }
+        .oracle-line.bot {
+            color: #00ff99;
+        }
+        .oracle-line.system {
+            color: #ff6b6b;
+        }
+        .oracle-input-form {
+            display: flex;
+            border-top: 1px solid #222;
+            background: #101010;
+            padding: 18px 5vw;
+        }
+        .oracle-input {
+            flex: 1;
+            background: #181818;
+            color: #00ff99;
+            border: none;
+            font-size: 1.3em;
+            font-family: inherit;
+            padding: 12px;
+            outline: none;
+        }
+        .oracle-send {
+            background: #00ff99;
+            color: #101010;
+            border: none;
+            font-size: 1.3em;
+            padding: 12px 28px;
+            margin-left: 12px;
+            cursor: pointer;
+            font-family: inherit;
+            border-radius: 2px;
+            transition: background 0.2s;
+        }
+        .oracle-send:hover {
+            background: #00bfff;
+            color: #fff;
+        }
+        .oracle-send:disabled {
+            background: #333;
+            color: #666;
+            cursor: not-allowed;
+        }
+        .question-options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 12px;
+        }
         .option-btn {
             background: rgba(0, 255, 153, 0.1);
-            border: 2px solid #00ff99;
+            border: 1px solid #00ff99;
             color: #00ff99;
-            padding: 20px;
-            font-size: 1.1rem;
+            padding: 8px 16px;
+            font-size: 1em;
             font-family: inherit;
             cursor: pointer;
-            transition: all 0.3s ease;
             text-align: left;
-            border-radius: 8px;
+            transition: all 0.2s;
         }
-        
         .option-btn:hover {
             background: rgba(0, 255, 153, 0.2);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 20px rgba(0, 255, 153, 0.3);
         }
-        
         .option-btn.selected {
             background: #00ff99;
-            color: #000;
+            color: #101010;
         }
-        
-        .next-btn {
-            background: #00ff99;
-            color: #000;
-            border: none;
-            padding: 15px 40px;
-            font-size: 1.2rem;
-            font-family: inherit;
-            cursor: pointer;
-            margin-top: 30px;
-            border-radius: 6px;
-            transition: all 0.3s ease;
-            opacity: 0;
-            pointer-events: none;
-        }
-        
-        .next-btn.show {
-            opacity: 1;
-            pointer-events: all;
-        }
-        
-        .next-btn:hover {
-            background: #00bfff;
-            transform: translateY(-2px);
-        }
-        
-        .result-container {
-            text-align: center;
-            max-width: 700px;
-        }
-        
-        .result-title {
-            font-size: 2rem;
-            font-weight: 300;
-            margin-bottom: 30px;
-            color: #00ff99;
-        }
-        
-        .result-text {
-            font-size: 1.3rem;
-            line-height: 1.8;
-            margin-bottom: 30px;
-            color: #ccc;
-            white-space: pre-line;
-        }
-        
-        .restart-btn {
-            background: rgba(0, 255, 153, 0.1);
-            border: 2px solid #00ff99;
-            color: #00ff99;
-            padding: 15px 40px;
-            font-size: 1.2rem;
-            font-family: inherit;
-            cursor: pointer;
-            border-radius: 6px;
-            transition: all 0.3s ease;
-        }
-        
-        .restart-btn:hover {
-            background: #00ff99;
-            color: #000;
-        }
-        
-        .progress-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 4px;
-            background: #00ff99;
-            transition: width 0.5s ease;
-            z-index: 1000;
+        .result-highlight {
+            color: #ff6b6b;
+            font-weight: bold;
         }
         
         /* Ensure hamburger menu is visible */
@@ -190,8 +137,6 @@
     </style>
 </head>
 <body>
-    <div class="progress-bar" id="progressBar"></div>
-    
     <div class="hamburger-menu">
         <div class="hamburger-icon">
             <span></span>
@@ -217,64 +162,57 @@
             </ul>
         </nav>
     </div>
-    
-    <div class="oracle-container" id="oracleContainer">
-        <div class="oracle-content" id="oracleContent">
-            <!-- Content will be dynamically loaded -->
-        </div>
+
+    <div class="oracle-container">
+        <div class="oracle-title">ORACLE TERMINAL</div>
+        <div class="oracle-chat" id="oracleChat"></div>
+        <form class="oracle-input-form" id="oracleForm">
+            <input class="oracle-input" id="oracleInput" type="text" placeholder="Type your question..." autocomplete="off" required />
+            <button class="oracle-send" type="submit">SEND</button>
+        </form>
     </div>
     
     <script src="script.js"></script>
     <script>
-        // LifeCorp Oracle Data
-        const oracleData = {
-            intro: {
-                title: "LIFECORP ORACLE",
-                text: `Welcome, Subject to Lifecorp. Your prior existence has ended. You have been selected for the Nexus Reincarnation Program. Your soul signature has been retrieved and processed. Before your next cycle begins, we must assess your essence.
+        const chatEl = document.getElementById('oracleChat');
+        const formEl = document.getElementById('oracleForm');
+        const inputEl = document.getElementById('oracleInput');
+        const sendBtn = document.querySelector('.oracle-send');
+        
+        let conversation = [];
+        let currentMode = 'chat'; // 'chat' or 'assessment'
+        let assessmentStep = 0;
+        let userAnswers = {};
+        let decisiveAnswer = null;
+
+        // LifeCorp Assessment Data
+        const assessmentData = {
+            intro: `Welcome, Subject to Lifecorp. Your prior existence has ended. You have been selected for the Nexus Reincarnation Program. Your soul signature has been retrieved and processed. Before your next cycle begins, we must assess your essence.
 
 We assume you did your homework, but in case you haven't here's a short story. 
 Nexus is our solar system, our home. A brilliant cosm and collection of planets that operate in a harmony of coexistence. We pride ourselves on our advanced existence, our integration with nature and our never-ending push for excellence and evolution.
 
 In order to maintain the balance, we at Lifecorp have been carefully selected to safeguard the Nexus equilibrium preserving the flow of energy, monitoring planetary integrity, and ensuring no single race or world tips the system into chaos.
 
-Now, it's time to select your next life affiliations. You will be asked a series of questions, and pending your answers, a NEXUS planet and race will be selected for you as you are reborn into your next life. Choose Wisely.`
-            },
+Now, it's time to select your next life affiliations. You will be asked a series of questions, and pending your answers, a NEXUS planet and race will be selected for you as you are reborn into your next life. Choose Wisely.
+
+Type "BEGIN ASSESSMENT" to start your evaluation.`,
             questions: [
                 {
                     id: 1,
-                    text: "Identity confirmed. Let's reconstruct your past. What legacy do you inherit?",
-                    options: [
-                        "Noble Lineage – You come from a line of distinguished figures. Privilege or burden?",
-                        "Rebel Lineage – Your ancestors defied the system. You fight for something greater.",
-                        "Forgotten Past – The records are unclear. Your past is… missing.",
-                        "Self-Made Legacy – No past defines you. Only your actions matter."
-                    ]
+                    text: "Identity confirmed. Let's reconstruct your past. What legacy do you inherit?\n\n1. Noble Lineage – You come from a line of distinguished figures. Privilege or burden?\n2. Rebel Lineage – Your ancestors defied the system. You fight for something greater.\n3. Forgotten Past – The records are unclear. Your past is… missing.\n4. Self-Made Legacy – No past defines you. Only your actions matter.\n\nEnter your choice (1-4):",
+                    options: ["1", "2", "3", "4"]
                 },
                 {
                     id: 2,
                     decisive: true,
-                    text: "Your physical vessel must be prepared. Which genetic enhancement best suits your capabilities?",
-                    options: [
-                        "Fire-wielder with unmatched resilience. Do you burn brightly or dangerously?",
-                        "Fluid, intuitive being who thrive in the unknown. Do you sink or swim?",
-                        "Nature-bound strategist with an affinity for growth. Do you cultivate or consume?",
-                        "A guardian of structure, a fortifer of creation and builder of cities",
-                        "A channeler of light and translator of natural resources.",
-                        "An architect of expansion, one who paints with metal and designs with ease",
-                        "A multi-faceted visionary with structure, attuned to the dichotomy of skillsets"
-                    ]
+                    text: "Your physical vessel must be prepared. Which genetic enhancement best suits your capabilities?\n\n1. Fire-wielder with unmatched resilience. Do you burn brightly or dangerously?\n2. Fluid, intuitive being who thrive in the unknown. Do you sink or swim?\n3. Nature-bound strategist with an affinity for growth. Do you cultivate or consume?\n4. A guardian of structure, a fortifer of creation and builder of cities\n5. A channeler of light and translator of natural resources.\n6. An architect of expansion, one who paints with metal and designs with ease\n7. A multi-faceted visionary with structure, attuned to the dichotomy of skillsets\n\nEnter your choice (1-7):",
+                    options: ["1", "2", "3", "4", "5", "6", "7"]
                 },
                 {
                     id: 3,
-                    text: "Even the strongest minds are shaped by their fears. What lingers within you?",
-                    options: [
-                        "The Truth – Some knowledge is meant to stay buried.",
-                        "The Past – What you've done will always find you.",
-                        "Failure – You will never be enough.",
-                        "Betrayal – Even those closest to you cannot be trusted.",
-                        "My Own Power – You are more dangerous than you realize.",
-                        "Eternal Life – What if you never escape?"
-                    ]
+                    text: "Even the strongest minds are shaped by their fears. What lingers within you?\n\n1. The Truth – Some knowledge is meant to stay buried.\n2. The Past – What you've done will always find you.\n3. Failure – You will never be enough.\n4. Betrayal – Even those closest to you cannot be trusted.\n5. My Own Power – You are more dangerous than you realize.\n6. Eternal Life – What if you never escape?\n\nEnter your choice (1-6):",
+                    options: ["1", "2", "3", "4", "5", "6"]
                 }
             ],
             results: {
@@ -316,137 +254,134 @@ Now, it's time to select your next life affiliations. You will be asked a series
             }
         };
 
-        let currentStep = 0;
-        let userAnswers = {};
-        let decisiveAnswer = null;
-
-        // Initialize the Oracle
-        function initOracle() {
-            showIntro();
-        }
-
-        // Show intro
-        function showIntro() {
-            const content = document.getElementById('oracleContent');
-            content.innerHTML = `
-                <div class="oracle-title">${oracleData.intro.title}</div>
-                <div class="oracle-text">${oracleData.intro.text}</div>
-                <button class="next-btn show" onclick="startQuestions()">BEGIN ASSESSMENT</button>
-            `;
-            content.classList.add('show');
-            updateProgress(0);
-        }
-
-        // Start questions
-        function startQuestions() {
-            currentStep = 0;
-            showQuestion(0);
-        }
-
-        // Show question
-        function showQuestion(questionIndex) {
-            const question = oracleData.questions[questionIndex];
-            const content = document.getElementById('oracleContent');
-            
-            let optionsHtml = '';
-            question.options.forEach((option, index) => {
-                optionsHtml += `
-                    <button class="option-btn" onclick="selectOption(${index})">
-                        ${option}
-                    </button>
-                `;
-            });
-
-            content.innerHTML = `
-                <div class="question-container">
-                    <div class="question-text">${question.text}</div>
-                    <div class="options-container">
-                        ${optionsHtml}
-                    </div>
-                    <button class="next-btn" id="nextBtn" onclick="nextQuestion()" disabled>CONTINUE</button>
-                </div>
-            `;
-            
-            content.classList.remove('show');
-            setTimeout(() => content.classList.add('show'), 100);
-            
-            updateProgress((questionIndex + 1) / (oracleData.questions.length + 1));
-        }
-
-        // Select option
-        function selectOption(optionIndex) {
-            // Remove previous selections
-            document.querySelectorAll('.option-btn').forEach(btn => {
-                btn.classList.remove('selected');
-            });
-            
-            // Select current option
-            event.target.classList.add('selected');
-            
-            // Store answer
-            const currentQuestion = oracleData.questions[currentStep];
-            userAnswers[currentQuestion.id] = optionIndex;
-            
-            // If this is the decisive question, store the answer
-            if (currentQuestion.decisive) {
-                decisiveAnswer = optionIndex;
-            }
-            
-            // Enable next button
-            const nextBtn = document.getElementById('nextBtn');
-            nextBtn.classList.add('show');
-            nextBtn.disabled = false;
-        }
-
-        // Next question
-        function nextQuestion() {
-            currentStep++;
-            
-            if (currentStep < oracleData.questions.length) {
-                showQuestion(currentStep);
+        function appendLine(text, sender) {
+            const line = document.createElement('div');
+            line.className = 'oracle-line ' + sender;
+            chatEl.appendChild(line);
+            if (sender === 'bot') {
+                typeWriter(line, text);
             } else {
-                showResults();
+                line.textContent = text;
+            }
+            chatEl.scrollTop = chatEl.scrollHeight;
+        }
+
+        function typeWriter(element, text, i = 0) {
+            if (i < text.length) {
+                element.textContent += text.charAt(i);
+                setTimeout(() => typeWriter(element, text, i + 1), 18);
             }
         }
 
-        // Show results
-        function showResults() {
-            const content = document.getElementById('oracleContent');
-            const result = oracleData.results[decisiveAnswer];
-            
-            content.innerHTML = `
-                <div class="result-container">
-                    <div class="result-title">ASSESSMENT COMPLETE</div>
-                    <div class="result-text">Your path is set. LifeCorp has granted you a second chance. Use it wisely.
-
-${result.description}</div>
-                    <button class="restart-btn" onclick="restartOracle()">TAKE ASSESSMENT AGAIN</button>
-                </div>
-            `;
-            
-            content.classList.remove('show');
-            setTimeout(() => content.classList.add('show'), 100);
-            
-            updateProgress(1);
-        }
-
-        // Restart oracle
-        function restartOracle() {
-            currentStep = 0;
+        function startAssessment() {
+            currentMode = 'assessment';
+            assessmentStep = 0;
             userAnswers = {};
             decisiveAnswer = null;
-            showIntro();
+            
+            appendLine(assessmentData.intro, 'system');
+            inputEl.placeholder = "Type 'BEGIN ASSESSMENT' to start...";
         }
 
-        // Update progress bar
-        function updateProgress(progress) {
-            const progressBar = document.getElementById('progressBar');
-            progressBar.style.width = (progress * 100) + '%';
+        function handleAssessmentInput(userInput) {
+            if (assessmentStep === 0) {
+                if (userInput.toLowerCase().includes('begin assessment')) {
+                    assessmentStep = 1;
+                    setTimeout(() => {
+                        appendLine(assessmentData.questions[0].text, 'bot');
+                        inputEl.placeholder = "Enter your choice (1-4)...";
+                    }, 1000);
+                } else {
+                    appendLine("Please type 'BEGIN ASSESSMENT' to start your evaluation.", 'system');
+                }
+                return;
+            }
+
+            const currentQuestion = assessmentData.questions[assessmentStep - 1];
+            const validOptions = currentQuestion.options;
+            
+            if (validOptions.includes(userInput)) {
+                const answerIndex = parseInt(userInput) - 1;
+                userAnswers[currentQuestion.id] = answerIndex;
+                
+                if (currentQuestion.decisive) {
+                    decisiveAnswer = answerIndex;
+                }
+                
+                assessmentStep++;
+                
+                if (assessmentStep <= assessmentData.questions.length) {
+                    setTimeout(() => {
+                        appendLine(assessmentData.questions[assessmentStep - 1].text, 'bot');
+                        const nextOptions = assessmentData.questions[assessmentStep - 1].options;
+                        inputEl.placeholder = `Enter your choice (1-${nextOptions.length})...`;
+                    }, 1000);
+                } else {
+                    showAssessmentResults();
+                }
+            } else {
+                appendLine(`Invalid input. Please enter a number between 1 and ${validOptions.length}.`, 'system');
+            }
         }
 
-        // Initialize when page loads
+        function showAssessmentResults() {
+            const result = assessmentData.results[decisiveAnswer];
+            const resultText = `ASSESSMENT COMPLETE
+
+Your path is set. LifeCorp has granted you a second chance. Use it wisely.
+
+${result.description}
+
+Type "RESTART" to take the assessment again, or ask me anything else about the Eternal Garden universe.`;
+            
+            setTimeout(() => {
+                appendLine(resultText, 'system');
+                currentMode = 'chat';
+                inputEl.placeholder = "Ask me anything...";
+            }, 1000);
+        }
+
+        formEl.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const userText = inputEl.value.trim();
+            if (!userText) return;
+            
+            appendLine(userText, 'user');
+            inputEl.value = '';
+            
+            if (currentMode === 'assessment') {
+                handleAssessmentInput(userText);
+            } else {
+                // Handle regular chat
+                if (userText.toLowerCase().includes('assessment') || userText.toLowerCase().includes('lifecorp')) {
+                    startAssessment();
+                } else {
+                    conversation.push({ role: 'user', content: userText });
+                    try {
+                        const res = await fetch('/api/oracle', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ conversation })
+                        });
+                        const data = await res.json();
+                        if (data && data.reply) {
+                            appendLine(data.reply, 'bot');
+                            conversation.push({ role: 'assistant', content: data.reply });
+                        } else {
+                            appendLine('Error: No response from Oracle.', 'bot');
+                        }
+                    } catch (err) {
+                        appendLine('I am the Oracle of the Eternal Garden. Ask me about the universe, the races, the planets, or type "assessment" to begin your LifeCorp evaluation.', 'bot');
+                    }
+                }
+            }
+        });
+
+        // Initialize with welcome message
         document.addEventListener('DOMContentLoaded', function() {
-            initOracle();
+            setTimeout(() => {
+                appendLine('Welcome to the Oracle Terminal. I am the keeper of knowledge for the Eternal Garden universe.\n\nAsk me about the races, planets, or type "assessment" to begin your LifeCorp evaluation.', 'bot');
+            }, 500);
         });
     </script>
 </body>
