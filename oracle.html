@@ -355,6 +355,8 @@ Type "RESTART" to take the assessment again, or ask me anything else about the E
                 // Handle regular chat
                 if (userText.toLowerCase().includes('assessment') || userText.toLowerCase().includes('lifecorp')) {
                     startAssessment();
+                } else if (userText.toLowerCase().includes('restart')) {
+                    startAssessment();
                 } else {
                     conversation.push({ role: 'user', content: userText });
                     try {
@@ -368,7 +370,7 @@ Type "RESTART" to take the assessment again, or ask me anything else about the E
                             appendLine(data.reply, 'bot');
                             conversation.push({ role: 'assistant', content: data.reply });
                         } else {
-                            appendLine('Error: No response from Oracle.', 'bot');
+                            appendLine('I am the Oracle of the Eternal Garden. Ask me about the universe, the races, the planets, or type "assessment" to begin your LifeCorp evaluation.', 'bot');
                         }
                     } catch (err) {
                         appendLine('I am the Oracle of the Eternal Garden. Ask me about the universe, the races, the planets, or type "assessment" to begin your LifeCorp evaluation.', 'bot');
