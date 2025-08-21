@@ -25,10 +25,19 @@
         
         .content-section {
             display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            justify-content: center;
+            text-align: center;
+            margin-top: 60px;
+            gap: 60px;
+        }
+        
+        .video-section {
+            display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
-            margin-top: 60px;
         }
         
         .section-title {
@@ -109,17 +118,33 @@
     </div>
     
     <div class="story-universe-container">
-        <!-- ZERO Content Section -->
+        <!-- Content Section -->
         <div class="content-section">
-            <div class="story-video-container">
-                <video src="media/videos/gardenerintro.mp4" controls>
-                    Your browser does not support the video tag.
-                </video>
+            <!-- KINDRED Section -->
+            <div class="video-section">
+                <div class="story-video-container">
+                    <video src="media/videos/kindredtrailer.mov" controls>
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <h1 class="section-title">KINDRED</h1>
+                <p class="section-description">
+                    In the ash valleys of planet Phoenix, a young Kindred girl named Red uncovers her innate power and questions the social chains forged by the ruling Elites of the Nexus solar system.
+                </p>
             </div>
-            <h1 class="section-title">ZERO</h1>
-            <p class="section-description">
-                ZERO is the living archive of the Eternal Garden, detailing its origins and the epic throughline from which entire worlds and stories emerge
-            </p>
+            
+            <!-- ZERO Section -->
+            <div class="video-section">
+                <div class="story-video-container">
+                    <video src="media/videos/gardenerintro.mp4" controls>
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <h1 class="section-title">ZERO</h1>
+                <p class="section-description">
+                    ZERO is the living archive of the Eternal Garden, detailing its origins and the epic throughline from which entire worlds and stories emerge
+                </p>
+            </div>
         </div>
     </div>
     
