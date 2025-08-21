@@ -165,10 +165,24 @@ body.zero-page {
   display: inline-block !important;
 }
 
-/* Make SOUNDTRACK page non-clickable */
+/* Make SOUNDTRACK page non-clickable and small */
 .menu-items ul li a[href="soundtrack.html"] {
+  color: #666 !important;
+  font-weight: 300 !important;
+  font-size: 12px !important;
+  letter-spacing: 0.5px !important;
+  padding: 3px 10px !important;
+  opacity: 0.8 !important;
+  text-align: center !important;
+  display: inline-block !important;
   pointer-events: none !important;
   cursor: default !important;
+}
+
+/* Make ZERO SOUNDTRACK clickable */
+.menu-items ul li a.zero-soundtrack {
+  pointer-events: auto !important;
+  cursor: pointer !important;
 }
 
 /* Typewriter cursor animation */
