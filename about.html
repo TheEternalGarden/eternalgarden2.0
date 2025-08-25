@@ -12,9 +12,14 @@
             padding: 0 !important;
             font-family: 'HeliosExt', Arial, Helvetica, sans-serif !important;
             color: #fff !important;
-            overflow-y: auto !important;
-            overflow-x: hidden !important;
-            min-height: 100vh !important;
+            overflow: hidden !important;
+            height: 100vh !important;
+        }
+        
+        .page-wrapper {
+            height: 100vh;
+            overflow-y: auto;
+            overflow-x: hidden;
         }
         
         .about-container {
@@ -89,16 +94,17 @@
         </nav>
     </div>
 
-    
-    <div class="about-container">
-        <div class="about-title" id="aboutTitle"></div>
-        <div class="about-text" id="aboutText" style="font-size: 0.9rem;"></div>
-        <div id="aboutFounded" style="font-size: 0.8rem; margin-top: 10px;"></div>
-    </div>
-    
-    <!-- Second page - blank black page -->
-    <div class="second-page">
-        <div style="color: white; font-size: 48px; opacity: 0.8; text-align: center;">SECOND PAGE<br><span style="font-size: 16px; opacity: 0.5;">Scroll down to see this</span></div>
+    <div class="page-wrapper">
+        <div class="about-container">
+            <div class="about-title" id="aboutTitle"></div>
+            <div class="about-text" id="aboutText" style="font-size: 0.9rem;"></div>
+            <div id="aboutFounded" style="font-size: 0.8rem; margin-top: 10px;"></div>
+        </div>
+        
+        <!-- Second page - blank black page -->
+        <div class="second-page">
+            <div style="color: white; font-size: 48px; opacity: 0.8; text-align: center;">SECOND PAGE<br><span style="font-size: 16px; opacity: 0.5;">Scroll down to see this</span></div>
+        </div>
     </div>
     
     <script src="script.js"></script>
