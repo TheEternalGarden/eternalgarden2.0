@@ -189,14 +189,7 @@
         const assessmentData = {
             intro: `Welcome, Subject to Lifecorp. Your prior existence has ended. You have been selected for the Nexus Reincarnation Program. Your soul signature has been retrieved and processed. Before your next cycle begins, we must assess your essence.
 
-We assume you did your homework, but in case you haven't here's a short story. 
-Nexus is our solar system, our home. A brilliant cosm and collection of planets that operate in a harmony of coexistence. We pride ourselves on our advanced existence, our integration with nature and our never-ending push for excellence and evolution.
-
-In order to maintain the balance, we at Lifecorp have been carefully selected to safeguard the Nexus equilibrium preserving the flow of energy, monitoring planetary integrity, and ensuring no single race or world tips the system into chaos.
-
-Now, it's time to select your next life affiliations. You will be asked a series of questions, and pending your answers, a NEXUS planet and race will be selected for you as you are reborn into your next life. Choose Wisely.
-
-Type "BEGIN ASSESSMENT" to start your evaluation.`,
+Type "assessment" to begin your LifeCorp evaluation.`,
             questions: [
                 {
                     id: 1,
@@ -384,7 +377,7 @@ Type "RESTART" to take the assessment again, or ask me anything else about the E
         // Initialize with welcome message
         document.addEventListener('DOMContentLoaded', function() {
             setTimeout(() => {
-                appendLine('Welcome to the Oracle Terminal. I am the keeper of knowledge for the Eternal Garden universe.\n\nAsk me about the races, planets, or type "assessment" to begin your LifeCorp evaluation.', 'bot');
+                appendLine('Welcome, Subject to Lifecorp. Your prior existence has ended. You have been selected for the Nexus Reincarnation Program. Your soul signature has been retrieved and processed. Before your next cycle begins, we must assess your essence.\n\nType "assessment" to begin your LifeCorp evaluation.', 'bot');
             }, 500);
         });
     </script>
