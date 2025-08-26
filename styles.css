@@ -115,7 +115,16 @@ body {
 }
 
 .menu-items ul li a {
+.menu-items ul li:not(.sub-menu li) {
     color: #fff;
+    text-decoration: none;
+    font-size: 2em;
+    font-weight: 300;
+    letter-spacing: 2px;
+    transition: 0.3s ease;
+    display: inline-block;
+    padding: 10px 20px;
+}    color: #fff;
     text-decoration: none;
     font-size: 2em;
     font-weight: 300;
@@ -284,4 +293,4 @@ body {
     border-radius: 5px;
     text-align: center;
     z-index: 1000;
-} 
+} .menu-items ul li:not(a) { color: #fff; font-size: 2em; font-weight: 300; letter-spacing: 2px; }
