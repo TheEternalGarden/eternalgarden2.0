@@ -111,7 +111,7 @@ body {
 }
 
 .menu-items ul li {
-    margin: 20px 0 0 0;
+    margin: 20px 0;
 }
 
 .menu-items ul li a {
@@ -307,4 +307,9 @@ body {
     padding: 10px 20px !important;
     text-decoration: none !important;
     transition: 0.3s ease !important;
+}
+
+/* Remove bottom margin from li elements that contain submenus */
+.menu-items ul li:has(ul.sub-menu) {
+    margin-bottom: 0;
 }
