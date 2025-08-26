@@ -162,10 +162,11 @@
                 <li><a href="index.html">HOME</a></li>
                 <li>STORY</li>
                 <li>
-                    <a href="zero.html">ZERO</a>
+                    <a href="projects.html">PROJECTS</a>
                     <ul class="sub-menu">
+                        <li><a href="rebirth.html">REBIRTH</a></li>
                         <li><a href="darkside.html">DARKSIDE</a></li>
-                        <li><a href="kindred.html">KINDRED</a></li>
+                        <li><a href="zero.html">ZERO</a></li>
                     </ul>
                 </li>
                 <li><a href="soundtrack.html">SOUNDTRACK</a></li>
@@ -215,11 +216,11 @@
                 if (titleIndex < titleText.length) {
                     eternalGardenTitle.innerHTML = titleText.substring(0, titleIndex + 1) + '<span class="typewriter-cursor">|</span>';
                     titleIndex++;
-                    setTimeout(typeTitle, 100);
+                    setTimeout(typeTitle, 30);
                 } else {
                     eternalGardenTitle.innerHTML = titleText + '<span class="typewriter-cursor">|</span>';
                     // Start typing subtext after title is complete
-                    setTimeout(typeSubtext, 1000);
+                    setTimeout(typeSubtext, 300);
                 }
             }
             
@@ -231,11 +232,11 @@
                 if (subtextIndex < subtextText.length) {
                     eternalGardenSubtext.innerHTML = subtextText.substring(0, subtextIndex + 1) + '<span class="typewriter-cursor">|</span>';
                     subtextIndex++;
-                    setTimeout(typeSubtext, 50);
+                    setTimeout(typeSubtext, 20);
                 } else {
                     eternalGardenSubtext.innerHTML = subtextText + '<span class="typewriter-cursor">|</span>';
                     // Fade to black and start video after subtext is complete
-                    setTimeout(startVideoTransition, 1000);
+                    setTimeout(startVideoTransition, 300);
                 }
             }
             
@@ -254,7 +255,7 @@
                     video.play().catch(error => {
                         console.error('Error playing video:', error);
                     });
-                }, 1000);
+                }, 300);
             }
             
             // Start the typewriter sequence

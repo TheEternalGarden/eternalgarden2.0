@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROJECTS - Eternal Garden</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'HeliosExt', Arial, Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            overflow-y: auto;
+        }
+        
+        .projects-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            padding-top: 20px;
+            padding-bottom: 100px;
+        }
+        
+        .projects-title {
+            font-size: 3rem;
+            font-weight: 300;
+            letter-spacing: 4px;
+            text-align: center;
+            margin-bottom: 40px;
+            font-family: 'HeliosExt', Arial, Helvetica, sans-serif;
+            color: #fff;
+        }
+        
+        .projects-content {
+            max-width: 800px;
+            font-size: 1.2rem;
+            line-height: 1.7;
+            text-align: center;
+            opacity: 0.9;
+        }
+        
+        @font-face {
+            font-family: 'HeliosExt';
+            src: url('fonts/HeliosExt.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+        }
+    </style>
+</head>
+<body>
+    <div class="hamburger-menu">
+        <div class="hamburger-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <nav class="menu-items">
+            <ul>
+                <li><a href="index.html">HOME</a></li>
+                <li>STORY</li>
+                <li>
+                    <a href="projects.html">PROJECTS</a>
+                    <ul class="sub-menu">
+                        <li><a href="rebirth.html">REBIRTH</a></li>
+                        <li><a href="darkside.html">DARKSIDE</a></li>
+                        <li><a href="zero.html">ZERO</a></li>
+                    </ul>
+                </li>
+                <li><a href="soundtrack.html">SOUNDTRACK</a></li>
+                <li><a href="soundtrack.html" class="zero-soundtrack">ZERO SOUNDTRACK</a></li>
+                <li><a href="darkside-soundtrack.html">DARKSIDE SOUNDTRACK</a></li>
+                <li><a href="about.html">ABOUT</a></li>
+                <li><a href="oracle.html">ORACLE</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="projects-container">
+        <div class="projects-title">PROJECTS</div>
+        <div class="projects-content">
+            Welcome to the Eternal Garden projects. Here you'll find our latest works and creative endeavors.
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
