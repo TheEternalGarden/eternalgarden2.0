@@ -220,7 +220,7 @@
                 if (titleIndex < titleText.length) {
                     eternalGardenTitle.innerHTML = titleText.substring(0, titleIndex + 1) + '<span class="typewriter-cursor">|</span>';
                     titleIndex++;
-                    setTimeout(typeTitle, 30);
+                    setTimeout(typeTitle, 80);
                 } else {
                     eternalGardenTitle.innerHTML = titleText + '<span class="typewriter-cursor">|</span>';
                     // Start typing subtext after title is complete
@@ -236,7 +236,7 @@
                 if (subtextIndex < subtextText.length) {
                     eternalGardenSubtext.innerHTML = subtextText.substring(0, subtextIndex + 1) + '<span class="typewriter-cursor">|</span>';
                     subtextIndex++;
-                    setTimeout(typeSubtext, 20);
+                    setTimeout(typeSubtext, 50);
                 } else {
                     eternalGardenSubtext.innerHTML = subtextText + '<span class="typewriter-cursor">|</span>';
                     // Fade to black and start video after subtext is complete

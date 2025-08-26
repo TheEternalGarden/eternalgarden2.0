@@ -44,6 +44,26 @@
             opacity: 0.7;
         }
         
+        .coming-soon-text {
+            font-family: 'HeliosExt', Arial, Helvetica, sans-serif;
+            font-size: 1.2rem;
+            color: #fff;
+            text-align: center;
+            margin-top: 50px;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+        
+        .typewriter-cursor {
+            animation: blink 1s infinite;
+            color: #888;
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+        
         @font-face {
             font-family: 'HeliosExt';
             src: url('fonts/HeliosExt.otf') format('opentype');
@@ -89,8 +109,29 @@
         <div class="rebirth-content">
             A new beginning awaits.
         </div>
+        <div class="coming-soon-text" id="comingSoonText"></div>
     </div>
     
     <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const comingSoonText = document.getElementById('comingSoonText');
+            const text = 'COMING SOON';
+            let index = 0;
+            
+            function typeComingSoon() {
+                if (index < text.length) {
+                    comingSoonText.innerHTML = text.substring(0, index + 1) + '<span class="typewriter-cursor">|</span>';
+                    index++;
+                    setTimeout(typeComingSoon, 100);
+                } else {
+                    comingSoonText.innerHTML = text + '<span class="typewriter-cursor">|</span>';
+                }
+            }
+            
+            // Start typing after a short delay
+            setTimeout(typeComingSoon, 500);
+        });
+    </script>
 </body>
 </html>
