@@ -117,7 +117,7 @@ body {
 .menu-items ul li a {
     color: #fff;
     text-decoration: none;
-    font-size: 1em;
+    font-size: 1.5em;
     font-weight: 300;
     letter-spacing: 2px;
     transition: 0.3s ease;
@@ -128,7 +128,7 @@ body {
 .menu-items ul li:not(.sub-menu li) {
     color: #fff;
     text-decoration: none;
-    font-size: 1em;
+    font-size: 1.5em;
     font-weight: 300;
     letter-spacing: 2px;
     transition: 0.3s ease;
@@ -161,7 +161,7 @@ body {
 .menu-items ul li a[href="darkside-soundtrack.html"] {
   color: #666 !important;
   font-weight: 300 !important;
-  font-size: 6px !important;
+  font-size: 8px !important;
   letter-spacing: 0.5px !important;
   padding: 3px 10px !important;
   opacity: 0.8 !important;
@@ -172,7 +172,7 @@ body {
 .menu-items ul li .sub-menu li a {
     color: #999 !important;
     text-decoration: none !important;
-    font-size: 6px !important;
+    font-size: 8px !important;
     font-weight: 200 !important;
     letter-spacing: 0.5px !important;
     transition: 0.3s ease !important;
@@ -183,7 +183,7 @@ body {
 
 /* Additional specific selector to ensure sub-menu styling */
 .hamburger-menu .menu-items ul li .sub-menu li a {
-    font-size: 6px !important;
+    font-size: 8px !important;
     color: #999 !important;
     font-weight: 200 !important;
 }
@@ -300,7 +300,7 @@ body {
 /* STORY menu item styling to match HOME and other main menu items */
 .story-menu-item {
     color: #fff !important;
-    font-size: 1em !important;
+    font-size: 1.5em !important;
     font-weight: 300 !important;
     letter-spacing: 2px !important;
     display: inline-block !important;
