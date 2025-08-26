@@ -210,3 +210,15 @@ body.zero-page {
   color: #888;
 }
 
+
+/* STORY menu item styling to match HOME and other main menu items */
+.story-menu-item {
+    color: #fff !important;
+    font-size: 2em !important;
+    font-weight: 300 !important;
+    letter-spacing: 2px !important;
+    display: inline-block !important;
+    padding: 10px 20px !important;
+    text-decoration: none !important;
+    transition: 0.3s ease !important;
+}
