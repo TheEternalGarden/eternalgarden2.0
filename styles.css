@@ -294,3 +294,5 @@ body {
     text-align: center;
     z-index: 1000;
 } .menu-items ul li:not(a) { color: #fff; font-size: 2em; font-weight: 300; letter-spacing: 2px; }
+.menu-items ul li:contains("STORY") { color: #fff !important; font-size: 2em !important; font-weight: 300 !important; letter-spacing: 2px !important; }
+.story-menu-item { color: #fff !important; font-size: 2em !important; font-weight: 300 !important; letter-spacing: 2px !important; display: inline-block !important; padding: 10px 20px !important; }
