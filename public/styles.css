@@ -171,7 +171,7 @@ body.zero-page {
   font-weight: 300 !important;
   font-size: 2em !important;
   letter-spacing: 2px !important;
-  padding: 10px 20px !important;
+  padding: 10px 20px 0 20px !important;
   opacity: 1 !important;
   text-align: center !important;
   display: inline-block !important;
@@ -218,7 +218,7 @@ body.zero-page {
     font-weight: 300 !important;
     letter-spacing: 2px !important;
     display: inline-block !important;
-    padding: 10px 20px !important;
+    padding: 10px 20px 0 20px !important;
     text-decoration: none !important;
     transition: 0.3s ease !important;
 }
