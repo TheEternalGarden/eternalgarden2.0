@@ -185,13 +185,13 @@
         const sendBtn = document.querySelector('.oracle-send');
         
         let conversation = [];
-        let currentMode = 'chat'; // 'chat' or 'assessment'
-        let assessmentStep = 0;
+        let currentMode = 'chat'; // 'chat' or 'calibrate'
+        let calibrateStep = 0;
         let userAnswers = {};
         let decisiveAnswer = null;
 
         // LifeCorp Assessment Data
-        const assessmentData = {
+        const calibrateData = {
             intro: `We assume you did your homework, but in case you haven't here's a short story. 
 Nexus is our solar system, our home. A brilliant cosm and collection of planets that operate in a harmony of coexistence. We pride ourselves on our advanced existence, our integration with nature and our never-ending push for excellence and evolution.
 
@@ -273,23 +273,23 @@ Type "BEGIN ASSESSMENT" to start your evaluation.`,
 
         function startAssessment() {
             console.log('startAssessment called');
-            currentMode = 'assessment';
-            assessmentStep = 0;
+            currentMode = 'calibrate';
+            calibrateStep = 0;
             userAnswers = {};
             decisiveAnswer = null;
             
-            console.log('About to append intro:', assessmentData.intro);
-            appendLine(assessmentData.intro, 'system');
+            console.log('About to append intro:', calibrateData.intro);
+            appendLine(calibrateData.intro, 'system');
             inputEl.placeholder = "Type 'BEGIN ASSESSMENT' to start...";
         }
 
         function handleAssessmentInput(userInput) {
-            console.log('handleAssessmentInput called with:', userInput, 'step:', assessmentStep);
-            if (assessmentStep === 0) {
-                if (userInput.toLowerCase().includes('begin assessment')) {
-                    assessmentStep = 1;
+            console.log('handleAssessmentInput called with:', userInput, 'step:', calibrateStep);
+            if (calibrateStep === 0) {
+                if (userInput.toLowerCase().includes('begin calibrate')) {
+                    calibrateStep = 1;
                     setTimeout(() => {
-                        appendLine(assessmentData.questions[0].text, 'bot');
+                        appendLine(calibrateData.questions[0].text, 'bot');
                         inputEl.placeholder = "Enter your choice (1-4)...";
                     }, 1000);
                 } else {
@@ -298,7 +298,7 @@ Type "BEGIN ASSESSMENT" to start your evaluation.`,
                 return;
             }
 
-            const currentQuestion = assessmentData.questions[assessmentStep - 1];
+            const currentQuestion = calibrateData.questions[calibrateStep - 1];
             const validOptions = currentQuestion.options;
             
             if (validOptions.includes(userInput)) {
@@ -309,12 +309,12 @@ Type "BEGIN ASSESSMENT" to start your evaluation.`,
                     decisiveAnswer = answerIndex;
                 }
                 
-                assessmentStep++;
+                calibrateStep++;
                 
-                if (assessmentStep <= assessmentData.questions.length) {
+                if (calibrateStep <= calibrateData.questions.length) {
                     setTimeout(() => {
-                        appendLine(assessmentData.questions[assessmentStep - 1].text, 'bot');
-                        const nextOptions = assessmentData.questions[assessmentStep - 1].options;
+                        appendLine(calibrateData.questions[calibrateStep - 1].text, 'bot');
+                        const nextOptions = calibrateData.questions[calibrateStep - 1].options;
                         inputEl.placeholder = `Enter your choice (1-${nextOptions.length})...`;
                     }, 1000);
                 } else {
@@ -326,14 +326,14 @@ Type "BEGIN ASSESSMENT" to start your evaluation.`,
         }
 
         function showAssessmentResults() {
-            const result = assessmentData.results[decisiveAnswer];
+            const result = calibrateData.results[decisiveAnswer];
             const resultText = `ASSESSMENT COMPLETE
 
 Your path is set. LifeCorp has granted you a second chance. Use it wisely.
 
 ${result.description}
 
-Type "RESTART" to take the assessment again, or ask me anything else about the Eternal Garden universe.`;
+Type "RESTART" to take the calibrate again, or ask me anything else about the Eternal Garden universe.`;
             
             setTimeout(() => {
                 appendLine(resultText, 'system');
@@ -352,11 +352,11 @@ Type "RESTART" to take the assessment again, or ask me anything else about the E
             appendLine(userText, 'user');
             inputEl.value = '';
             
-            if (currentMode === 'assessment') {
+            if (currentMode === 'calibrate') {
                 handleAssessmentInput(userText);
             } else {
                 // Handle regular chat
-                if (userText.toLowerCase().includes('assessment') || userText.toLowerCase().includes('lifecorp')) {
+                if (userText.toLowerCase().includes('calibrate') || userText.toLowerCase().includes('lifecorp')) {
                     console.log('Assessment trigger detected, calling startAssessment');
                     startAssessment();
                 } else if (userText.toLowerCase().includes('restart')) {
@@ -375,10 +375,10 @@ Type "RESTART" to take the assessment again, or ask me anything else about the E
                             appendLine(data.reply, 'bot');
                             conversation.push({ role: 'assistant', content: data.reply });
                         } else {
-                            appendLine('I am the Oracle of the Eternal Garden. Ask me about the universe, the races, the planets, or type "assessment" to begin your LifeCorp evaluation.', 'bot');
+                            appendLine('I am the Oracle of the Eternal Garden. Ask me about the universe, the races, the planets, or type "calibrate" to begin your LifeCorp evaluation.', 'bot');
                         }
                     } catch (err) {
-                        appendLine('I am the Oracle of the Eternal Garden. Ask me about the universe, the races, the planets, or type "assessment" to begin your LifeCorp evaluation.', 'bot');
+                        appendLine('I am the Oracle of the Eternal Garden. Ask me about the universe, the races, the planets, or type "calibrate" to begin your LifeCorp evaluation.', 'bot');
                     }
                 }
             }
@@ -387,7 +387,7 @@ Type "RESTART" to take the assessment again, or ask me anything else about the E
         // Initialize with welcome message
         document.addEventListener('DOMContentLoaded', function() {
             setTimeout(() => {
-                appendLine('Welcome, Subject to Lifecorp. Your prior existence has ended. You have been selected for the Nexus Reincarnation Program. Your soul signature has been retrieved and processed. Before your next cycle begins, we must assess your essence.\n\nType "assessment" to begin your LifeCorp evaluation.', 'bot');
+                appendLine('Welcome, Subject to Lifecorp. Your prior existence has ended. You have been selected for the Nexus Reincarnation Program. Your soul signature has been retrieved and processed. Before your next cycle begins, we must assess your essence.\n\nType "calibrate" to begin your LifeCorp evaluation.', 'bot');
             }, 500);
         });
     </script>
