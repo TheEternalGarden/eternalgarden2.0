@@ -285,11 +285,12 @@
                     }, { once: true });
                 });
                 
-                // Allow unmuting after user interaction
+                // Allow unmuting after user interaction - improved version
                 mobileVideo.addEventListener('click', function() {
                     if (mobileVideo.muted) {
                         mobileVideo.muted = false;
-                        console.log('Mobile video unmuted');
+                        mobileVideo.volume = 1.0; // Set volume to full
+                        console.log('Mobile video unmuted and volume set to full');
                     }
                 });
                 
@@ -297,6 +298,16 @@
                 mobileVideo.addEventListener('volumechange', function() {
                     if (mobileVideo.volume > 0) {
                         mobileVideo.muted = false;
+                        console.log('Mobile video unmuted via volume controls');
+                    }
+                });
+                
+                // Add touch event for better mobile interaction
+                mobileVideo.addEventListener('touchend', function() {
+                    if (mobileVideo.muted) {
+                        mobileVideo.muted = false;
+                        mobileVideo.volume = 1.0;
+                        console.log('Mobile video unmuted via touch');
                     }
                 });
             }
