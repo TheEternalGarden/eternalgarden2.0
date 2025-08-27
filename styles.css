@@ -197,7 +197,21 @@ body {
 /* Make PROJECTS page non-clickable */
 
 /* Style PROJECTS and STORY spans to match menu items */
-.menu-items ul li span {
+
+/* Ensure spans have same font size as links */
+.menu-items ul li span,
+.hamburger-menu .menu-items ul li span {
+    font-size: 1.5em !important;
+    color: #fff !important;
+    text-decoration: none !important;
+    font-family: 'HeliosExt', Arial, Helvetica, sans-serif !important;
+    font-weight: 300 !important;
+    letter-spacing: 2px !important;
+    transition: 0.3s ease !important;
+    display: inline-block !important;
+    padding: 10px 20px !important;
+    cursor: default !important;
+}.menu-items ul li span {
     color: #fff;
     text-decoration: none;
     font-size: 1.5em;
