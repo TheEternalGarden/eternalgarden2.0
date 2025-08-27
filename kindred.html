@@ -217,22 +217,6 @@
             const fadeOverlay = document.getElementById('fade-overlay');
             const finalContent = document.getElementById('final-content');
             
-            // Typewriter effect for page title
-            const pageTitle = document.getElementById('page-title');
-            let titleIndex = 0;
-            
-            function typeTitle() {
-                if (titleIndex < titleText.length) {
-                    pageTitle.innerHTML = titleText.substring(0, titleIndex + 1) + '<span class="typewriter-cursor">|</span>';
-                    titleIndex++;
-                    setTimeout(typeTitle, 100);
-                } else {
-                    pageTitle.innerHTML = titleText + '<span class="typewriter-cursor">|</span>';
-                }
-            }
-            
-            // Start title typewriter effect immediately
-            typeTitle();
             
             // Initial typewriter effects for final content
             function startInitialTypewriter() {
