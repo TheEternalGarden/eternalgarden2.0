@@ -196,6 +196,19 @@ body {
 
 /* Make PROJECTS page non-clickable */
 
+/* Style PROJECTS span to match menu items */
+.menu-items ul li span {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.5em;
+    font-family: 'HeliosExt', Arial, Helvetica, sans-serif;
+    font-weight: 300;
+    letter-spacing: 2px;
+    transition: 0.3s ease;
+    display: inline-block;
+    padding: 10px 20px;
+    cursor: default;
+}
 /* Additional specificity for PROJECTS non-clickable */
 .hamburger-menu .menu-items ul li a[href="projects.html"],
 .menu-items ul li a[href="projects.html"] {
