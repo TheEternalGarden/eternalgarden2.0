@@ -193,6 +193,15 @@ body {
 }
 
 /* Helios Font */
+
+/* Make PROJECTS page non-clickable */
+.menu-items ul li a[href="projects.html"] {
+    pointer-events: none !important;
+    cursor: default !important;
+    color: #fff !important;
+    text-decoration: none !important;
+}        }
+
 @font-face {
     font-family: 'HeliosExt';
     src: url('/fonts/HeliosExt.otf') format('opentype');
