@@ -239,6 +239,8 @@
     <div class="gallery-container">
         <!-- Consolidated Gallery -->
         <div class="gallery-section">
+            <button class="gallery-nav-arrow left" data-gallery="consolidated-gallery" aria-label="Previous image">‹</button>
+            <button class="gallery-nav-arrow right" data-gallery="consolidated-gallery" aria-label="Next image">›</button>            <div class="horizontal-gallery" id="consolidated-gallery">
                 <img src="media/images2/1.jpg" alt="Story Image 1">
                 <img src="media/images2/2.jpg" alt="Story Image 2">
                 <img src="media/images2/3.png" alt="Story Image 3">
@@ -298,6 +300,115 @@
 
     </div>
 
+    <script>
+        function initializeGallery(galleryId) {
+            const gallery = document.getElementById(galleryId);
+            const images = gallery.getElementsByTagName("img");
+            const totalItems = images.length;
+            let currentIndex = 0;
+
+            // Arrow navigation
+            const arrowLeft = document.querySelector(`.gallery-nav-arrow.left[data-gallery="${galleryId}"]`);
+            const arrowRight = document.querySelector(`.gallery-nav-arrow.right[data-gallery="${galleryId}"]`);
+
+            if (arrowLeft && arrowRight) {
+                arrowLeft.addEventListener("click", () => {
+                    if (currentIndex > 0) {
+                        currentIndex--;
+                        gallery.scrollTo({
+                            left: currentIndex * window.innerWidth,
+                            behavior: "smooth"
+                        });
+                    }
+                });
+
+                arrowRight.addEventListener("click", () => {
+                    if (currentIndex < totalItems - 1) {
+                        currentIndex++;
+                        gallery.scrollTo({
+                            left: currentIndex * window.innerWidth,
+                            behavior: "smooth"
+                        });
+                    }
+                });
+            }
+
+            // Update current index on scroll
+            gallery.addEventListener("scroll", () => {
+                const scrollPosition = gallery.scrollLeft;
+                currentIndex = Math.round(scrollPosition / window.innerWidth);
+            });
+        }
+
+        // Initialize consolidated gallery
+        document.addEventListener("DOMContentLoaded", () => {
+            initializeGallery("consolidated-gallery");
+        });
+
+        // Keyboard navigation
+        document.addEventListener("keydown", (e) => {
+            const activeGallery = document.querySelector(".horizontal-gallery:hover");
+            if (activeGallery) {
+                const galleryId = activeGallery.id;
+                const arrowLeft = document.querySelector(`.gallery-nav-arrow.left[data-gallery="${galleryId}"]`);
+                const arrowRight = document.querySelector(`.gallery-nav-arrow.right[data-gallery="${galleryId}"]`);
+                
+                if (e.key === "ArrowLeft") arrowLeft.click();
+                if (e.key === "ArrowRight") arrowRight.click();
+            }
+        });                }
+            });
+
+            arrowRight.addEventListener("click", () => {
+                if (currentIndex < totalItems - 1) {
+                    currentIndex++;
+                    gallery.scrollTo({
+                        left: currentIndex * window.innerWidth,
+                        behavior: "smooth"
+                    });
+                }
+            });
+
+            // Update current index on scroll
+            gallery.addEventListener("scroll", () => {
+                const scrollPosition = gallery.scrollLeft;
+                currentIndex = Math.round(scrollPosition / window.innerWidth);
+            });
+        }                }
+            });
+
+            arrowRight.addEventListener('click', () => {
+                if (currentIndex < totalItems - 1) {
+                    currentIndex++;
+                    gallery.scrollTo({
+                        left: currentIndex * window.innerWidth,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+
+            // Update current index on scroll
+            gallery.addEventListener('scroll', () => {
+                const scrollPosition = gallery.scrollLeft;
+                currentIndex = Math.round(scrollPosition / window.innerWidth);
+            });
+        }
+
+        // Initialize consolidated gallery
+        initializeGallery("consolidated-gallery");
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            const activeGallery = document.querySelector('.horizontal-gallery:hover');
+            if (activeGallery) {
+                const galleryId = activeGallery.id;
+                const arrowLeft = document.querySelector(`.gallery-nav-arrow.left[data-gallery="${galleryId}"]`);
+                const arrowRight = document.querySelector(`.gallery-nav-arrow.right[data-gallery="${galleryId}"]`);
+                
+                if (e.key === 'ArrowLeft') arrowLeft.click();
+                if (e.key === 'ArrowRight') arrowRight.click();
+            }
+        });
+    </script>
     <script src="script.js"></script>
 </body>
 </html> 
