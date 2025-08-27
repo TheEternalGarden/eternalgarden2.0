@@ -160,6 +160,47 @@
             padding: 10px 20px;
             border-radius: 20px;
         }
+        
+        /* Fix hamburger menu positioning */
+        .hamburger-menu {
+            position: fixed !important;
+            top: 20px !important;
+            right: 20px !important;
+            z-index: 1000 !important;
+        }
+        
+        .hamburger-icon {
+            width: 30px !important;
+            height: 20px !important;
+            position: relative !important;
+            cursor: pointer !important;
+            z-index: 1001 !important;
+        }
+        
+        .hamburger-icon span {
+            display: block !important;
+            position: absolute !important;
+            height: 2px !important;
+            width: 100% !important;
+            background: #fff !important;
+            border-radius: 2px !important;
+            opacity: 1 !important;
+            left: 0 !important;
+            transform: rotate(0deg) !important;
+            transition: .25s ease-in-out !important;
+        }
+        
+        .hamburger-icon span:nth-child(1) {
+            top: 0px !important;
+        }
+        
+        .hamburger-icon span:nth-child(2) {
+            top: 9px !important;
+        }
+        
+        .hamburger-icon span:nth-child(3) {
+            top: 18px !important;
+        }        }
     </style>
 </head>
 <body>
