@@ -37,6 +37,16 @@
             left: 0;
         }
         
+        /* Desktop video (show on larger screens) */
+        .desktop-video {
+            display: block;
+        }
+        
+        /* Mobile video (hide on larger screens) */
+        .mobile-video {
+            display: none;
+        }
+        
         .fade-overlay {
             position: fixed;
             top: 0;
@@ -109,9 +119,23 @@
             color: #888;
         }
         
-                @keyframes blink {
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+        
         /* Mobile responsive styles for DARKSIDE page */
         @media screen and (max-width: 768px) {
+            /* Hide desktop video on mobile */
+            .desktop-video {
+                display: none;
+            }
+            
+            /* Show mobile video on mobile */
+            .mobile-video {
+                display: block;
+            }
+            
             .fullscreen-video {
                 width: 100vw;
                 height: 100vh;
@@ -162,8 +186,6 @@
             .music-out-now {
                 font-size: 0.8rem;
             }
-        }            0%, 50% { opacity: 1; }
-            51%, 100% { opacity: 0; }
         }
         
         /* Ensure hamburger menu is visible on darkside page */
@@ -216,9 +238,17 @@
         </nav>    </div>
     
     <div class="darkside-container">
-        <video class="fullscreen-video" autoplay playsinline controls preload="metadata">
+        <!-- Desktop video (vertical) -->
+        <video class="fullscreen-video desktop-video" autoplay playsinline controls preload="metadata">
             <source src="media/videos/dsrunningtrailer.mov" type="video/quicktime">
             <source src="media/videos/dsrunningtrailer.mov" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        
+        <!-- Mobile video (horizontal) -->
+        <video class="fullscreen-video mobile-video" autoplay playsinline controls preload="metadata">
+            <source src="media/videos/darksideverticaltrailer.mov" type="video/quicktime">
+            <source src="media/videos/darksideverticaltrailer.mov" type="video/mp4">
             Your browser does not support the video tag.
         </video>
     </div>
@@ -234,12 +264,13 @@
     <script src="script.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const video = document.querySelector('.fullscreen-video');
+            const desktopVideo = document.querySelector('.desktop-video');
+            const mobileVideo = document.querySelector('.mobile-video');
             const fadeOverlay = document.getElementById('fade-overlay');
             const finalContent = document.getElementById('final-content');
             
-            // Video ended event
-            video.addEventListener('ended', function() {
+            // Function to handle video end
+            function handleVideoEnd() {
                 console.log('Video ended, starting fade effect');
                 
                 // Start fade to black
@@ -250,7 +281,11 @@
                     finalContent.classList.add('active');
                     startFinalTypewriter();
                 }, 2000);
-            });
+            }
+            
+            // Add event listeners to both videos
+            desktopVideo.addEventListener('ended', handleVideoEnd);
+            mobileVideo.addEventListener('ended', handleVideoEnd);
             
             // Final typewriter effects
             function startFinalTypewriter() {
