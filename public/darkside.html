@@ -245,10 +245,9 @@
             Your browser does not support the video tag.
         </video>
         
-        <!-- Mobile video (horizontal) -->
+        <!-- Mobile video (horizontal) - placeholder for new video -->
         <video class="fullscreen-video mobile-video" autoplay playsinline muted controls preload="metadata" webkit-playsinline>
-            <source src="media/videos/darksideverticaltrailer.mov" type="video/quicktime">
-            <source src="media/videos/darksideverticaltrailer.mov" type="video/mp4">
+            <!-- New mobile video will be added here -->
             Your browser does not support the video tag.
         </video>
     </div>
@@ -283,6 +282,21 @@
                             console.log('Mobile video play failed:', e);
                         });
                     }, { once: true });
+                });
+                
+                // Allow unmuting after user interaction
+                mobileVideo.addEventListener('click', function() {
+                    if (mobileVideo.muted) {
+                        mobileVideo.muted = false;
+                        console.log('Mobile video unmuted');
+                    }
+                });
+                
+                // Also allow unmuting via controls
+                mobileVideo.addEventListener('volumechange', function() {
+                    if (mobileVideo.volume > 0) {
+                        mobileVideo.muted = false;
+                    }
                 });
             }
             
