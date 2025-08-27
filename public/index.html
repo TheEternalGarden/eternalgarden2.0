@@ -63,7 +63,19 @@
         }
         
         @keyframes blink {
-            0%, 50% { opacity: 1; }
+        /* Make PROJECTS page non-clickable on homepage */
+        .hamburger-menu .menu-items ul li a[href="projects.html"] {
+            pointer-events: none !important;
+            cursor: default !important;
+            color: #fff !important;
+            text-decoration: none !important;
+        }        /* Make PROJECTS page non-clickable on homepage */
+        .hamburger-menu .menu-items ul li a[href="projects.html"] {
+            pointer-events: none !important;
+            cursor: default !important;
+            color: #fff !important;
+            text-decoration: none !important;
+        }            0%, 50% { opacity: 1; }
             51%, 100% { opacity: 0; }
         }
         /* Mobile responsive for homepage */

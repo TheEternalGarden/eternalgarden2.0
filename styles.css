@@ -195,7 +195,16 @@ body {
 /* Helios Font */
 
 /* Make PROJECTS page non-clickable */
+
+/* Additional specificity for PROJECTS non-clickable */
+.hamburger-menu .menu-items ul li a[href="projects.html"],
 .menu-items ul li a[href="projects.html"] {
+    pointer-events: none !important;
+    cursor: default !important;
+    color: #fff !important;
+    text-decoration: none !important;
+    opacity: 1 !important;
+}.menu-items ul li a[href="projects.html"] {
     pointer-events: none !important;
     cursor: default !important;
     color: #fff !important;
