@@ -196,7 +196,7 @@ body {
 
 /* Make PROJECTS page non-clickable */
 
-/* Style PROJECTS span to match menu items */
+/* Style PROJECTS and STORY spans to match menu items */
 .menu-items ul li span {
     color: #fff;
     text-decoration: none;
