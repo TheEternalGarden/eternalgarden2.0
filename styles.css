@@ -118,6 +118,7 @@ body {
     color: #fff;
     text-decoration: none;
     font-size: 1.5em;
+    font-family: 'HeliosExt', Arial, Helvetica, sans-serif;
     font-weight: 300;
     letter-spacing: 2px;
     transition: 0.3s ease;
@@ -129,6 +130,7 @@ body {
     color: #fff;
     text-decoration: none;
     font-size: 1.5em;
+    font-family: 'HeliosExt', Arial, Helvetica, sans-serif;
     font-weight: 300;
     letter-spacing: 2px;
     transition: 0.3s ease;
@@ -173,6 +175,7 @@ body {
     color: #999 !important;
     text-decoration: none !important;
     font-size: 10px !important;
+    font-family: 'HeliosExt', Arial, Helvetica, sans-serif !important;
     font-weight: 200 !important;
     letter-spacing: 0.5px !important;
     transition: 0.3s ease !important;
@@ -184,8 +187,18 @@ body {
 /* Additional specific selector to ensure sub-menu styling */
 .hamburger-menu .menu-items ul li .sub-menu li a {
     font-size: 10px !important;
+    font-family: 'HeliosExt', Arial, Helvetica, sans-serif !important;
     color: #999 !important;
     font-weight: 200 !important;
+}
+
+/* Helios Font */
+@font-face {
+    font-family: 'HeliosExt';
+    src: url('/fonts/HeliosExt.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
 }
 
 /* Typewriter cursor animation */
