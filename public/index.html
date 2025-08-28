@@ -63,21 +63,18 @@
         }
         
         @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+        
         /* Make PROJECTS page non-clickable on homepage */
         .hamburger-menu .menu-items ul li a[href="projects.html"] {
             pointer-events: none !important;
             cursor: default !important;
             color: #fff !important;
             text-decoration: none !important;
-        }        /* Make PROJECTS page non-clickable on homepage */
-        .hamburger-menu .menu-items ul li a[href="projects.html"] {
-            pointer-events: none !important;
-            cursor: default !important;
-            color: #fff !important;
-            text-decoration: none !important;
-        }            0%, 50% { opacity: 1; }
-            51%, 100% { opacity: 0; }
         }
+        
         /* Mobile responsive for homepage */
         @media screen and (max-width: 768px) {
             .eternal-garden-title {
@@ -129,8 +126,6 @@
                 line-height: 1.3;
                 margin-bottom: 20px;
             }
-        }            0%, 50% { opacity: 1; }
-            51%, 100% { opacity: 0; }
         }
         
         .video-container {
@@ -256,7 +251,7 @@
 
     <!-- Video Container -->
     <div class="video-container" id="videoContainer">
-        <video id="introVideo" loop playsinline preload="auto">
+        <video id="introVideo" loop playsinline webkit-playsinline preload="auto" autoplay muted>
             <source src="./media/videos/gardenerintro.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
@@ -319,17 +314,43 @@
                 setTimeout(() => {
                     videoContainer.classList.add('show');
                     video.currentTime = 0; // Start from beginning
-                    video.muted = false; // Unmute for audio
+                    
+                    // For mobile compatibility, start muted and let user unmute
+                    video.muted = true; // Keep muted for mobile autoplay
                     video.volume = 0.5;
-                    volumeToggle.textContent = '🔊';
+                    volumeToggle.textContent = '🔇';
+                    
+                    // Try to play the video
                     video.play().catch(error => {
                         console.error('Error playing video:', error);
+                        // If autoplay fails, add click/touch to play functionality
+                        videoContainer.addEventListener('click', function() {
+                            video.play().catch(e => console.error('Still cannot play:', e));
+                        });
+                        videoContainer.addEventListener('touchend', function() {
+                            video.play().catch(e => console.error('Still cannot play:', e));
+                        });
                     });
                 }, 300);
             }
             
             // Start the typewriter sequence
             setTimeout(typeTitle, 500);
+            
+            // Mobile autoplay fallback - add touch/click to play functionality
+            let autoplayAttempted = false;
+            document.addEventListener('click', function() {
+                if (!autoplayAttempted && video.paused) {
+                    autoplayAttempted = true;
+                    video.play().catch(e => console.error('Mobile autoplay fallback failed:', e));
+                }
+            });
+            document.addEventListener('touchend', function() {
+                if (!autoplayAttempted && video.paused) {
+                    autoplayAttempted = true;
+                    video.play().catch(e => console.error('Mobile autoplay fallback failed:', e));
+                }
+            });
             
             // Volume toggle functionality
             if (video && volumeToggle) {
