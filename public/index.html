@@ -315,10 +315,21 @@
                     videoContainer.classList.add('show');
                     video.currentTime = 0; // Start from beginning
                     
-                    // For mobile compatibility, start muted and let user unmute
-                    video.muted = true; // Keep muted for mobile autoplay
-                    video.volume = 0.5;
-                    volumeToggle.textContent = '🔇';
+                    // Detect if mobile device
+                    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
+                                    (window.innerWidth <= 768);
+                    
+                    if (isMobile) {
+                        // For mobile compatibility, start muted and let user unmute
+                        video.muted = true;
+                        video.volume = 0.5;
+                        volumeToggle.textContent = '🔇';
+                    } else {
+                        // For desktop, start with sound
+                        video.muted = false;
+                        video.volume = 0.5;
+                        volumeToggle.textContent = '🔊';
+                    }
                     
                     // Try to play the video
                     video.play().catch(error => {
