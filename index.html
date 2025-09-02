@@ -332,21 +332,6 @@
                             await video.play();
                             console.log('Video autoplay successful!');
                             
-                            // Auto-unmute after first user interaction (gives you sound!)
-                            const unmuteOnInteraction = () => {
-                                if (video.muted) {
-                                    video.muted = false;
-                                    volumeToggle.textContent = '🔊';
-                                    console.log('Auto-unmuted video after user interaction');
-                                }
-                                // Remove listeners after unmuting
-                                document.removeEventListener('click', unmuteOnInteraction);
-                                document.removeEventListener('touchstart', unmuteOnInteraction);
-                                document.removeEventListener('keydown', unmuteOnInteraction);
-                                document.removeEventListener('scroll', unmuteOnInteraction);
-                            };
-                            
-                            // Listen for any user interaction to unmute
                             document.addEventListener('click', unmuteOnInteraction);
                             document.addEventListener('touchstart', unmuteOnInteraction);
                             document.addEventListener('keydown', unmuteOnInteraction);
@@ -401,21 +386,6 @@
                                         playOverlay.style.display = 'none';
                                         console.log('Video started on user interaction');
                                         
-                                        // Auto-unmute after successful start
-                                        const unmuteOnInteraction = () => {
-                                            if (video.muted) {
-                                                video.muted = false;
-                                                volumeToggle.textContent = '🔊';
-                                                console.log('Auto-unmuted video after user interaction');
-                                            }
-                                            // Remove listeners after unmuting
-                                            document.removeEventListener('click', unmuteOnInteraction);
-                                            document.removeEventListener('touchstart', unmuteOnInteraction);
-                                            document.removeEventListener('keydown', unmuteOnInteraction);
-                                            document.removeEventListener('scroll', unmuteOnInteraction);
-                                        };
-                                        
-                                        // Listen for any user interaction to unmute
                                         document.addEventListener('click', unmuteOnInteraction);
                                         document.addEventListener('touchstart', unmuteOnInteraction);
                                         document.addEventListener('keydown', unmuteOnInteraction);
@@ -452,6 +422,23 @@
             setTimeout(typeTitle, 500);
             
             // Mobile autoplay fallback - add touch/click to play functionality
+            // Simple mobile auto-unmute (doesn't interfere with volume toggle)
+            const simpleUnmuteOnInteraction = () => {
+                if (video.muted && video.readyState >= 2) {
+                    video.muted = false;
+                    volumeToggle.textContent = '🔊';
+                    console.log('Auto-unmuted video on mobile interaction');
+                    // Remove listeners after unmuting
+                    document.removeEventListener('touchstart', simpleUnmuteOnInteraction);
+                    document.removeEventListener('click', simpleUnmuteOnInteraction);
+                }
+            };
+            
+            // Only add auto-unmute for mobile devices
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768) {
+                document.addEventListener('touchstart', simpleUnmuteOnInteraction);
+                document.addEventListener('click', simpleUnmuteOnInteraction);
+            }
             let autoplayAttempted = false;
             document.addEventListener('click', function() {
                 if (!autoplayAttempted && video.paused) {
@@ -483,16 +470,20 @@
                     e.stopPropagation();
                     console.log('Volume toggle clicked, current muted state:', video.muted);
                     
+                    // Toggle muted state for mobile
                     if (video.muted) {
                         video.muted = false;
                         video.volume = 0.5;
                         volumeToggle.textContent = '🔊';
-                        console.log('Unmuted video');
+                        console.log('Unmuted video via volume toggle');
                     } else {
                         video.muted = true;
                         volumeToggle.textContent = '🔇';
-                        console.log('Muted video');
+                        console.log('Muted video via volume toggle');
                     }
+                    
+                    // Force update the button text to ensure it's correct
+                    volumeToggle.textContent = video.muted ? '🔇' : '🔊';
                 });
             }
         });
