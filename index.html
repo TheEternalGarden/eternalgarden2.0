@@ -137,7 +137,7 @@
             overflow: hidden;
             z-index: 0;
             background-color: #000;
-            opacity: 0;
+            opacity: 1; /* Show video immediately for autoplay to work */
             transition: opacity 0.5s ease-in-out;
         }
         
@@ -354,39 +354,25 @@
                 }, 300);
             }
             
-            // Start the typewriter sequence
-            setTimeout(typeTitle, 500);
-            // Force video autoplay as soon as it is ready
+            // Start video immediately when page loads (don't wait for typewriter)
             video.addEventListener("loadeddata", function() {
-                console.log("Video data loaded, attempting autoplay...");
+                console.log("Video data loaded, starting immediately...");
                 video.play().then(() => {
-                    console.log("Video autoplay successful on loadeddata!");
+                    console.log("Video started playing immediately!");
+                    // Hide video container initially, it will show after typewriter
+                    videoContainer.style.opacity = '0';
                 }).catch(error => {
-                    console.log("Autoplay failed on loadeddata:", error);
+                    console.log("Immediate autoplay failed:", error);
                 });
             });
             
             // Also try autoplay when video can start playing
             video.addEventListener("canplay", function() {
-                console.log("Video can play, attempting autoplay...");
                 if (video.paused) {
                     video.play().then(() => {
                         console.log("Video autoplay successful on canplay!");
                     }).catch(error => {
                         console.log("Autoplay failed on canplay:", error);
-                }
-                }
-            });
-            
-            // Try immediate autoplay if video is already ready
-            if (video.readyState >= 2) { // HAVE_CURRENT_DATA
-                console.log("Video already ready, attempting immediate autoplay...");
-                video.play().then(() => {
-                    console.log("Immediate autoplay successful!");
-                }).catch(error => {
-                    console.log("Immediate autoplay failed:", error);
-                });
-            }
                     });
                 }
             });
@@ -400,8 +386,9 @@
                     console.log("Immediate autoplay failed:", error);
                 });
             }
-                });
-            });
+            
+            // Start the typewriter sequence
+            setTimeout(typeTitle, 500);
             
             // Mobile autoplay fallback - add touch/click to play functionality
             let autoplayAttempted = false;
