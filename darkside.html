@@ -246,7 +246,7 @@
         </video>
         
         <!-- Mobile video (horizontal) - placeholder for new video -->
-        <video class="fullscreen-video mobile-video" autoplay playsinline muted controls preload="metadata" webkit-playsinline>
+        <video class="fullscreen-video mobile-video" autoplay playsinline controls preload="metadata" webkit-playsinline>
             <source src="media/videos/darksideverticaltrailer2.mov" type="video/quicktime">
             <source src="media/videos/darksideverticaltrailer2.mov" type="video/mp4">
             Your browser does not support the video tag.
@@ -271,14 +271,17 @@
             
             // Mobile video handling
             if (window.innerWidth <= 768) {
-                // For mobile, try to play the video and handle user interaction
-                mobileVideo.muted = true; // Ensure muted for autoplay
+                // For mobile, try to play the video with sound
+                mobileVideo.muted = false; // Ensure unmuted for autoplay with sound
+                mobileVideo.volume = 1.0; // Set volume to full
                 
                 // Try to play the video
                 mobileVideo.play().catch(function(error) {
                     console.log('Mobile video autoplay failed:', error);
                     // Add click-to-play functionality
                     document.addEventListener('click', function() {
+                        mobileVideo.muted = false;
+                        mobileVideo.volume = 1.0;
                         mobileVideo.play().catch(function(e) {
                             console.log('Mobile video play failed:', e);
                         });
@@ -379,12 +382,4 @@
                     } else {
                         musicOutNow.innerHTML = '<a href="darkside-soundtrack.html" style="color: #fff; text-decoration: none; cursor: pointer;" onclick="console.log(\'LISTEN NOW clicked - going to darkside-soundtrack.html\')">' + listenText + '</a><span class="typewriter-cursor">|</span>';
                     }
-                }
-                
-                // Start the sequence
-                typeDarksideTitle();
-            }
-        });
-    </script>
-</body>
-</html>
+          
