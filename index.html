@@ -251,7 +251,7 @@
 
     <!-- Video Container -->
     <div class="video-container" id="videoContainer">
-        <video id="introVideo" loop playsinline webkit-playsinline preload="auto" autoplay muted data-autoplay>
+        <video id="introVideo" loop playsinline webkit-playsinline preload="auto" muted>
             <source src="./media/videos/gardenerintro.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
@@ -318,18 +318,85 @@
                     video.volume = 0.5;
                     volumeToggle.textContent = '🔇';
                     
+                    // Mobile-friendly autoplay strategy
+                    const playVideo = async () => {
+                        try {
+                            await video.play();
+                            console.log('Video started playing successfully');
+                        } catch (error) {
+                            console.log('Autoplay failed, setting up interaction-based playback:', error);
+                            setupInteractionPlayback();
+                        }
+                    };
+                    
                     // Try to play the video
-                    video.play().catch(error => {
-                        console.error('Error playing video:', error);
-                        // Fallback: try to play on user interaction
-                        videoContainer.addEventListener('click', function() {
-                            video.play().catch(e => console.error('Still cannot play:', e));
-                        });
-                        videoContainer.addEventListener('touchend', function() {
-                            video.play().catch(e => console.error('Still cannot play:', e));
-                        });
-                    });
+                    playVideo();
                 }, 300);
+            }
+            
+            // Setup interaction-based video playback for mobile
+            function setupInteractionPlayback() {
+                // Add a play button overlay for mobile
+                const playOverlay = document.createElement('div');
+                playOverlay.id = 'playOverlay';
+                playOverlay.innerHTML = '<div class="play-button">▶</div><div class="play-text">Tap to Play</div>';
+                playOverlay.style.cssText = `
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0.7);
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 1000;
+                    cursor: pointer;
+                `;
+                
+                const playButton = playOverlay.querySelector('.play-button');
+                playButton.style.cssText = `
+                    font-size: 4rem;
+                    color: white;
+                    margin-bottom: 1rem;
+                `;
+                
+                const playText = playOverlay.querySelector('.play-text');
+                playText.style.cssText = `
+                    color: white;
+                    font-size: 1.2rem;
+                    font-family: 'HeliosExt', Arial, sans-serif;
+                `;
+                
+                videoContainer.appendChild(playOverlay);
+                
+                // Play video on tap/click
+                const startVideo = async () => {
+                    try {
+                        await video.play();
+                        playOverlay.style.display = 'none';
+                        console.log('Video started on user interaction');
+                    } catch (error) {
+                        console.error('Still cannot play video:', error);
+                    }
+                };
+                
+                playOverlay.addEventListener('click', startVideo);
+                playOverlay.addEventListener('touchend', startVideo);
+                
+                // Also try to play on any user interaction with the page
+                const interactionEvents = ['click', 'touchstart', 'keydown', 'scroll'];
+                const handleInteraction = () => {
+                    startVideo();
+                    interactionEvents.forEach(event => {
+                        document.removeEventListener(event, handleInteraction);
+                    });
+                };
+                
+                interactionEvents.forEach(event => {
+                    document.addEventListener(event, handleInteraction, { once: true });
+                });
             }
             
             // Start the typewriter sequence
