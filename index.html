@@ -356,6 +356,52 @@
             
             // Start the typewriter sequence
             setTimeout(typeTitle, 500);
+            // Force video autoplay as soon as it is ready
+            video.addEventListener("loadeddata", function() {
+                console.log("Video data loaded, attempting autoplay...");
+                video.play().then(() => {
+                    console.log("Video autoplay successful on loadeddata!");
+                }).catch(error => {
+                    console.log("Autoplay failed on loadeddata:", error);
+                });
+            });
+            
+            // Also try autoplay when video can start playing
+            video.addEventListener("canplay", function() {
+                console.log("Video can play, attempting autoplay...");
+                if (video.paused) {
+                    video.play().then(() => {
+                        console.log("Video autoplay successful on canplay!");
+                    }).catch(error => {
+                        console.log("Autoplay failed on canplay:", error);
+                }
+                }
+            });
+            
+            // Try immediate autoplay if video is already ready
+            if (video.readyState >= 2) { // HAVE_CURRENT_DATA
+                console.log("Video already ready, attempting immediate autoplay...");
+                video.play().then(() => {
+                    console.log("Immediate autoplay successful!");
+                }).catch(error => {
+                    console.log("Immediate autoplay failed:", error);
+                });
+            }
+                    });
+                }
+            });
+            
+            // Try immediate autoplay if video is already ready
+            if (video.readyState >= 2) { // HAVE_CURRENT_DATA
+                console.log("Video already ready, attempting immediate autoplay...");
+                video.play().then(() => {
+                    console.log("Immediate autoplay successful!");
+                }).catch(error => {
+                    console.log("Immediate autoplay failed:", error);
+                });
+            }
+                });
+            });
             
             // Mobile autoplay fallback - add touch/click to play functionality
             let autoplayAttempted = false;
@@ -379,7 +425,7 @@
                 // Initialize video - don't start playing yet
                 video.volume = 0.5;
                 video.muted = true; // Start muted
-                video.pause(); // Don't autoplay initially
+                
                 volumeToggle.textContent = '🔇';
                 
                 console.log('Video initialized - muted:', video.muted, 'volume:', video.volume);
