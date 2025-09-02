@@ -92,13 +92,10 @@
             }
             
             .eternal-garden-subtext {
-                font-size: 1rem !important; /* 16px for better mobile readability */
+                display: none !important; /* Hide description text on mobile */
                 max-width: 90%;
                 line-height: 1.5;
                 margin-bottom: 30px;
-                /* Debug: make sure mobile CSS is applied */
-                background: rgba(255, 255, 0, 0.3) !important;
-                border: 2px solid blue !important;
             }
         }
 
@@ -110,7 +107,7 @@
             }
             
             .eternal-garden-subtext {
-                font-size: 1rem !important; /* 16px for better mobile readability */
+                display: none !important; /* Hide description text on mobile */
                 max-width: 95%;
                 line-height: 1.4;
                 margin-bottom: 25px;
@@ -132,7 +129,7 @@
             }
             
             .eternal-garden-subtext {
-                font-size: 1rem !important; /* 16px for better mobile readability */
+                display: none !important; /* Hide description text on mobile */
                 max-width: 98%;
                 line-height: 1.3;
                 margin-bottom: 20px;
@@ -489,15 +486,4 @@
                         console.log('Unmuted video via volume toggle');
                     } else {
                         video.muted = true;
-                        volumeToggle.textContent = '🔇';
-                        console.log('Muted video via volume toggle');
-                    }
-                    
-                    // Force update the button text to ensure it's correct
-                    volumeToggle.textContent = video.muted ? '🔇' : '🔊';
-                });
-            }
-        });
-    </script>
-</body>
-</html>
+                     
