@@ -251,7 +251,7 @@
 
     <!-- Video Container -->
     <div class="video-container" id="videoContainer">
-        <video id="introVideo" loop playsinline webkit-playsinline preload="auto" muted>
+        <video id="introVideo" loop playsinline webkit-playsinline preload="metadata" muted autoplay>
             <source src="./media/videos/gardenerintro.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
@@ -401,6 +401,53 @@
             
             // Start the typewriter sequence
             setTimeout(typeTitle, 500);
+            
+            // Try immediate autoplay as soon as video is ready
+            video.addEventListener('loadedmetadata', function() {
+                console.log('Video metadata loaded, attempting immediate autoplay...');
+                video.play().then(() => {
+                    console.log('Immediate autoplay successful!');
+                    // Hide the video container initially, it will show after typewriter
+                    videoContainer.style.opacity = '0';
+                }).catch(error => {
+                    console.log('Immediate autoplay failed, will try later:', error);
+                });
+            });
+            
+            // Also try autoplay when video can play
+            video.addEventListener('canplay', function() {
+                console.log('Video can play, attempting autoplay...');
+                if (video.paused) {
+                    video.play().then(() => {
+                        console.log('Canplay autoplay successful!');
+                    }).catch(error => {
+                        console.log('Canplay autoplay failed:', error);
+                    });
+                }
+            });
+            
+            // Force video start on first user interaction (mobile autoplay workaround)
+            const startVideoOnInteraction = () => {
+                if (video.paused) {
+                    console.log('User interaction detected, starting video...');
+                    video.play().then(() => {
+                        console.log('Video started on user interaction!');
+                        // Remove the event listeners after successful start
+                        document.removeEventListener('touchstart', startVideoOnInteraction);
+                        document.removeEventListener('click', startVideoOnInteraction);
+                        document.removeEventListener('keydown', startVideoOnInteraction);
+                        document.removeEventListener('scroll', startVideoOnInteraction);
+                    }).catch(error => {
+                        console.log('Failed to start video on interaction:', error);
+                    });
+                }
+            };
+            
+            // Listen for any user interaction to start video
+            document.addEventListener('touchstart', startVideoOnInteraction, { passive: true });
+            document.addEventListener('click', startVideoOnInteraction, { passive: true });
+            document.addEventListener('keydown', startVideoOnInteraction, { passive: true });
+            document.addEventListener('scroll', startVideoOnInteraction, { passive: true });
             
             // Volume toggle functionality
             if (video && volumeToggle) {
