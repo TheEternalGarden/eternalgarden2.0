@@ -354,38 +354,10 @@
                 }, 300);
             }
             
-            // Start video immediately when page loads (don't wait for typewriter)
+            // Prepare video for autoplay after typewriter completes
             video.addEventListener("loadeddata", function() {
-                console.log("Video data loaded, starting immediately...");
-                video.play().then(() => {
-                    console.log("Video started playing immediately!");
-                    // Hide video container initially, it will show after typewriter
-                    videoContainer.style.opacity = '0';
-                }).catch(error => {
-                    console.log("Immediate autoplay failed:", error);
-                });
+                console.log("Video data loaded and ready for typewriter completion");
             });
-            
-            // Also try autoplay when video can start playing
-            video.addEventListener("canplay", function() {
-                if (video.paused) {
-                    video.play().then(() => {
-                        console.log("Video autoplay successful on canplay!");
-                    }).catch(error => {
-                        console.log("Autoplay failed on canplay:", error);
-                    });
-                }
-            });
-            
-            // Try immediate autoplay if video is already ready
-            if (video.readyState >= 2) { // HAVE_CURRENT_DATA
-                console.log("Video already ready, attempting immediate autoplay...");
-                video.play().then(() => {
-                    console.log("Immediate autoplay successful!");
-                }).catch(error => {
-                    console.log("Immediate autoplay failed:", error);
-                });
-            }
             
             // Start the typewriter sequence
             setTimeout(typeTitle, 500);
