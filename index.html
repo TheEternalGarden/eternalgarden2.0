@@ -36,7 +36,7 @@
         }
         
         .eternal-garden-title {
-            font-size: 0.6rem !important;
+            font-size: 1.6rem;
             font-weight: 300;
             letter-spacing: 4px;
             text-align: center;
@@ -46,7 +46,7 @@
         }
         
         .eternal-garden-subtext {
-            font-size: 0.3rem !important;
+            font-size: 0.9rem;
             font-weight: 300;
             line-height: 1.6;
             text-align: center;
@@ -74,6 +74,7 @@
             color: #fff !important;
             text-decoration: none !important;
         }
+        
         /* Mobile responsive for homepage */
         @media screen and (max-width: 768px) {
             .eternal-garden-title {
@@ -125,7 +126,7 @@
                 line-height: 1.3;
                 margin-bottom: 20px;
             }
-
+        }
         
         .video-container {
             position: fixed;
@@ -178,7 +179,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 3rem;
+            font-size: 1.6rem;
             font-weight: 300;
             letter-spacing: 4px;
             text-align: center;
@@ -240,8 +241,7 @@
                 <li><a href="about.html">ABOUT</a></li>
                 <li><a href="oracle.html">ORACLE</a></li>
             </ul>
-        </nav>
-    </div>
+        </nav>    </div>
 
     <!-- Intro Text Container -->
     <div class="intro-text-container" id="introTextContainer">
@@ -251,7 +251,7 @@
 
     <!-- Video Container -->
     <div class="video-container" id="videoContainer">
-        <video id="introVideo" loop playsinline webkit-playsinline preload="metadata" muted autoplay>
+        <video id="introVideo" loop playsinline webkit-playsinline preload="auto" autoplay muted>
             <source src="./media/videos/gardenerintro.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
@@ -314,140 +314,63 @@
                 setTimeout(() => {
                     videoContainer.classList.add('show');
                     video.currentTime = 0; // Start from beginning
-                    video.muted = true; // Keep muted initially for autoplay
+                    
+                    // IMPORTANT: Start muted for autoplay to work on mobile
+                    video.muted = true; // This ensures autoplay works
                     video.volume = 0.5;
                     volumeToggle.textContent = '🔇';
                     
-                    // Mobile-friendly autoplay strategy
-                    const playVideo = async () => {
-                        try {
-                            await video.play();
-                            console.log('Video started playing successfully');
-                        } catch (error) {
-                            console.log('Autoplay failed, setting up interaction-based playback:', error);
-                            setupInteractionPlayback();
+                    // Try to play the video (muted for autoplay compatibility)
+                    video.play().catch(error => {
+                        console.error('Error playing video:', error);
+                        // If autoplay fails, add click/touch to play functionality
+                        videoContainer.addEventListener('click', function() {
+                            video.play().catch(e => console.error('Still cannot play:', e));
+                        });
+                        videoContainer.addEventListener('touchend', function() {
+                            video.play().catch(e => console.error('Still cannot play:', e));
+                        });
+                    });
+                    
+                    // Auto-unmute after first user interaction (gives you sound!)
+                    const unmuteOnInteraction = () => {
+                        if (video.muted) {
+                            video.muted = false;
+                            volumeToggle.textContent = '🔊';
+                            console.log('Auto-unmuted video after user interaction');
                         }
+                        // Remove listeners after unmuting
+                        document.removeEventListener('click', unmuteOnInteraction);
+                        document.removeEventListener('touchstart', unmuteOnInteraction);
+                        document.removeEventListener('keydown', unmuteOnInteraction);
+                        document.removeEventListener('scroll', unmuteOnInteraction);
                     };
                     
-                    // Try to play the video
-                    playVideo();
+                    // Listen for any user interaction to unmute
+                    document.addEventListener('click', unmuteOnInteraction);
+                    document.addEventListener('touchstart', unmuteOnInteraction);
+                    document.addEventListener('keydown', unmuteOnInteraction);
+                    document.addEventListener('scroll', unmuteOnInteraction);
                 }, 300);
-            }
-            
-            // Setup interaction-based video playback for mobile
-            function setupInteractionPlayback() {
-                // Add a play button overlay for mobile
-                const playOverlay = document.createElement('div');
-                playOverlay.id = 'playOverlay';
-                playOverlay.innerHTML = '<div class="play-button">▶</div><div class="play-text">Tap to Play</div>';
-                playOverlay.style.cssText = `
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    background: rgba(0, 0, 0, 0.7);
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                    align-items: center;
-                    z-index: 1000;
-                    cursor: pointer;
-                `;
-                
-                const playButton = playOverlay.querySelector('.play-button');
-                playButton.style.cssText = `
-                    font-size: 4rem;
-                    color: white;
-                    margin-bottom: 1rem;
-                `;
-                
-                const playText = playOverlay.querySelector('.play-text');
-                playText.style.cssText = `
-                    color: white;
-                    font-size: 1.2rem;
-                    font-family: 'HeliosExt', Arial, sans-serif;
-                `;
-                
-                videoContainer.appendChild(playOverlay);
-                
-                // Play video on tap/click
-                const startVideo = async () => {
-                    try {
-                        await video.play();
-                        playOverlay.style.display = 'none';
-                        console.log('Video started on user interaction');
-                    } catch (error) {
-                        console.error('Still cannot play video:', error);
-                    }
-                };
-                
-                playOverlay.addEventListener('click', startVideo);
-                playOverlay.addEventListener('touchend', startVideo);
-                
-                // Also try to play on any user interaction with the page
-                const interactionEvents = ['click', 'touchstart', 'keydown', 'scroll'];
-                const handleInteraction = () => {
-                    startVideo();
-                    interactionEvents.forEach(event => {
-                        document.removeEventListener(event, handleInteraction);
-                    });
-                };
-                
-                interactionEvents.forEach(event => {
-                    document.addEventListener(event, handleInteraction, { once: true });
-                });
             }
             
             // Start the typewriter sequence
             setTimeout(typeTitle, 500);
             
-            // Try immediate autoplay as soon as video is ready
-            video.addEventListener('loadedmetadata', function() {
-                console.log('Video metadata loaded, attempting immediate autoplay...');
-                video.play().then(() => {
-                    console.log('Immediate autoplay successful!');
-                    // Hide the video container initially, it will show after typewriter
-                    videoContainer.style.opacity = '0';
-                }).catch(error => {
-                    console.log('Immediate autoplay failed, will try later:', error);
-                });
-            });
-            
-            // Also try autoplay when video can play
-            video.addEventListener('canplay', function() {
-                console.log('Video can play, attempting autoplay...');
-                if (video.paused) {
-                    video.play().then(() => {
-                        console.log('Canplay autoplay successful!');
-                    }).catch(error => {
-                        console.log('Canplay autoplay failed:', error);
-                    });
+            // Mobile autoplay fallback - add touch/click to play functionality
+            let autoplayAttempted = false;
+            document.addEventListener('click', function() {
+                if (!autoplayAttempted && video.paused) {
+                    autoplayAttempted = true;
+                    video.play().catch(e => console.error('Mobile autoplay fallback failed:', e));
                 }
             });
-            
-            // Force video start on first user interaction (mobile autoplay workaround)
-            const startVideoOnInteraction = () => {
-                if (video.paused) {
-                    console.log('User interaction detected, starting video...');
-                    video.play().then(() => {
-                        console.log('Video started on user interaction!');
-                        // Remove the event listeners after successful start
-                        document.removeEventListener('touchstart', startVideoOnInteraction);
-                        document.removeEventListener('click', startVideoOnInteraction);
-                        document.removeEventListener('keydown', startVideoOnInteraction);
-                        document.removeEventListener('scroll', startVideoOnInteraction);
-                    }).catch(error => {
-                        console.log('Failed to start video on interaction:', error);
-                    });
+            document.addEventListener('touchend', function() {
+                if (!autoplayAttempted && video.paused) {
+                    autoplayAttempted = true;
+                    video.play().catch(e => console.error('Mobile autoplay fallback failed:', e));
                 }
-            };
-            
-            // Listen for any user interaction to start video
-            document.addEventListener('touchstart', startVideoOnInteraction, { passive: true });
-            document.addEventListener('click', startVideoOnInteraction, { passive: true });
-            document.addEventListener('keydown', startVideoOnInteraction, { passive: true });
-            document.addEventListener('scroll', startVideoOnInteraction, { passive: true });
+            });
             
             // Volume toggle functionality
             if (video && volumeToggle) {
