@@ -103,6 +103,32 @@ body {
     color: #666;
 }
 
+/* Submenu Styles */
+.menu-items .submenu {
+    list-style: none;
+    padding-left: 20px;
+    margin-top: 5px;
+    display: none;
+}
+
+.menu-items li:hover .submenu {
+    display: block;
+}
+
+.menu-items .submenu li {
+    margin: 10px 0;
+}
+
+.menu-items .submenu a {
+    font-size: 16px;
+    color: #666;
+    padding: 5px 10px;
+}
+
+.menu-items .submenu a:hover {
+    color: #333;
+}
+
 /* Video Styles */
 .video-container {
     position: fixed;
